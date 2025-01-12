@@ -1,15 +1,16 @@
-import { dirname } from "path"
-import { fileURLToPath } from "url"
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
-import { FlatCompat } from "@eslint/eslintrc"
-import stylistic from "@stylistic/eslint-plugin"
+import { FlatCompat } from "@eslint/eslintrc";
+import stylistic from "@stylistic/eslint-plugin";
+import tailwind from "eslint-plugin-tailwindcss";
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
-})
+});
 
 // formatting 관련 설정은 eslint-plugin-stylistic 를 사용
 // https://eslint.style/packages/default
@@ -22,11 +23,12 @@ const customized = stylistic.configs.customize({
   indent: 2,
   jsx: true,
   quotes: "double",
-  semi: false,
-})
+  semi: true,
+});
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...tailwind.configs["flat/recommended"],
   customized,
   {
     plugins: {
@@ -61,6 +63,6 @@ const eslintConfig = [
       "@typescript-eslint/no-unused-vars": "warn",
     },
   },
-]
+];
 
-export default eslintConfig
+export default eslintConfig;

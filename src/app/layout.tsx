@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import { suit, aggroSubset } from "./fonts";
+
+import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "서베이가챠",
-  description: "Survey Gacha!"
+  description: "Survey Gacha!",
 };
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
