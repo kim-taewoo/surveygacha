@@ -1,15 +1,15 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useCallback, useMemo } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Question } from "@/types";
 
-import { saveAnswer, submitSurvey } from "../actions/SurveyActions";
-import { Question } from "../types/page";
+import { saveAnswer, submitSurvey } from "../../../actions/SurveyActions";
 
 // 설문 데이터
 const questions: Question[] = [
@@ -41,6 +41,7 @@ export default function SurveyPage() {
   const [currentStep, setCurrentStep] = useState(1); // 현재 질문 단계
   const [answers, setAnswers] = useState<Record<number, string>>({}); // 답변 저장
   const [isSubmitting, setIsSubmitting] = useState(false); // 제출 상태
+  const searchparams = useSearchParams();
 
   // 진행도 계산
   const progress = useMemo(
@@ -56,6 +57,8 @@ export default function SurveyPage() {
   const handleNext = useCallback(async () => {
     if (currentStep < questions.length) {
       setCurrentStep(prev => prev + 1); // 다음 질문으로 이동
+      // shallow routing 으로 url 업데이트 - 호환성 이슈로 일단은 도리가 나중에 봐주기로 했음..
+      // router.push(`?step=${currentStep + 1}`, undefined, { shallow: true });
     }
     else {
       setIsSubmitting(true); // 제출 중 상태로 전환
@@ -78,8 +81,14 @@ export default function SurveyPage() {
 
   // 이전 질문으로 이동
   const handlePrev = useCallback(() => {
-    setCurrentStep(prev => Math.max(prev - 1, 1));
-  }, []);
+    if (currentStep > 1) {
+      setCurrentStep(prev => prev - 1);
+
+      // shallow routing으로 url 업데이트- 호환성 이슈로 일단은 도리가 나중에 봐주기로 했음..
+      // router.push(`?step=${currentStep - 1}`, undefined, { shallow: true });
+    }
+    // setCurrentStep(prev => Math.max(prev - 1, 1));
+  }, [currentStep, router]);
 
   // 선택 옵션 저장
   const handleSelectOption = useCallback(async (questionId: number, option: string) => {

@@ -4,8 +4,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-
-import { SurveyInfo } from "../types/page";
+import { SurveyInfo } from "@/types";
 
 // 설문조사 정보 객체
 const surveyInfo: SurveyInfo = {
