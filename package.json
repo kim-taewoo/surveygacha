@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.47.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.471.0",
@@ -28,6 +30,7 @@
     "eslint-config-next": "15.1.4",
     "eslint-plugin-tailwindcss": "^3.17.5",
     "postcss": "^8",
+    "supabase": "^2.2.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
