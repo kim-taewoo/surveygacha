@@ -18,7 +18,9 @@ export default function RootLayout({
       <body
         className={`${suit.variable} ${aggroSubset.variable} font-suit antialiased`}
       >
-        {children}
+        <main className="flex min-h-dvh w-full flex-col items-center">
+          {children}
+        </main>
       </body>
     </html>
   );
