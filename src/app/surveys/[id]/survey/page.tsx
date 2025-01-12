@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState, useCallback, useMemo } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -39,9 +39,8 @@ const questions: Question[] = [
 export default function SurveyPage() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1); // 현재 질문 단계
-  const [answers, setAnswers] = useState<Record<number, string>>({}); // 답변 저장
+  const [answers, setAnswers] = useState<Record<number, string[]>>({}); // 답변 저장
   const [isSubmitting, setIsSubmitting] = useState(false); // 제출 상태
-  const searchparams = useSearchParams();
 
   // 진행도 계산
   const progress = useMemo(
@@ -57,8 +56,6 @@ export default function SurveyPage() {
   const handleNext = useCallback(async () => {
     if (currentStep < questions.length) {
       setCurrentStep(prev => prev + 1); // 다음 질문으로 이동
-      // shallow routing 으로 url 업데이트 - 호환성 이슈로 일단은 도리가 나중에 봐주기로 했음..
-      // router.push(`?step=${currentStep + 1}`, undefined, { shallow: true });
     }
     else {
       setIsSubmitting(true); // 제출 중 상태로 전환
@@ -82,28 +79,23 @@ export default function SurveyPage() {
   // 이전 질문으로 이동
   const handlePrev = useCallback(() => {
     if (currentStep > 1) {
-      setCurrentStep(prev => prev - 1);
-
-      // shallow routing으로 url 업데이트- 호환성 이슈로 일단은 도리가 나중에 봐주기로 했음..
-      // router.push(`?step=${currentStep - 1}`, undefined, { shallow: true });
+      setCurrentStep(prev => prev - 1); // 이전 질문으로 이동
     }
-    // setCurrentStep(prev => Math.max(prev - 1, 1));
-  }, [currentStep, router]);
+  }, [currentStep]);
 
   // 선택 옵션 저장
-  const handleSelectOption = useCallback(async (questionId: number, option: string) => {
-    setAnswers(prev => ({ ...prev, [questionId]: option }));
-    // setAnswers : React의 상태 업데이트 함수로, answers 상태를 업데이트
-    // prev: 현재 answers 상태
-    // { ...prev }: 기존 상태를 그대로 복사 = 기존 답변 유지
-    // [questionId]: option: 새로운 키-값 쌍을 추가하거나 기존 questionId의 값을 업데이트
-    try {
-      await saveAnswer(questionId, option);
-    }
-    catch (error) {
-      console.error("설문 실패:", error);
-      alert("답변 저장 실패\n답변을 저장하는 중 오류가 발생했습니다.");
-    }
+  const handleSelectOption = useCallback((questionId: number, option: string) => {
+    setAnswers((prev) => {
+      const currentAnswers = prev[questionId] || [];
+      const updatedAnswers = currentAnswers.includes(option)
+        ? currentAnswers.filter((item: string) => item !== option) // 선택된 옵션 해제
+        : [...currentAnswers, option]; // 새 옵션 추가
+
+      // 최소 하나의 옵션은 선택되도록 강제하는 로직
+      return updatedAnswers.length > 0
+        ? { ...prev, [questionId]: updatedAnswers }
+        : prev;
+    });
   }, []);
 
   // 현재 질문
@@ -127,7 +119,6 @@ export default function SurveyPage() {
                 <h2 className="text-xl font-semibold">설문 진행</h2>
                 <span className="text-sm text-gray-500">
                   {currentStep}
-
                   /
                   {questions.length}
                 </span>
@@ -148,11 +139,11 @@ export default function SurveyPage() {
                 {currentQuestion.options.map((option, index) => (
                   <Button
                     key={index}
-                    variant={answers[currentQuestion.id] === option ? "default" : "outline"}
+                    variant={answers[currentQuestion.id]?.includes(option) ? "default" : "outline"}
                     className="w-full justify-start text-left"
                     onClick={() => handleSelectOption(currentQuestion.id, option)}
                     aria-label={`${option} 선택하기`}
-                    // aria-label:접근성을 위한 속성/사용자가 화면 읽기 도구를 사용할 때 버튼의 역할을 설명
+                    // aria-label: 접근성을 위한 속성/사용자가 화면 읽기 도구를 사용할 때 버튼의 역할을 설명
                   >
                     {option}
                     {/* {option} : 각 버튼의 텍스트로 옵션 내용을 표시 */}
@@ -175,7 +166,7 @@ export default function SurveyPage() {
               </Button>
               <Button
                 onClick={handleNext}
-                disabled={!answers[currentQuestion.id] || isSubmitting}
+                disabled={(answers[currentQuestion.id]?.length === 0) || isSubmitting}
                 className="flex items-center gap-2"
                 aria-label={isLastQuestion ? "설문 제출하기" : "다음 질문으로 이동"}
               >

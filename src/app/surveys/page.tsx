@@ -1,80 +1,86 @@
-"use client"; // 클라이언트 컴포넌트 설정
+"use client";
 
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { SurveyInfo } from "@/types";
 
-// 설문조사 정보 객체
+interface SurveyInfo {
+  title: string;
+  subTitle: string;
+  target: string;
+  duration: string;
+  period: string;
+  reward: string;
+  participants: number;
+}
+
 const surveyInfo: SurveyInfo = {
-  title: "설문참여",
-  description: "설문조사에 참여해주셔서 감사합니다",
-  duration: "약 10-15분",
-  targetAge: "만 20세 이상",
-  reward: "설문 완료시 포인트 지급",
+  title: "금융 생활 관련 설문 참여 모집",
+  subTitle: "안녕하세요! 👋 사이트 프로젝트를 진행 중인 학생입니다. 평소 금융 생활에 관련하여 라이프 스타일을 여쭤보았습니다. 조사에 참여해주신 분들께 보상을 제공해드립니다. ✨",
+  target: "불특정다수",
+  duration: "3-5분",
+  period: "2025.01.01 - 2025.01.26",
+  reward: "메가커피 아메리카노",
+  participants: 13,
 };
 
-// Home 컴포넌트
-export default function Home() {
+export default function SurveyPage({ params }: { params: { dynamicId: string } }) {
   return (
+    <div className="min-h-screen ">
+      {/* Header */}
+      <header className="p-4">
+        <h2 className="text-lg text-gray-500">서베이가차</h2>
+      </header>
 
-    <main className="p-4">
+      <main className="p-4">
+        <div className="space-y-6">
+          {/* Title and Description */}
+          <div className="space-y-4">
+            <h1 className="text-2xl font-bold">{surveyInfo.title}</h1>
+            <p className="text-gray-600">{surveyInfo.subTitle}</p>
+          </div>
 
-      {/* 메인 배경 */}
-      <div className="mx-auto">
-
-        {/* 콘텐츠 중앙 정렬 */}
-        <Card className="border-none bg-white/80 shadow-lg backdrop-blur">
-          <CardContent className="p-6">
-            {/* 헤더 섹션 */}
-            <div className="mb-8 text-center">
-              <h1 className="mb-2 text-4xl font-bold">{surveyInfo.title}</h1>
-              <p className="text-lg text-gray-600">{surveyInfo.description}</p>
+          {/* Survey Information */}
+          <div className="space-y-4 rounded-lg bg-white p-4">
+            <div className="flex items-center gap-3">
+              <div className="size-2 rounded-full bg-gray-200" />
+              <span className="text-gray-600">설문 대상</span>
+              <span className="ml-auto">{surveyInfo.target}</span>
             </div>
-
-            {/* 설문 정보 섹션 */}
-            <div className="mb-8 space-y-6">
-              <div className="rounded-lg bg-gray-50 p-4">
-                <h2 className="mb-2 font-semibold">설문 정보</h2>
-                <div className="space-y-2 text-sm text-gray-600">
-                  <p>
-                    • 설문 소요 시간:
-                    {surveyInfo.duration}
-                  </p>
-                  <p>
-                    • 참여 대상:
-                    {surveyInfo.targetAge}
-                  </p>
-                  <p>
-                    • 보상:
-                    {surveyInfo.reward}
-                  </p>
-                </div>
-              </div>
-
-              {/* 참여자 정보 섹션 */}
-              <div className="rounded-lg bg-gray-50 p-4">
-                <h2 className="mb-2 font-semibold">도움된 기타 상품들</h2>
-                <p className="text-sm text-gray-600">참여자 수: 현재 참여자 수 / 최대 참여</p>
-              </div>
+            <div className="flex items-center gap-3">
+              <div className="size-2 rounded-full bg-gray-200" />
+              <span className="text-gray-600">응답 시간</span>
+              <span className="ml-auto">{surveyInfo.duration}</span>
             </div>
-
-            {/* 시작 버튼 */}
-            <div className="flex justify-center">
-              <Link href="/survey">
-                <Button
-                  size="lg"
-                  className="px-8 "
-                  aria-label="설문조사 시작하기"
-                >
-                  설문 시작하기
-                </Button>
-              </Link>
+            <div className="flex items-center gap-3">
+              <div className="size-2 rounded-full bg-gray-200" />
+              <span className="text-gray-600">진행 기간</span>
+              <span className="ml-auto">{surveyInfo.period}</span>
             </div>
-          </CardContent>
-        </Card>
-      </div>
-    </main>
+            <div className="flex items-center gap-3">
+              <div className="size-2 rounded-full bg-gray-200" />
+              <span className="text-gray-600">보상 품목</span>
+              <span className="ml-auto">{surveyInfo.reward}</span>
+            </div>
+          </div>
+
+          {/* Participants Count */}
+          <div className="relative w-fit">
+            <div className="rounded-lg bg-gray-900 px-4 py-2 text-sm text-white">
+              현재
+              {surveyInfo.participants}
+              명이 참여중 🔥
+            </div>
+          </div>
+
+          {/* Start Button */}
+          <Link href={`/surveys/${params.dynamicId}/survey`} className="block">
+            <Button className="h-14 w-full bg-blue-600 text-lg font-medium hover:bg-blue-700">
+              시작하기
+            </Button>
+          </Link>
+        </div>
+      </main>
+    </div>
   );
 }
