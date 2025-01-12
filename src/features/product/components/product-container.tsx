@@ -22,6 +22,7 @@ export const ProductContainer = () => {
 
   const [savedPrizes, setSavedPrizes] = useState<Prize[]>(() => {
     // 로컬 스토리지에서 저장된 값 가져오기
+    // 수정 필요
     const storedPrizes = localStorage.getItem("savedPrizes");
     return storedPrizes ? JSON.parse(storedPrizes) : [];
   });
@@ -45,6 +46,7 @@ export const ProductContainer = () => {
     // console.log("등록된 상품:", prizes);
 
     // 로컬 스토리지에 저장
+    // 수정 필요
     localStorage.setItem("savedPrizes", JSON.stringify(prizes));
     setSavedPrizes(prizes); // 저장된 값 상태 업데이트
     setPrizes([{ name: "", probability: "" }]); // 입력 필드 초기화
@@ -145,7 +147,7 @@ export const ProductContainer = () => {
         <Button
           type="button"
           onClick={() => router.push("/admin/link")}
-          className="mt-6 w-full bg-orange-400 hover:bg-orange-300"
+          className="mt-6 w-full "
         >
           다음
         </Button>
