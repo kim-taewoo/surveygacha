@@ -1,6 +1,9 @@
+import { Toaster } from "@/components/ui/toaster";
+
 import { suit, aggroSubset } from "./fonts";
 
 import type { Metadata } from "next";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,6 +21,7 @@ export default function RootLayout({
       <body
         className={`${suit.variable} ${aggroSubset.variable} font-suit antialiased`}
       >
+        <Toaster />
         <main className="relative flex min-h-dvh w-full flex-col items-center">
           {children}
         </main>

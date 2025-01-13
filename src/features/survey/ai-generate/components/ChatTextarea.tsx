@@ -1,47 +1,47 @@
-"use client"
+"use client";
 
-import React from "react"
-import { toast } from "sonner"
+import React from "react";
+import { toast } from "sonner";
 
-import { Textarea } from "@/components/ui/textarea"
-import { cn } from "@/lib/utils"
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 
 import type {
   ChatRequestOptions,
-} from "ai"
+} from "ai";
 
 interface Props {
-  input: string
-  setInput: (value: string) => void
-  className?: string
-  isLoading: boolean
+  input: string;
+  setInput: (value: string) => void;
+  className?: string;
+  isLoading: boolean;
   handleSubmit: (
     event?: {
-      preventDefault?: () => void
+      preventDefault?: () => void;
     },
     chatRequestOptions?: ChatRequestOptions,
-  ) => void
+  ) => void;
 }
 
 export function ChatTextarea({ input, setInput, className, isLoading, handleSubmit }: Props) {
-  const textareaRef = React.useRef<HTMLTextAreaElement>(null)
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
   const adjustHeight = () => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight + 2}px`
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight + 2}px`;
     }
-  }
+  };
 
   const handleInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInput(event.target.value)
-    adjustHeight()
-  }
+    setInput(event.target.value);
+    adjustHeight();
+  };
 
   const submitForm = () => {
-    handleSubmit()
-    setInput("")
-  }
+    handleSubmit();
+    setInput("");
+  };
 
   return (
     <Textarea
@@ -57,16 +57,16 @@ export function ChatTextarea({ input, setInput, className, isLoading, handleSubm
       autoFocus
       onKeyDown={(event) => {
         if (event.key === "Enter" && !event.shiftKey) {
-          event.preventDefault()
+          event.preventDefault();
 
           if (isLoading) {
-            toast.error("Please wait for the model to finish its response!")
+            toast.error("Please wait for the model to finish its response!");
           }
           else {
-            submitForm()
+            submitForm();
           }
         }
       }}
     />
-  )
+  );
 }
