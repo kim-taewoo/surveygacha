@@ -1,14 +1,15 @@
 "use client";
 
 import { OrbitControls } from "@react-three/drei";
-import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { useRef, useState } from "react";
 
-function Capsule({ position }) {
+function Capsule({ position, color }) {
   return (
     <mesh position={position}>
       <sphereGeometry args={[0.15, 16, 16]} />
       <meshStandardMaterial
-        color={Math.random() > 0.5 ? "#ffffff" : "#ffff40"}
+        color={color}
         metalness={0.1}
         roughness={0.2}
       />
@@ -16,14 +17,47 @@ function Capsule({ position }) {
   );
 }
 
-export function GachaMachine() {
-  const group = useRef(null);
-  // Generate random positions for capsules
-  const capsules = Array(30).fill().map(() => [
+// Generate random positions for capsules
+const capsules = Array(30).fill().map(() => ({
+  position: [
     (Math.random() - 0.5) * 1.2,
     Math.random() * 0.5 - 0.5,
     (Math.random() - 0.5) * 1.2,
-  ]);
+  ],
+  color: Math.random() > 0.5 ? "#ffffff" : "#ffff40",
+}));
+
+export function GachaMachine() {
+  const group = useRef(null);
+  const leverRef = useRef(null);
+  const [isRotating, setIsRotating] = useState(false);
+  const [rotationProgress, setRotationProgress] = useState(0);
+
+  // Handle lever rotation animation
+  useFrame((state, delta) => {
+    if (isRotating) {
+      const targetRotation = -Math.PI * 2;
+      const rotationSpeed = -1.77;
+
+      if (rotationProgress > targetRotation) {
+        const newProgress = rotationProgress + (rotationSpeed * delta * Math.PI);
+        setRotationProgress(newProgress);
+        leverRef.current.rotation.y = newProgress;
+
+        if (newProgress <= targetRotation) {
+          setIsRotating(false);
+          setRotationProgress(0);
+          // leverRef.current.rotation.y = 0;
+        }
+      }
+    }
+  });
+
+  const handleLeverClick = () => {
+    if (!isRotating) {
+      setIsRotating(true);
+    }
+  };
 
   return (
     <>
@@ -93,16 +127,22 @@ export function GachaMachine() {
             <cylinderGeometry args={[0.2, 0.2, 0.05, 32]} />
             <meshStandardMaterial color="#e0e0e0" metalness={0.6} roughness={0.4} />
           </mesh>
+          <group ref={leverRef}>
+            <mesh onPointerDown={handleLeverClick} position={[0, 0.02, 0]}>
+              <cylinderGeometry args={[0.15, 0.15, 0.05, 32]} />
+              <meshStandardMaterial
+                color="#C0C0C0"
+                metalness={0.6}
+                roughness={0.2}
+              />
+            </mesh>
+            {/* Box Handle */}
+            <mesh position={[0, 0.07, 0]} rotation={[0, 0, 0]}>
+              <boxGeometry args={[0.3, 0.1, 0.08]} />
+              <meshStandardMaterial color="#C0C0C0" metalness={0.7} roughness={0.2} />
+            </mesh>
+          </group>
           {/* Inner Circle */}
-          <mesh position={[0, 0.02, 0]}>
-            <cylinderGeometry args={[0.15, 0.15, 0.05, 32]} />
-            <meshStandardMaterial color="#e0e0e0" metalness={0.7} roughness={0.4} />
-          </mesh>
-          {/* Box Handle */}
-          <mesh position={[0, 0.07, 0]} rotation={[0, 0, 0]}>
-            <boxGeometry args={[0.3, 0.1, 0.08]} />
-            <meshStandardMaterial color="#e0e0e0" metalness={0.8} roughness={0.4} />
-          </mesh>
         </group>
 
         {/* Dispenser Opening */}
@@ -112,8 +152,8 @@ export function GachaMachine() {
         </mesh>
 
         {/* Capsules */}
-        {capsules.map((position, index) => (
-          <Capsule key={index} position={position} />
+        {capsules.map(({ position, color }, index) => (
+          <Capsule key={index} position={position} color={color} />
         ))}
       </group>
     </>
