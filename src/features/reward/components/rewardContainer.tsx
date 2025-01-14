@@ -2,75 +2,73 @@
 
 import { Plus, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-type Prize = {
+type Reward = {
   name: string;
   probability: string;
 };
 
-export const ProductContainer = () => {
+export const RewardContainer = () => {
   const router = useRouter();
 
-  const [prizes, setPrizes] = useState<Prize[]>([
+  const [rewards, setRewards] = useState<Reward[]>([
     { name: "", probability: "" },
   ]);
 
-  const [savedPrizes, setSavedPrizes] = useState<Prize[]>(() => {
-    // 로컬 스토리지에서 저장된 값 가져오기
-    // 수정 필요
-    const storedPrizes = localStorage.getItem("savedPrizes");
-    return storedPrizes ? JSON.parse(storedPrizes) : [];
-  });
+  const [savedRewards, setSavedRewards] = useState<Reward[]>([]);
 
-  const addPrize = () => {
-    setPrizes([...prizes, { name: "", probability: "" }]);
+  useEffect(() => {
+    const storedRewards = localStorage.getItem("savedRewards");
+    if (storedRewards) {
+      setSavedRewards(JSON.parse(storedRewards));
+    }
+  }, []);
+
+  const addReward = () => {
+    setRewards([...rewards, { name: "", probability: "" }]);
   };
 
-  const removePrize = (index: number) => {
-    setPrizes(prizes.filter((_, i) => i !== index));
+  const removeReward = (index: number) => {
+    setRewards(rewards.filter((_, i) => i !== index));
   };
 
-  const updatePrize = (index: number, field: keyof Prize, value: string) => {
-    const newPrizes = [...prizes];
-    newPrizes[index][field] = value;
-    setPrizes(newPrizes);
+  const updateReward = (index: number, field: keyof Reward, value: string) => {
+    const newRewards = [...rewards];
+    newRewards[index][field] = value;
+    setRewards(newRewards);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // console.log("등록된 상품:", prizes);
-
-    // 로컬 스토리지에 저장
-    // 수정 필요
-    localStorage.setItem("savedPrizes", JSON.stringify(prizes));
-    setSavedPrizes(prizes); // 저장된 값 상태 업데이트
-    setPrizes([{ name: "", probability: "" }]); // 입력 필드 초기화
+    localStorage.setItem("savedRewards", JSON.stringify(rewards));
+    setSavedRewards(rewards);
+    setRewards([{ name: "", probability: "" }]);
   };
 
-  const totalProbability = prizes.reduce((sum, prize) => {
-    const prob = parseFloat(prize.probability) || 0;
+  const totalProbability = rewards.reduce((sum, reward) => {
+    const prob = parseFloat(reward.probability) || 0;
     return sum + prob;
   }, 0);
 
   return (
     <Card className="mx-auto w-full max-w-2xl">
       <CardHeader>
-        <CardTitle>상품 등록</CardTitle>
+        <CardTitle>보상 등록</CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit}>
-          {prizes.map((prize, index) => (
+        <form onSubmit={onSubmit}>
+          {rewards.map((reward, index) => (
             <div key={index} className="mb-4 flex gap-4">
               <div className="flex-1">
                 <Input
-                  placeholder="상품명"
-                  value={prize.name}
-                  onChange={e => updatePrize(index, "name", e.target.value)}
+                  placeholder="보상명"
+                  value={reward.name}
+                  onChange={e => updateReward(index, "name", e.target.value)}
                   className="w-full"
                 />
               </div>
@@ -78,21 +76,21 @@ export const ProductContainer = () => {
                 <Input
                   type="number"
                   placeholder="확률 (%)"
-                  value={prize.probability}
+                  value={reward.probability}
                   onChange={e =>
-                    updatePrize(index, "probability", e.target.value)}
+                    updateReward(index, "probability", e.target.value)}
                   min="0"
                   max="100"
                   step="0.1"
                   className="w-full"
                 />
               </div>
-              {prizes.length > 1 && (
+              {rewards.length > 1 && (
                 <Button
                   type="button"
                   variant="destructive"
                   size="icon"
-                  onClick={() => removePrize(index)}
+                  onClick={() => removeReward(index)}
                 >
                   <Trash2 className="size-4" />
                 </Button>
@@ -104,11 +102,11 @@ export const ProductContainer = () => {
             <Button
               type="button"
               variant="outline"
-              onClick={addPrize}
+              onClick={addReward}
               className="flex items-center gap-2"
             >
               <Plus className="size-4" />
-              상품 추가
+              보상 추가
             </Button>
             <div className="text-sm">
               총 확률:
@@ -119,24 +117,24 @@ export const ProductContainer = () => {
           </div>
 
           <Button type="submit" className="mt-6 w-full">
-            상품 등록
+            보상 등록
           </Button>
         </form>
 
-        {/* 저장된 상품 목록 표시 */}
+        {/* 저장된 보상 목록 표시 */}
         <div className="mt-8">
-          <h2 className="text-lg font-bold">저장된 상품</h2>
-          {savedPrizes.length === 0
+          <h2 className="text-lg font-bold">저장된 보상</h2>
+          {savedRewards.length === 0
             ? (
-              <p className="text-sm text-gray-500">저장된 상품이 없습니다.</p>
+              <p className="text-sm text-gray-500">저장된 보상이 없습니다.</p>
             )
             : (
               <ul className="mt-4 space-y-2">
-                {savedPrizes.map((prize, index) => (
+                {savedRewards.map((reward, index) => (
                   <li key={index} className="flex justify-between">
-                    <span>{prize.name}</span>
+                    <span>{reward.name}</span>
                     <span>
-                      {prize.probability}
+                      {reward.probability}
                       %
                     </span>
                   </li>
