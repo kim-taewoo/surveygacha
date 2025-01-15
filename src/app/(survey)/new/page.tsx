@@ -1,7 +1,4 @@
 import { BackButtonHeader } from "@/components/layout/BackButtonHeader";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { TextareaWithButton } from "@/components/ui/originui/TextareaWithButton";
-import { BottomInput } from "@/features/survey/ai-generate/components/BottomInput";
 import { SurveyTitleInput } from "@/features/survey/ai-generate/components/SurveyTitleInput";
 
 const CreateNewAIPage = () => {

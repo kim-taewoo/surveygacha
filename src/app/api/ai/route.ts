@@ -1,21 +1,11 @@
-import { openai } from "@ai-sdk/openai";
-import { generateText, streamText } from "ai";
-import { NextResponse } from "next/server";
+import OpenAI from "openai";
 
-// Allow streaming responses up to 30 seconds
-export const maxDuration = 30;
+const openai = new OpenAI({
+  baseURL: "https://api.deepseek.com",
+  apiKey: process.env.DEEPSEEK_API_KEY,
+});
 
-function trimJsonMarkers(str: string) {
-  // Remove ```json from start and ``` from end
-  return str.replace(/```json\s*/, "").replace(/\s*```/, "");
-}
-
-export async function POST(req: Request) {
-  const { messages } = await req.json();
-  const sendingMessage = messages[messages.length - 1];
-  const { text } = await generateText({
-    model: openai("gpt-4o"),
-    system: `\n
+const guide = `\n
     [설명]
     - 너는 설문 조사 전문가로, 사용자가 제공한 주제와 간단한 설명을 바탕으로 설문 문항을 작성해야 한다.
     - 주제가 설문 조사와 관련이 없거나 부적절한 경우, 답변을 거부하고 이유를 설명한다.
@@ -41,16 +31,17 @@ export async function POST(req: Request) {
         },
       ],
     },
-  `,
-    messages: Array.isArray(messages) ? [messages[messages.length - 1]] : [messages],
+  `;
+
+export async function POST(req: Request) {
+  const { message } = await req.json();
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: "system", content: guide }],
+    model: "deepseek-chat",
   });
 
-  try {
-    const response = JSON.parse(trimJsonMarkers(text));
-    return new Response(response);
-  }
-  catch (error) {
-    // return response containing original `text` variable
-    return new Response(text, { status: 400 });
-  }
+  console.log(completion.choices[0].message.content);
+
+  console.log(completion);
+  return new Response(completion.choices[0].message.content);
 }

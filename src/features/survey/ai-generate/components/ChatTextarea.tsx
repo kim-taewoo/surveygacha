@@ -10,7 +10,7 @@ import type {
   ChatRequestOptions,
 } from "ai";
 
-interface Props {
+interface Props extends React.ComponentProps<"textarea"> {
   input: string;
   setInput: (value: string) => void;
   className?: string;
@@ -23,7 +23,7 @@ interface Props {
   ) => void;
 }
 
-export function ChatTextarea({ input, setInput, className, isLoading, handleSubmit }: Props) {
+export function ChatTextarea({ input, setInput, className, isLoading, handleSubmit, ...props }: Props) {
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
   const adjustHeight = () => {
@@ -40,17 +40,19 @@ export function ChatTextarea({ input, setInput, className, isLoading, handleSubm
 
   const submitForm = () => {
     handleSubmit();
-    setInput("");
+    setTimeout(() => {
+      setInput("");
+    }, 100);
   };
 
   return (
     <Textarea
+      {...props}
       ref={textareaRef}
-      placeholder="Send a message..."
       value={input}
       onChange={handleInput}
       className={cn(
-        "min-h-[24px] max-h-[calc(75dvh)] overflow-hidden resize-none rounded-2xl !text-base bg-muted pb-10 dark:border-zinc-700",
+        "min-h-[24px] max-h-[calc(75dvh)] overflow-hidden resize-none rounded-2xl !text-base bg-background pb-10 dark:border-zinc-700",
         className,
       )}
       rows={2}
