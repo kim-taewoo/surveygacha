@@ -9,11 +9,11 @@ const defaultId = "survey";
 export const LinkContainer = ({ rewards }: { rewards: Reward[] }) => {
   const router = useRouter();
 
-  const id = defaultId;
+  const linkId = defaultId;
 
   const onCopyLinkClick = async () => {
     try {
-      await navigator.clipboard.writeText(id);
+      await navigator.clipboard.writeText(linkId);
       alert("링크가 복사되었습니다");
     }
     catch (error) {
@@ -26,7 +26,7 @@ export const LinkContainer = ({ rewards }: { rewards: Reward[] }) => {
       <div className="space-y-6 rounded-lg bg-white p-6 shadow-md">
         <div className="flex items-center justify-between gap-4 rounded-lg bg-gray-50 p-4">
           <p className="flex-1 truncate text-gray-600">
-            {id || "생성된 링크가 없습니다"}
+            {linkId || "생성된 링크가 없습니다"}
           </p>
           <Button
             variant="outline"
