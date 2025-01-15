@@ -7,8 +7,10 @@ import {
   Physics,
   RigidBody,
 } from "@react-three/rapier";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+
+import { usePrevious } from "@/hooks/usePrevious";
 
 import { GachaCapsules } from "./GachaCapsules";
 
@@ -21,10 +23,18 @@ export function GachaMachine() {
   // Add state to track animation phase
   const [animationPhase, setAnimationPhase] = useState<"initial" | "firstSpin" | "pause" | "secondSpin">("initial");
   const [pauseStartTime, setPauseStartTime] = useState<number>(0);
+  const prevAnimationPhase = usePrevious(animationPhase);
+  console.log(prevAnimationPhase, animationPhase);
 
   function handleAnimationFinished() {
-    console.log("Animation finished!");
+    alert("Animation finished!");
   }
+
+  useEffect(() => {
+    if (prevAnimationPhase === "secondSpin" && animationPhase === "initial") {
+      handleAnimationFinished();
+    }
+  }, [prevAnimationPhase, animationPhase]);
 
   // Handle lever rotation animation
   useFrame((state, delta) => {
@@ -70,7 +80,6 @@ export function GachaMachine() {
             setIsRotating(false);
             setRotationProgress(0);
             setAnimationPhase("initial");
-            handleAnimationFinished();
           }
           break;
       }
