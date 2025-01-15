@@ -22,6 +22,10 @@ export function GachaMachine() {
   const [animationPhase, setAnimationPhase] = useState<"initial" | "firstSpin" | "pause" | "secondSpin">("initial");
   const [pauseStartTime, setPauseStartTime] = useState<number>(0);
 
+  function handleAnimationFinished() {
+    console.log("Animation finished!");
+  }
+
   // Handle lever rotation animation
   useFrame((state, delta) => {
     if (leverRef.current && isRotating) {
@@ -66,6 +70,7 @@ export function GachaMachine() {
             setIsRotating(false);
             setRotationProgress(0);
             setAnimationPhase("initial");
+            handleAnimationFinished();
           }
           break;
       }
@@ -81,7 +86,6 @@ export function GachaMachine() {
   // Function to generate points on the bottom half of sphere
   const generateSphericalPoints = (samples = 10) => {
     const points = [];
-    const phi = Math.PI * (3 - Math.sqrt(5)); // golden angle in radians
 
     // Generate points for bottom hemisphere
     for (let i = 0; i < samples; i++) {
@@ -98,13 +102,6 @@ export function GachaMachine() {
         points.push([x, y, z]);
       }
     }
-
-    // Add extra ring at equator (y = 0)
-    // const equatorPoints = 16;
-    // for (let i = 0; i < equatorPoints; i++) {
-    //   const theta = (i / equatorPoints) * Math.PI * 2;
-    //   points.push([Math.cos(theta), 0, Math.sin(theta)]);
-    // }
     return points;
   };
 
@@ -137,7 +134,6 @@ export function GachaMachine() {
               roughness={0.1}
             />
           </mesh>
-          {/* </RigidBody> */}
 
           {/* Physics colliders */}
           <RigidBody type="fixed" position={[0, 0.4, 0]}>
@@ -178,9 +174,6 @@ export function GachaMachine() {
           </RigidBody>
 
           <GachaCapsules containerRadius={1.2} animationPhase={animationPhase} />
-          {/* <RigidBody colliders="ball" friction={0.2} restitution={0.2}>
-            <GachaCapsule position={[0, 0.1, 0]} />
-          </RigidBody> */}
 
           {/* Center Rod */}
           <mesh position={[0, 0.4, 0]}>
