@@ -12,7 +12,7 @@ export function GachaMachineR3F() {
         fov: 45,
         near: 0.1,
         far: 200,
-        position: [0, 0.9, 8],
+        position: [-1.5, 0, 7],
       }}
     >
       <GachaMachine />
