@@ -37,7 +37,9 @@ const LinkPage = () => {
   }, []);
 
   return (
-    <LinkContainer rewards={rewards} />
+    <div className="flex h-screen min-w-[375px] items-center justify-center space-y-6 p-6">
+      <LinkContainer rewards={rewards} />
+    </div>
   );
 };
 
