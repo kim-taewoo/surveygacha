@@ -6,6 +6,7 @@ export async function middleware(request: NextRequest) {
   const { supabase, response } = getSupabaseReqResClient(request);
   const { data } = await supabase.auth.getSession();
   const sessionUser = data?.session?.user;
+
   const searchParams = request.nextUrl.searchParams;
   const redirect = searchParams.get("redirect");
   const requestedPath = request.nextUrl.pathname;
