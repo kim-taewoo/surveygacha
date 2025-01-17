@@ -69,4 +69,8 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  button {
+    all: unset;
+    cursor: pointer;
+  }
 }
