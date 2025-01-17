@@ -70,7 +70,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       maxWidth: {
-        "375px": "375px",
+        "765px": "765px",
       },
     },
   },
