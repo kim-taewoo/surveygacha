@@ -24,7 +24,6 @@ export function GachaMachine() {
   const [animationPhase, setAnimationPhase] = useState<"initial" | "firstSpin" | "pause" | "secondSpin">("initial");
   const [pauseStartTime, setPauseStartTime] = useState<number>(0);
   const prevAnimationPhase = usePrevious(animationPhase);
-  console.log(prevAnimationPhase, animationPhase);
 
   function handleAnimationFinished() {
     alert("Animation finished!");
