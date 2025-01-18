@@ -61,6 +61,7 @@ const eslintConfig = [
       "no-multi-spaces": "error",
       "no-unused-vars": "warn",
       "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-empty-object-type": "off",
     },
   },
 ];
