@@ -1,14 +1,11 @@
-export interface ICommonProps {
+export interface IHomePageMainButtonGroup {
   id: number;
   icon: string;
-}
-
-export interface IHomePageMainButtonGroup extends ICommonProps {
   title: string;
   description: string;
   arrowIcon: string;
 }
 
-export interface IHomePageBottomButtonGroup extends ICommonProps {
+export type IHomePageBottomButtonGroup = Pick<IHomePageMainButtonGroup, "id" | "icon"> & {
   title: string[];
-}
+};
