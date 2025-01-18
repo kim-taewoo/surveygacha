@@ -1,12 +1,10 @@
-import { IHomePageBottomButtonGroup, IHomePageMainButtonGroup } from "@/features/homePage/types";
-
 export const HOME_PAGE_TITLE: string[] = [
   "서베이가챠를 통해",
   "더 많은 응답을 받아보세요",
 ];
 export const HOME_PAGE_GACHA_IMAGE: string = "/images/home_gacha@2x.png";
 
-export const HOME_PAGE_MAIN_BUTTON_GROUP: IHomePageMainButtonGroup[] = [
+export const HOME_PAGE_MAIN_BUTTON_GROUP = [
   {
     id: 1,
     icon: "/images/home_icon1@2x.png",
@@ -23,7 +21,7 @@ export const HOME_PAGE_MAIN_BUTTON_GROUP: IHomePageMainButtonGroup[] = [
   },
 ];
 
-export const HOME_PAGE_BOTTOM_BUTTON_GROUP: IHomePageBottomButtonGroup[] = [
+export const HOME_PAGE_BOTTOM_BUTTON_GROUP = [
   {
     id: 1,
     icon: "/images/check@2x.png",
