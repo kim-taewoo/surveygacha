@@ -1,12 +1,12 @@
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-type PageHeaderProps = {
+type BreadcrumbHeaderProps = {
   title: string;
   link?: string;
 };
 
-export const PageHeader = ({ title, link }: PageHeaderProps) => {
+export const BreadcrumbHeader = ({ title, link }: BreadcrumbHeaderProps) => {
   const router = useRouter();
   const onBackClick = () => {
     if (link) {
