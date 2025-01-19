@@ -9,7 +9,12 @@ type PageHeaderProps = {
 export const PageHeader = ({ title, link }: PageHeaderProps) => {
   const router = useRouter();
   const onBackClick = () => {
-    router.push(`/${link}`);
+    if (link) {
+      router.push(`${link}`);
+    }
+    else {
+      router.push("/");
+    }
   };
 
   return (
