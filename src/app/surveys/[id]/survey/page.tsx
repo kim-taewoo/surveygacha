@@ -1,8 +1,13 @@
 "use client";
-
-import { Check } from "lucide-react";
+// 설문 조사 페이지 컴포넌트
 import { useRouter } from "next/navigation";
 import { useState, useCallback, startTransition } from "react";
+
+import { MultipleChoiceQuestion } from "@/features/surveys/MultipleChoiceQuestion";
+import { MultipleSelectQuestion } from "@/features/surveys/MultipleSelectQuestion";
+import { ProgressBar } from "@/features/surveys/ProgressBar";
+import { QuestionHeader } from "@/features/surveys/QuestionHeader";
+import { TextQuestion } from "@/features/surveys/TextQuestion";
 
 // 질문 타입 정의
 interface Question {
@@ -40,49 +45,6 @@ const questions: Question[] = [
   },
 ];
 
-// 선택지 버튼 컴포넌트
-function OptionButton({
-  selected,
-  onClick,
-  children,
-  isCheckbox,
-  disabled,
-}: {
-  selected: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-  isCheckbox?: boolean;
-  disabled?: boolean;
-}) {
-  const buttonClasses = `
-    flex h-[52px] w-full items-center justify-between rounded-lg px-4 mb-3
-    ${selected
-      ? `border ${isCheckbox ? "border-[#0056EB]" : "border-[#0056EB]"} bg-[#F0F4FF]`
-      : "bg-[#F5F5F5] hover:bg-[#F0F4FF]"}
-    ${disabled ? "opacity-50 cursor-not-allowed" : ""}
-  `;
-
-  return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className={buttonClasses}
-    >
-      <span className="text-base text-[#262626]">{children}</span>
-      <div className={`
-        flex size-5 items-center justify-center border-2
-        ${isCheckbox ? "rounded-md" : "rounded-full"}
-        ${selected
-      ? "border-[#0056EB] bg-[#0056EB]"
-      : "border-gray-300 bg-white"}
-      `}
-      >
-        {selected && <Check className="size-3 text-white" />}
-      </div>
-    </button>
-  );
-}
-
 export default function SurveyPage() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
@@ -116,14 +78,14 @@ export default function SurveyPage() {
 
   // 다음 단계로 이동
   const handleNext = useCallback(() => {
-    if (!isLastQuestion) { // 현재 단계가 마지막 질문이 아닌 경우
-      startTransition(() => setCurrentStep(prev => prev + 1)); // 현재 단계 증가 (다음 질문으로 이동)
+    if (!isLastQuestion) {
+      startTransition(() => setCurrentStep(prev => prev + 1));
     }
     else {
-      setIsSubmitting(true); // 설문 제출 상태로 설정
+      setIsSubmitting(true);
       setTimeout(() => {
-        router.push("/surveys/[id]/complete"); // 완료 페이지로 이동
-      }, 1000); // 1초 후에 완료 페이지로 이동
+        router.push("/surveys/[id]/complete");
+      }, 1000);
     }
   }, [isLastQuestion, router]);
 
@@ -136,65 +98,38 @@ export default function SurveyPage() {
 
   return (
     <main className="min-h-screen bg-white pb-24">
-      {/* 진행 상태 바 */}
-      <div className="h-[14px] w-full bg-[#D1E2FF]">
-        <div
-          className="h-full bg-[#0056EB] transition-all duration-300"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
+      <ProgressBar progress={progress} />
 
       <div className="px-5 pt-12">
-        {/* 질문 헤더 */}
-        <p className="text-sm text-gray-600">* 필수 입력</p>
-        <h3 className="mb-6 text-lg font-normal">
-          {currentQuestion.question}
-        </h3>
+        <QuestionHeader question={currentQuestion.question} />
 
-        {/* 단일 선택 질문 */}
         {currentQuestion.type === "multiple-choice" && (
-          <div className="space-y-3">
-            {currentQuestion.options?.map(option => (
-              <OptionButton
-                key={option}
-                selected={answers[currentQuestion.id]?.[0] === option}
-                onClick={() => handleSingleSelect(currentQuestion.id, option)}
-                disabled={isSubmitting}
-              >
-                {option}
-              </OptionButton>
-            ))}
-          </div>
+          <MultipleChoiceQuestion
+            id={currentQuestion.id}
+            options={currentQuestion.options || []}
+            selectedAnswer={answers[currentQuestion.id]?.[0]}
+            onSelect={handleSingleSelect}
+            isSubmitting={isSubmitting}
+          />
         )}
 
-        {/* 다중 선택 질문 */}
         {currentQuestion.type === "multiple-select" && (
-          <div className="space-y-3">
-            {currentQuestion.options?.map(option => (
-              <OptionButton
-                key={option}
-                selected={answers[currentQuestion.id]?.includes(option)}
-                onClick={() => handleMultipleSelect(currentQuestion.id, option)}
-                isCheckbox
-                disabled={isSubmitting}
-              >
-                {option}
-              </OptionButton>
-            ))}
-          </div>
+          <MultipleSelectQuestion
+            id={currentQuestion.id}
+            options={currentQuestion.options || []}
+            selectedAnswers={answers[currentQuestion.id] || []}
+            onSelect={handleMultipleSelect}
+            isSubmitting={isSubmitting}
+          />
         )}
 
-        {/* 주관식 질문 */}
         {currentQuestion.type === "text" && (
-          <div className="w-full rounded-lg border-0 bg-[#F5F5F5] p-4">
-            <textarea
-              placeholder="답변을 입력해주세요."
-              value={answers[currentQuestion.id]?.[0] || ""}
-              onChange={e => handleTextAnswer(currentQuestion.id, e.target.value)}
-              className="min-h-[112px] w-full resize-none border-0 bg-transparent p-0 text-base outline-none"
-              disabled={isSubmitting}
-            />
-          </div>
+          <TextQuestion
+            id={currentQuestion.id}
+            answer={answers[currentQuestion.id]?.[0] || ""}
+            onAnswer={handleTextAnswer}
+            isSubmitting={isSubmitting}
+          />
         )}
       </div>
 

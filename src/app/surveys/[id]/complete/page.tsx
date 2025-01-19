@@ -19,38 +19,6 @@ export default function CompletePage() {
     return () => clearTimeout(timer);
   }, []);
 
-  /*
-  // Supabase와 연결하여 보상 데이터를 가져오는 함수
-  useEffect(() => {
-    const supabase = createClientComponentClient();
-
-    const fetchRewardData = async () => {
-      try {
-        // Supabase에서 보상 데이터를 가져옴
-        const { data, error } = await supabase
-          .from("rewards") // "rewards" 테이블
-          .select("*") // 모든 열 가져오기
-          .eq("id", 1) // ID가 1인 데이터를 필터링
-          .single(); // 단일 행 가져오기
-
-        if (error) {
-          console.error("보상 데이터 가져오기 오류:", error);
-          return;
-        }
-
-        if (data) {
-          setRewardText(data.title); // 보상 제목 설정
-          setRewardDescription(data.description); // 보상 설명 설정
-        }
-      } catch (error) {
-        console.error("보상 데이터를 가져오는 중 오류 발생:", error);
-      }
-    };
-
-    fetchRewardData();
-  }, []);
-  */
-
   if (!showReward) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-white px-5">
