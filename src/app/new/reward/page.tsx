@@ -3,6 +3,10 @@
 import { RewardContainer } from "@/features/reward/components/rewardContainer";
 
 const RewardPage = () => {
-  return <RewardContainer />;
+  return (
+    <div className="flex items-center justify-center overflow-hidden p-6">
+      <RewardContainer />
+    </div>
+  );
 };
 export default RewardPage;
