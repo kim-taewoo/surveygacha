@@ -1,13 +1,13 @@
 "use client";
 
-import { ArrowLeft, ImageIcon, Plus, Trash2 } from "lucide-react";
+import { ImageIcon, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import uuid from "react-uuid";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
 type Reward = {
@@ -45,6 +45,11 @@ export const RewardContainer = () => {
 
   const removeReward = (index: number) => {
     setRewards(rewards.filter((_, i) => i !== index));
+    const updatedRewards = savedRewards.filter((_, i) => i !== index);
+    setSavedRewards(updatedRewards);
+
+    // localStorage 업데이트
+    localStorage.setItem("savedRewards", JSON.stringify(updatedRewards));
   };
 
   const updateReward = (
@@ -155,6 +160,17 @@ export const RewardContainer = () => {
                     </label>
                   </div>
                 </div>
+                {
+                  rewards.length > 1 && index !== 0 && (
+                    <Button
+                      type="button"
+                      onClick={() => removeReward(index)}
+                    >
+                      <Trash2 />
+                      삭제
+                    </Button>
+                  )
+                }
 
                 {reward.image && (
                   <div className="flex w-[375px] flex-col items-center rounded">
@@ -182,63 +198,13 @@ export const RewardContainer = () => {
         ))}
       </form>
 
-      {/* {savedRewards.length > 0 && (
-        <Card>
-          <CardContent className="pt-4">
-            <ul className="mt-4 space-y-2">
-              {savedRewards.map((reward, index) => (
-                <li key={index} className="flex flex-col text-gray-700">
-                  <Input
-                    value={reward.name || ""}
-                    onChange={e => updateReward(index, "name", e.target.value)}
-                  />
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-10 w-24 items-center justify-center border-gray-200 text-sm">
-                      당첨 확률
-                    </span>
-                    <Input
-                      type="number"
-                      value={reward.probability || ""}
-                      onChange={e => updateReward(index, "probability", e.target.value)}
-                      min="0"
-                      max="100"
-                      step="1"
-                      className="flex-1 rounded-md border border-gray-300"
-                    />
-                  </div>
-
-                  {reward.image && reward.image instanceof File && (
-                    <div className="flex w-[375px] flex-col items-center rounded">
-                      <img
-                        src={URL.createObjectURL(reward.image)}
-                        alt="미리보기"
-                        className="size-32 rounded object-cover"
-                      />
-                      <Button
-                        type="button"
-                        variant="destructive"
-                        size="icon"
-                        onClick={() => updateReward(index, "image", null)}
-                        className="text-red-500 hover:text-red-700"
-                      >
-                        <Trash2 />
-                      </Button>
-                    </div>
-                  )}
-
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-      )} */}
-
       <div className="flex w-full justify-center">
         <Button type="button" onClick={addReward} variant="outline">
           상품 추가하기
           {" "}
           <Plus />
         </Button>
+
       </div>
 
     </div>
