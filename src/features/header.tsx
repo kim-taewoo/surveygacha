@@ -1,5 +1,5 @@
 import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type BreadcrumbHeaderProps = {
   title: string;
@@ -7,26 +7,12 @@ type BreadcrumbHeaderProps = {
 };
 
 export const BreadcrumbHeader = ({ title, link }: BreadcrumbHeaderProps) => {
-  const router = useRouter();
-  const onBackClick = () => {
-    if (link) {
-      router.push(`${link}`);
-    }
-    else {
-      router.push("/");
-    }
-  };
-
   return (
     <div className="flex items-center gap-2 p-4">
-      <button
-        onClick={onBackClick}
-        className="text-gray-900"
-      >
-        <span><ArrowLeft /></span>
-      </button>
+      <Link href={link ? link : "/"}>
+        <ArrowLeft />
+      </Link>
       <span>{title}</span>
-
     </div>
   );
 };
