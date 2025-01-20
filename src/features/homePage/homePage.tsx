@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import Logo from "@/components/ui/logo";
 import BottomButtonGroup from "@/features/homePage/bottomBottomGroup/bottomBottomGroup";
 import {
   HOME_PAGE_BOTTOM_BUTTON_GROUP,
@@ -23,7 +24,7 @@ export default function HomePage() {
       {/* content */}
       <div className="relative h-full overflow-auto pb-40">
         <div className="pb-[18px] pl-5 pt-7">
-          <img src="/images/logo.svg" alt="logo" width={71} height={20} />
+          <Logo width={71} height={20} />
         </div>
         <Title title={HOME_PAGE_TITLE} />
         <div className="mr-10 flex justify-end">
