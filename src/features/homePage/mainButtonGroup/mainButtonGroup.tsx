@@ -27,7 +27,7 @@ export default function MainButtonGroup({ mainButtonGroup }: MainButtonGroupProp
               <h2 className="font-semibold leading-5">{button.title}</h2>
               <ArrowRight color={button.arrowColor} size={24} />
             </div>
-            <p className="mt-2 text-sm leading-4 text-gray-500">{button.description}</p>
+            <p className="mt-2 text-start text-sm leading-4 text-gray-500">{button.description}</p>
           </div>
         </button>
       ))}
