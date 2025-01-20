@@ -10,14 +10,14 @@ export const HOME_PAGE_MAIN_BUTTON_GROUP = [
     icon: "/images/home_icon1@2x.png",
     title: "AI로 설문조사 자동 생성",
     description: "AI로 설문조사 자동 생성",
-    arrowIcon: "/images/arrow-right-color.svg",
+    arrowColor: "#0056EB",
   },
   {
     id: 2,
     icon: "/images/home_icon2@2x.png",
     title: "설문조사 수동 생성",
     description: "설문조사 수동 생성",
-    arrowIcon: "/images/arrow-right-black.svg",
+    arrowColor: "#6B7280",
   },
 ];
 

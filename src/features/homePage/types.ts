@@ -3,7 +3,7 @@ export interface IHomePageMainButtonGroup {
   icon: string;
   title: string;
   description: string;
-  arrowIcon: string;
+  arrowColor: string;
 }
 
 export type IHomePageBottomButtonGroup = Pick<IHomePageMainButtonGroup, "id" | "icon"> & {

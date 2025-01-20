@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 import { IHomePageMainButtonGroup } from "@/features/homePage/types";
@@ -24,13 +25,7 @@ export default function MainButtonGroup({ mainButtonGroup }: MainButtonGroupProp
           <div className="flex-1 pl-4">
             <div className="flex items-center justify-between">
               <h2 className="font-semibold leading-5">{button.title}</h2>
-              <Image
-                src={button.arrowIcon}
-                alt="arrow"
-                width={24}
-                height={24}
-                className="shrink-0"
-              />
+              <ArrowRight color={button.arrowColor} size={24} />
             </div>
             <p className="mt-2 text-sm leading-4 text-gray-500">{button.description}</p>
           </div>
