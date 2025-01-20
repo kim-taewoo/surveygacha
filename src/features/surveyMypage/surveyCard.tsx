@@ -10,7 +10,6 @@ type SurveyCardProps = {
   winningRatio?: string;
   rewardTitle: string;
   status?: boolean;
-  isCompleted?: boolean;
 };
 
 export const SurveyCard = ({
@@ -21,7 +20,6 @@ export const SurveyCard = ({
   winningRatio,
   rewardTitle,
   status,
-  isCompleted,
 }: SurveyCardProps) => {
   const formatDateToKST = (timestamp: string) => {
     const date = new Date(timestamp);
@@ -38,19 +36,24 @@ export const SurveyCard = ({
   const isSurveyCompleted = endDateObj < today;
 
   return (
-    <Card className="mb-4 size-full min-w-[375px] bg-white p-4">
+    <Card
+      className={cn(
+        "mb-4 bg-white p-4 w-full",
+      )}
+    >
+      {" "}
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-base font-medium">{title}</h3>
         {isSurveyCompleted
           ? (
-            <div className="mt-2 text-right text-xs text-gray-500">
+            <div className="text-xs text-gray-500">
               종료된 설문
             </div>
           )
           : (
             <Button
               variant="outline"
-              className={cn("h-8 rounded-md border border-blue-500 px-3 py-1.5 text-sm text-blue-500")}
+              className={cn("h-7 rounded-md border border-blue-500 px-3 py-1.5 text-sm text-blue-500")}
             >
               링크 복사
             </Button>
@@ -64,7 +67,7 @@ export const SurveyCard = ({
 
           <span>
             {formatDateToKST(startDate)}
-            ~
+            -
             {formatDateToKST(endDate)}
           </span>
         </div>
@@ -73,7 +76,7 @@ export const SurveyCard = ({
           <div className="flex justify-between text-sm">
             <span className="text-gray-600">참가자</span>
             <span className="text-blue-500">
-              {participants}
+              {Number(participants).toLocaleString()}
               명
             </span>
           </div>
@@ -104,12 +107,6 @@ export const SurveyCard = ({
         )}
 
       </div>
-
-      {isCompleted && (
-        <div className="mt-2 text-right text-xs text-gray-500">
-          종료된 설문
-        </div>
-      )}
     </Card>
   );
 };

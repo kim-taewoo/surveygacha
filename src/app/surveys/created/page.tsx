@@ -3,23 +3,24 @@ import Image from "next/image";
 import { BreadcrumbHeader } from "@/features/header";
 import { SurveyCard } from "@/features/surveyMypage/surveyCard";
 
-// 참여한 설문조사 페이지
-const ParticipatedPage = () => {
+// 진행한 설문조사 페이지
+const CreatedPage = () => {
   return (
     <>
-      <BreadcrumbHeader title="참여한 설문조사" />
+      <BreadcrumbHeader title="진행한 설문조사" />
       {
         data && data.length > 0
           ? (
             <div className="mx-auto flex w-[335px] max-w-[375px] flex-col items-center justify-center p-6">
               {data.map((survey, index) => (
                 <SurveyCard
-                  key={`${index}_participatedCard`}
+                  key={`${index}_createdCard`}
                   title={survey.title}
                   startDate={survey.startDate}
                   endDate={survey.endDate}
+                  participants={survey.participants}
+                  winningRatio={survey.winningRatio}
                   rewardTitle={survey.rewardTitle}
-                  status={survey.status}
                 />
               ))}
             </div>
@@ -36,12 +37,26 @@ const ParticipatedPage = () => {
           )
       }
     </>
+
   );
 };
-
-export default ParticipatedPage;
+export default CreatedPage;
 
 const data = [
-  { title: "금융 생활 관련 설문", startDate: "2024-01-01T18:00:00.000", endDate: "2025-01-01T18:00:00.000", rewardTitle: "메가커피 아메리카노", status: false },
-  { title: "일상 생활 관련 설문", startDate: "2024-02-01T18:00:00.000", endDate: "2025-02-01T18:00:00.000", rewardTitle: "스타벅스 아메리카노", status: true },
+  {
+    title: "금융 생활 관련 설문",
+    startDate: "2024-01-01T18:00:00.000",
+    endDate: "2024-12-31T18:00:00.000",
+    rewardTitle: "메가커피 아메리카노",
+    participants: "25000000",
+    winningRatio: "2/10",
+  },
+  {
+    title: "일상 생활 관련 설문",
+    startDate: "2024-02-01T18:00:00.000",
+    endDate: "2025-02-01T18:00:00.000",
+    rewardTitle: "스타벅스 아메리카노",
+    participants: "250",
+    winningRatio: "1/3",
+  },
 ];
