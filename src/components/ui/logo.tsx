@@ -74,16 +74,16 @@ export default function Logo({ width = 72, height = 20, className }: LogoProps) 
       />
       <defs>
         <linearGradient id="paint0_linear_388_2195" x1="71.0256" y1="10" x2="0" y2="10" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FCD34D" />
-          <stop offset="1" stop-color="#FB9B3E" />
+          <stop stopColor="#FCD34D" />
+          <stop offset="1" stopColor="#FB9B3E" />
         </linearGradient>
         <linearGradient id="paint1_linear_388_2195" x1="0" y1="10" x2="71.0256" y2="10" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#0056EB" />
-          <stop offset="1" stop-color="#003185" />
+          <stop stopColor="#0056EB" />
+          <stop offset="1" stopColor="#003185" />
         </linearGradient>
         <linearGradient id="paint2_linear_388_2195" x1="71.0256" y1="10" x2="0" y2="10" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#478BFF" />
-          <stop offset="1" stop-color="#2B5399" />
+          <stop stopColor="#478BFF" />
+          <stop offset="1" stopColor="#2B5399" />
         </linearGradient>
       </defs>
     </svg>
