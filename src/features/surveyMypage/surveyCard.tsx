@@ -41,9 +41,8 @@ export const SurveyCard = ({
         "mb-4 bg-white p-4 w-full",
       )}
     >
-      {" "}
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-base font-medium">{title}</h3>
+        <h3 className="text-base font-semibold leading-5">{title}</h3>
         {isSurveyCompleted
           ? (
             <div className="text-xs text-gray-500">
@@ -62,7 +61,7 @@ export const SurveyCard = ({
       </div>
 
       <div className="mt-4 space-y-2">
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between text-sm font-medium leading-4">
           <span className="text-gray-600">진행 기간</span>
 
           <span>
@@ -73,7 +72,7 @@ export const SurveyCard = ({
         </div>
 
         {participants && (
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-sm font-medium leading-4">
             <span className="text-gray-600">참가자</span>
             <span className="text-blue-500">
               {Number(participants).toLocaleString()}
@@ -83,7 +82,7 @@ export const SurveyCard = ({
         )}
 
         {winningRatio && (
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-sm font-medium leading-4">
             <span className="text-gray-600">당첨자</span>
             <span className="text-orange-500">
               {winningRatio}
@@ -92,7 +91,7 @@ export const SurveyCard = ({
           </div>
         )}
 
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between text-sm font-medium leading-4">
           <span className="text-gray-600">보상 품목</span>
           <span>{rewardTitle}</span>
         </div>
