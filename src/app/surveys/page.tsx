@@ -1,80 +1,124 @@
-"use client"; // 클라이언트 컴포넌트 설정
+"use client";
 
+// import { createClientComponentClient } from "@supabase"; // Supabase 클라이언트 생성
+import { Clock, Calendar, Gift, User } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { SurveyInfo } from "@/types";
 
-// 설문조사 정보 객체
+// 설문 데이터 타입 정의
+interface SurveyInfo {
+  title: string;
+  subTitle: string;
+  target: string;
+  duration: string;
+  period: string;
+  reward: string;
+  participants: number;
+}
+
+// 목데이터
 const surveyInfo: SurveyInfo = {
-  title: "설문참여",
-  description: "설문조사에 참여해주셔서 감사합니다",
-  duration: "약 10-15분",
-  targetAge: "만 20세 이상",
-  reward: "설문 완료시 포인트 지급",
+  title: "금융 생활 관련 설문 참여 모집",
+  subTitle: "안녕하세요! 👋 사이드 프로젝트를 진행 중인 학생입니다. 평소 금융 생활에 관련하여 라이프 스타일을 여쭤보았습니다. 조사에 참여해주신 분들께 보상을 제공해드립니다. ✨",
+  target: "불특정다수",
+  duration: "3-5분",
+  period: "2025.01.01 - 2025.01.26",
+  reward: "메가커피 아메리카노",
+  participants: 13,
 };
 
-// Home 컴포넌트
-export default function Home() {
+export default function SurveyPage({ params }: { params: { dynamicId: string } }) {
+  const [survey, setSurvey] = useState<SurveyInfo | null>(null); // 설문 데이터 상태
+
   return (
+    <div className="flex flex-col bg-[#FAFAFA] pb-24">
+      {/* 헤더 섹션 */}
+      <header className="px-5 pb-[18px] pt-7">
+        <div className="flex items-center gap-2">
+          <Image
+            src="/assets/images/logo.png"
+            alt="로고"
+            width={71.03}
+            height={20}
+          />
+        </div>
+      </header>
 
-    <main className="p-4">
+      {/* 메인 컨텐츠 */}
+      <div className="flex flex-col items-center gap-8 px-5 pt-6">
 
-      {/* 메인 배경 */}
-      <div className="mx-auto">
+        <div className="flex flex-col gap-4">
+          <h1 className="text-lg font-bold text-[#171717]">
+            {surveyInfo.title}
+          </h1>
+          <p className="text-base font-normal text-[#404040]">
+            {surveyInfo.subTitle}
+          </p>
+        </div>
 
-        {/* 콘텐츠 중앙 정렬 */}
-        <Card className="border-none bg-white/80 shadow-lg backdrop-blur">
-          <CardContent className="p-6">
-            {/* 헤더 섹션 */}
-            <div className="mb-8 text-center">
-              <h1 className="mb-2 text-4xl font-bold">{surveyInfo.title}</h1>
-              <p className="text-lg text-gray-600">{surveyInfo.description}</p>
-            </div>
+        <div className="w-full space-y-3">
+          <div className="flex items-center gap-3 rounded-md bg-[#F5F5F5] p-4">
+            <User className="text-[#737373]" />
+            <span className="text-[#737373]">설문 대상</span>
+            <span className="ml-auto font-semibold text-[#262626]">
+              {surveyInfo.target}
+            </span>
+          </div>
 
-            {/* 설문 정보 섹션 */}
-            <div className="mb-8 space-y-6">
-              <div className="rounded-lg bg-gray-50 p-4">
-                <h2 className="mb-2 font-semibold">설문 정보</h2>
-                <div className="space-y-2 text-sm text-gray-600">
-                  <p>
-                    • 설문 소요 시간:
-                    {surveyInfo.duration}
-                  </p>
-                  <p>
-                    • 참여 대상:
-                    {surveyInfo.targetAge}
-                  </p>
-                  <p>
-                    • 보상:
-                    {surveyInfo.reward}
-                  </p>
-                </div>
-              </div>
+          <div className="flex items-center gap-3 rounded-md bg-[#F5F5F5] p-4">
+            <Clock className="text-[#737373]" />
+            <span className="text-[#737373]">응답 시간</span>
+            <span className="ml-auto font-semibold text-[#262626]">
+              {surveyInfo.duration}
+            </span>
+          </div>
 
-              {/* 참여자 정보 섹션 */}
-              <div className="rounded-lg bg-gray-50 p-4">
-                <h2 className="mb-2 font-semibold">도움된 기타 상품들</h2>
-                <p className="text-sm text-gray-600">참여자 수: 현재 참여자 수 / 최대 참여</p>
-              </div>
-            </div>
+          <div className="flex items-center gap-3 rounded-md bg-[#F5F5F5] p-4">
+            <Calendar className="text-[#737373]" />
+            <span className="text-[#737373]">진행 기간</span>
+            <span className="ml-auto font-semibold text-[#262626]">
+              {surveyInfo.period}
+            </span>
+          </div>
 
-            {/* 시작 버튼 */}
-            <div className="flex justify-center">
-              <Link href="/survey">
-                <Button
-                  size="lg"
-                  className="px-8 "
-                  aria-label="설문조사 시작하기"
-                >
-                  설문 시작하기
-                </Button>
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+          <div className="flex items-center gap-3 rounded-md bg-[#F5F5F5] p-4">
+            <Gift className="text-[#737373]" />
+            <span className="text-[#737373]">보상 품목</span>
+            <span className="ml-auto font-semibold text-[#262626]">
+              {surveyInfo.reward}
+            </span>
+          </div>
+        </div>
       </div>
-    </main>
+
+      {/* 말풍선 */}
+      <div className="fixed bottom-[88px] left-0 w-full px-5">
+        <div className="relative inline-block">
+          <div className="flex items-center gap-2 rounded-md bg-[#262626] px-3 py-2 text-[12px] text-white">
+            현재
+            <span>
+              <strong>{survey?.participants || surveyInfo.participants}</strong>
+              <span className="font-bold">명</span>
+              <span>이</span>
+            </span>
+            참여중 🔥
+          </div>
+          {/* 말풍선 꼬리 */}
+          <div className="absolute left-4 top-full size-0 border-x-4 border-t-8 border-x-transparent border-t-[#262626]" />
+        </div>
+      </div>
+
+      {/* 시작하기 버튼 */}
+      <div className="fixed bottom-0 left-0 mb-2 w-full p-5">
+        <Link href={`/surveys/${params.dynamicId}/survey`} className="block">
+          <Button className="h-12 w-full gap-2 bg-[#0056EB] px-3 py-2 text-lg font-medium text-white hover:bg-blue-700">
+            시작하기
+          </Button>
+        </Link>
+      </div>
+    </div>
   );
 }
