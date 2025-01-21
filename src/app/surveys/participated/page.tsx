@@ -11,7 +11,7 @@ const ParticipatedPage = () => {
       {
         data && data.length > 0
           ? (
-            <div className="mx-auto flex w-[335px] max-w-[375px] flex-col items-center justify-center p-6">
+            <div className="mx-auto flex w-[335px] flex-col items-center justify-center">
               {data.map((survey, index) => (
                 <SurveyCard
                   key={`${index}_participatedCard`}
