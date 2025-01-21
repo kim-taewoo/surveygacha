@@ -5,12 +5,7 @@ import { useEffect, useState } from "react";
 
 import { LinkContainer } from "@/features/link/components/linkContainer";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
-
-export interface Reward {
-  survey_id: number;
-  gacha_id: number;
-  possibility: boolean;
-}
+import { Reward } from "@/types";
 
 const LinkPage = () => {
   const supabase = getSupabaseBrowserClient();
