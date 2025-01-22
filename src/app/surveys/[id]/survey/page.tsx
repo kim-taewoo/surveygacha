@@ -127,7 +127,6 @@ export default function SurveyPage() {
                 <h2 className="text-xl font-semibold">설문 진행</h2>
                 <span className="text-sm text-gray-500">
                   {currentStep}
-
                   /
                   {questions.length}
                 </span>
