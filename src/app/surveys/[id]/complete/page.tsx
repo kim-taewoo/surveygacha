@@ -21,7 +21,7 @@ export default function CompletePage() {
 
   if (!showReward) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-white px-5">
+      <div className="flex h-screen w-full flex-col items-center justify-center bg-white px-5">
         <div className="flex flex-col items-center gap-4">
           <div className="flex size-16 items-center justify-center rounded-full bg-[#0056EB]">
             <Check className="size-8 text-white" />
@@ -33,7 +33,7 @@ export default function CompletePage() {
   }
 
   return (
-    <div className="flex flex-col bg-white px-5">
+    <div className="flex w-full flex-col bg-white px-5">
       <div className="mt-[77px] flex flex-col items-center gap-4">
         <div className="flex flex-col items-center">
           {/* Supabase에서 보상 텍스트를 가져오거나 기본값 표시 */}
@@ -46,7 +46,7 @@ export default function CompletePage() {
         </p>
       </div>
 
-      <div className="mt-[110px] flex flex-1 items-center justify-center">
+      <div className="mt-[110px] flex w-full flex-1 items-center justify-center">
         <div className="h-70 relative w-[335px]">
           <img
             src="/assets/images/compensation.png"
