@@ -11,6 +11,7 @@ export const HOME_PAGE_MAIN_BUTTON_GROUP = [
     title: "AI로 설문조사 자동 생성",
     description: "AI로 설문조사 자동 생성",
     arrowColor: "#0056EB",
+    href: "/gen",
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ export const HOME_PAGE_MAIN_BUTTON_GROUP = [
     title: "설문조사 수동 생성",
     description: "설문조사 수동 생성",
     arrowColor: "#6B7280",
+    href: "/new",
   },
 ];
 

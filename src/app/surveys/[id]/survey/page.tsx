@@ -97,7 +97,7 @@ export default function SurveyPage() {
   }, [currentStep]);
 
   return (
-    <main className="min-h-screen bg-white pb-24">
+    <main className="min-h-screen w-full bg-white pb-24">
       <ProgressBar progress={progress} />
 
       <div className="px-5 pt-12">

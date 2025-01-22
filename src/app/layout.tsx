@@ -1,4 +1,4 @@
-import { DefaultLayout } from "@/components/defaultLayout";
+import { DefaultLayout } from "@/components/layout/DefaultLayout";
 
 import { suit, aggroSubset } from "./fonts";
 
