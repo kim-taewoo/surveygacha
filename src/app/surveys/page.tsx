@@ -39,7 +39,7 @@ export default function SurveyPage({ params }: { params: { dynamicId: string } }
       <header className="px-5 pb-[18px] pt-7">
         <div className="flex items-center gap-2">
           <Image
-            src="/assets/images/logo.png"
+            src="/images/logo.png"
             alt="로고"
             width={71.03}
             height={20}

@@ -49,7 +49,7 @@ export default function CompletePage() {
       <div className="mt-[110px] flex w-full flex-1 items-center justify-center">
         <div className="h-70 relative w-[335px]">
           <img
-            src="/assets/images/compensation.png"
+            src="/images/compensation.png"
             alt="보상 이미지"
             className="size-full object-contain"
           />
