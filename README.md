@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎉 SurveyGacha
 
-## Getting Started
+**SurveyGacha**는 설문 조사와 **가챠(Gacha)** 시스템을 결합한 독창적인 웹 애플리케이션입니다.  
+사용자는 설문에 참여한 뒤, **랜덤 가챠**를 통해 보상을 획득할 수 있습니다.  
 
-First, run the development server:
+우리 프로젝트는 다음과 같은 목표를 가지고 있습니다:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 설문 데이터를 효과적으로 수집.
+- **재미 요소**를 추가하여 사용자 참여율 증가.
+- 사용자들에게 흥미로운 보상 경험 제공.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🌟 주요 특징
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **설문 참여 후 보상 제공**: 설문을 완료하면 가챠를 돌릴 기회가 주어집니다.
+- **랜덤 가챠 시스템**: 다양한 상품을 획득 가능.
+- **사용자 친화적 디자인**: 간단하고 직관적인 UI로 설문과 보상을 쉽게 경험.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+> 🎯 설문도 즐겁게, 보상도 랜덤으로!  
+> **SurveyGacha**는 단순 설문조사에서 벗어나 사용자의 재미와 데이터를 모두 잡는 서비스입니다.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 주요 기능
 
-## Deploy on Vercel
+1. **설문 참여**
+   - 다양한 주제의 설문 조사를 제공.
+   - 설문 참여를 통해 데이터를 수집.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **가챠 시스템**
+   - 설문에 참여한 사용자가 가챠를 돌려 랜덤 보상을 받을 수 있음.
+   - 다양한 희귀도의 아이템 제공.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **아이템 컬렉션**
+   - 사용자가 획득한 아이템을 확인하고 컬렉션을 관리할 수 있음.
+
+4. **사용자 경험 강화**
+   - 설문 참여 이후 재미 요소 추가.
+   - 데이터 수집과 사용자 참여율을 동시에 증가.
+
+---
+
+## 🛠️ 기술 스택
+
+### **프론트엔드**
+- **Framework**: Next.js, React
+- **스타일링**: Tailwind CSS
+- **아이콘 라이브러리**: Lucide-react
+- **상태 관리**: React Hooks 및 Context API
+
+### **백엔드**
+- **구현 가능**: API 또는 Supabase 서비스를 활용 .
+
+---
+
+📜 주요 페이지 및 기능 설명
+
+1. 메인 페이지 (Home)
+URL: /
+설문 조사와 가챠 시스템에 대한 간단한 소개를 제공.
+
+2. 설문 페이지 (Survey Page)
+URL: /surveys/[id]
+설문 목록을 보여주며, 사용자가 설문 항목을 선택 후 참여할 수 있음.
+
+3. 설문 완료 페이지 (Survey Complete)
+URL: /surveys/[id]/complete
+설문을 완료한 사용자에게 결과 및 가챠 시스템으로 이동할 수 있는 안내 제공.
+
+4. 가챠 페이지 (Gacha Page)
+URL: /gacha
+설문 참여 후 가챠를 돌릴 수 있는 페이지.
+랜덤으로 아이템이 선택되어 사용자에게 보상 제공.
+
+5. 컬렉션 페이지 (Collection)
+URL: /collection
+사용자가 지금까지 획득한 상품 목록을 보여주는 페이지.
