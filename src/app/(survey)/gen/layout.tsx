@@ -4,7 +4,7 @@ type Props = {
 
 const GenerateLayout = ({ children }: Props) => {
   return (
-    <main className="flex min-h-screen flex-col bg-[#F4F4F5]">
+    <main className="flex min-h-screen flex-col bg-[#F4F4F5] pb-16">
       {children}
     </main>
   );

@@ -6,10 +6,10 @@ type Props = {
   link?: string;
 };
 
-export const BackArrowHeader = ({ title, link }: Props) => {
+export const BackArrowHeader = ({ title, link = "/" }: Props) => {
   return (
     <div className="flex w-full items-center gap-2 p-5">
-      <Link href={link ? link : "/"}>
+      <Link href={link}>
         <ChevronLeft />
       </Link>
       <span className="text-xl font-semibold">{title}</span>
