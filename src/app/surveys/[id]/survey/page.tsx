@@ -97,7 +97,7 @@ export default function SurveyPage() {
   }, [currentStep]);
 
   return (
-    <main className="min-h-screen bg-white pb-24">
+    <main className="min-h-screen w-full bg-white pb-24">
       <ProgressBar progress={progress} />
 
       <div className="px-5 pt-12">
@@ -134,12 +134,12 @@ export default function SurveyPage() {
       </div>
 
       {/* 네비게이션 버튼 */}
-      <div className="fixed bottom-0 left-0 w-full bg-white p-5">
-        <div className="flex gap-3">
+      <div className="fixed bottom-0 w-full max-w-lg p-5">
+        <div className="flex justify-between gap-3">
           <button
             onClick={handlePrev}
             disabled={currentStep === 1}
-            className="h-12 flex-1 rounded-lg border-0 bg-[#A3A3A3] px-3 py-2 text-base font-medium text-white"
+            className="h-12 flex-1 rounded-lg bg-[#A3A3A3] px-3 py-2 text-base font-medium text-white"
           >
             이전으로
           </button>
@@ -152,6 +152,7 @@ export default function SurveyPage() {
           </button>
         </div>
       </div>
+
     </main>
   );
 }
