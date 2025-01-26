@@ -1,5 +1,4 @@
 import { BackArrowHeader } from "@/components/layout/BackArrowHeader";
-import { Button } from "@/components/ui/button";
 import { GenerateInputs } from "@/features/gen/components/GenerateInputs";
 
 interface Props {

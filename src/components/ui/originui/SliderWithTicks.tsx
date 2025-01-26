@@ -7,23 +7,39 @@ import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 
 interface Props {
-  minTicks?: number;
+  value: number;
+  onChange: (value: number) => void;
+  min?: number;
+  max?: number;
   maxTicks?: number;
   tickLabelSkipInterval?: number;
+  errorMessage?: string;
 }
 
-export function SliderWithTicks({ minTicks = 5, maxTicks = 15, tickLabelSkipInterval = 2 }: Props) {
+export function SliderWithTicks({ value, onChange, maxTicks = 15, tickLabelSkipInterval = 2, errorMessage }: Props) {
   const ticks = [...Array(maxTicks + 1)].map((_, i) => i);
 
-  const handleChange: FormEventHandler<HTMLDivElement> = (e) => {
-    console.log(e.target.value);
-  };
+  function handleValueChange(value: number[]) {
+    console.log(value);
+    onChange(value[0]);
+  }
 
   return (
     <div className="space-y-4">
-      <Label>설문 개수</Label>
+      <div className="text-right ">
+        <output name="result" htmlFor="slider-ticks" className={cn("text-sm", errorMessage ? "text-destructive" : "")}>
+          {errorMessage || (
+            <span>
+              최소
+              {" "}
+              <span className="font-semibold text-primary">{value}</span>
+              개의 문항을 생성합니다.
+            </span>
+          )}
+        </output>
+      </div>
       <div>
-        <Slider onChange={handleChange} defaultValue={[5]} max={maxTicks} aria-label="Slider with ticks" />
+        <Slider name="slider1" id="slider-ticks" onValueChange={handleValueChange} value={[value]} max={maxTicks} aria-label="Slider with ticks" />
         <span
           className="mt-3 flex w-full items-center justify-between gap-1 px-2.5 text-xs font-medium text-muted-foreground"
           aria-hidden="true"
