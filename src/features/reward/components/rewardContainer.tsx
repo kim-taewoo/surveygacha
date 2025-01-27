@@ -1,6 +1,6 @@
 "use client";
 
-import { ImageIcon, Plus, Trash2 } from "lucide-react";
+import { ImageIcon, Plus, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -95,8 +95,7 @@ export const RewardContainer = () => {
   );
 
   return (
-    <div className="size-full min-w-[375px] overflow-y-auto">
-
+    <div className="size-full overflow-y-auto p-6 pt-[70px]">
       <form onSubmit={onSubmit}>
         <Button
           type="submit"
@@ -110,6 +109,17 @@ export const RewardContainer = () => {
         {rewards.map((reward, index) => (
           <Card key={index} className="mb-4 shadow-lg">
             <CardContent className="space-y-4 p-6">
+              {/* 게시글 삭제 */}
+              {
+                rewards.length > 1 && index !== 0 && (
+                  <div
+                    className="flex justify-end"
+                  >
+                    <X size={14} onClick={() => removeReward(index)} className="cursor-pointer" />
+                  </div>
+                )
+              }
+
               <div className="flex flex-col space-y-2">
                 <Input
                   placeholder="상품명"
@@ -118,7 +128,7 @@ export const RewardContainer = () => {
                   className="flex-1 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                 />
                 <div className="flex items-center gap-2">
-                  <span className="flex h-10 w-24 items-center justify-center border-gray-200 text-sm">
+                  <span className="flex items-center justify-center border-gray-200 text-sm font-semibold">
                     당첨 확률
                   </span>
                   <Input
@@ -135,8 +145,8 @@ export const RewardContainer = () => {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
-                    <span className="text-sm">첨부 이미지</span>
-                    <span className="text-sm text-gray-400">(선택)</span>
+                    <span className="text-sm font-semibold">첨부 이미지</span>
+                    <span className="text-sm text-[#6B7280]">(선택)</span>
                   </div>
                   <div className="relative flex cursor-pointer items-center">
                     <input
@@ -152,44 +162,32 @@ export const RewardContainer = () => {
                     />
                     <label
                       htmlFor={`file-upload-${index}`}
-                      className="absolute flex items-center gap-2 rounded-md border border-blue-500 px-3 py-2 text-sm text-blue-500 hover:bg-blue-50"
+                      className="flex cursor-pointer items-center gap-2 rounded-md border border-[#0056EB] px-2 py-1.5 text-sm font-medium text-[#0056EB] hover:bg-blue-50"
                     >
                       <ImageIcon className="size-4" />
                       {" "}
-                      추가
+                      {reward.image ? "변경" : "추가"}
                     </label>
                   </div>
                 </div>
-                {
-                  rewards.length > 1 && index !== 0 && (
-                    <Button
-                      type="button"
-                      onClick={() => removeReward(index)}
-                    >
-                      <Trash2 />
-                      삭제
-                    </Button>
-                  )
-                }
 
                 {reward.image && (
-                  <div className="flex w-[375px] flex-col items-center rounded">
+                  <div className="relative h-[200px] w-[375px] overflow-auto rounded bg-gray-100">
+                    {/* 이미지 삭제 */}
+                    <div
+                      onClick={() => updateReward(index, "image", null)}
+                      className="absolute right-2 top-2 cursor-pointer rounded-full bg-black p-0.5"
+
+                    >
+                      <X size={12} color="white" />
+                    </div>
                     <Image
                       src={URL.createObjectURL(reward.image)}
                       alt="미리보기"
                       width={375}
                       height={200}
-                      className="object-cover"
+                      className="object-contain"
                     />
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      size="icon"
-                      onClick={() => updateReward(index, "image", null)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      <Trash2 />
-                    </Button>
                   </div>
                 )}
               </div>
@@ -199,7 +197,7 @@ export const RewardContainer = () => {
       </form>
 
       <div className="flex w-full justify-center">
-        <Button type="button" onClick={addReward} variant="outline">
+        <Button type="button" onClick={addReward} variant="outline" className="text-[#0056EB]">
           상품 추가하기
           {" "}
           <Plus />

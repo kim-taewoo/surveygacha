@@ -1,12 +1,17 @@
 // 상품등록 및 확률 설정 페이지
 
+import { BreadcrumbHeader } from "@/features/header";
 import { RewardContainer } from "@/features/reward/components/rewardContainer";
 
 const RewardPage = () => {
   return (
-    <div className="flex items-center justify-center overflow-hidden p-6">
-      <RewardContainer />
-    </div>
+    <>
+      <BreadcrumbHeader title="가챠 상품 등록" />
+      <div className="mx-auto flex w-full items-center justify-center">
+        <RewardContainer />
+      </div>
+    </>
+
   );
 };
 export default RewardPage;
