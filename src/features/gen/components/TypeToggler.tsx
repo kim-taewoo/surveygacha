@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const TypeToggler = ({}: Props) => {
-  const questionTypes = useSurvey(state => state.genInputs.questionTypes);
+  const questionTypes = useSurvey(state => state.genInputs.question_types);
   const setGenInput = useSurvey(state => state.setGenInput);
 
   return (
@@ -20,7 +20,7 @@ export const TypeToggler = ({}: Props) => {
           <Switch
             checked={questionTypes.single_choice}
             onCheckedChange={checked =>
-              setGenInput("questionTypes", { ...questionTypes, single_choice: checked })}
+              setGenInput("question_types", { ...questionTypes, single_choice: checked })}
           />
         </div>
         <div className="flex justify-between">
@@ -28,7 +28,7 @@ export const TypeToggler = ({}: Props) => {
           <Switch
             checked={questionTypes.multiple_choice}
             onCheckedChange={checked =>
-              setGenInput("questionTypes", { ...questionTypes, multiple_choice: checked })}
+              setGenInput("question_types", { ...questionTypes, multiple_choice: checked })}
           />
         </div>
         <div className="flex justify-between">
@@ -36,7 +36,7 @@ export const TypeToggler = ({}: Props) => {
           <Switch
             checked={questionTypes.likert_scale}
             onCheckedChange={checked =>
-              setGenInput("questionTypes", { ...questionTypes, likert_scale: checked })}
+              setGenInput("question_types", { ...questionTypes, likert_scale: checked })}
           />
         </div>
         <div className="flex justify-between">
@@ -44,7 +44,7 @@ export const TypeToggler = ({}: Props) => {
           <Switch
             checked={questionTypes.open_ended}
             onCheckedChange={checked =>
-              setGenInput("questionTypes", { ...questionTypes, open_ended: checked })}
+              setGenInput("question_types", { ...questionTypes, open_ended: checked })}
           />
         </div>
       </div>

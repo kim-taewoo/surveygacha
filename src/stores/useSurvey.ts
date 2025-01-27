@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
+import { DEFAULT_MINIMUM_QUESTION_COUNT } from "@/features/gen/consts";
 import { GeneratedSurvey, GenerateSurveyParams } from "@/features/gen/types";
 
 export type SurveyState = GeneratedSurvey & {
@@ -8,6 +9,7 @@ export type SurveyState = GeneratedSurvey & {
   genInputs: GenerateSurveyParams & {
     errors: Partial<Record<keyof SurveyState["genInputs"], string>>;
   };
+  isLoading: boolean;
 };
 
 const DEFAULT_SURVEY_STATE: SurveyState = {
@@ -17,7 +19,7 @@ const DEFAULT_SURVEY_STATE: SurveyState = {
   genRawResponse: null,
   genInputs: {
     subject: "",
-    question_counts: 5,
+    question_counts: DEFAULT_MINIMUM_QUESTION_COUNT,
     question_types: {
       single_choice: true,
       multiple_choice: true,
@@ -26,9 +28,11 @@ const DEFAULT_SURVEY_STATE: SurveyState = {
     },
     errors: {},
   },
+  isLoading: false,
 };
 
 type SurveyActions = {
+  setIsLoading: (isLoading: boolean) => void;
   setGenInput: <K extends keyof SurveyState["genInputs"]>(key: K, value: SurveyState["genInputs"][K]) => void;
   setGenInputError: <K extends keyof SurveyState["genInputs"]>(key: K, value: string) => void;
   clearGenInputErrors: () => void;
@@ -40,6 +44,11 @@ type SurveyStore = SurveyState & SurveyActions;
 export const useSurvey = create<SurveyStore>()(
   immer(set => ({
     ...DEFAULT_SURVEY_STATE,
+    setIsLoading: (isLoading) => {
+      set((state) => {
+        state.isLoading = isLoading;
+      });
+    },
     setRawResponse: (response) => {
       // TODO: proper error handling
       if (typeof response === "string") return;

@@ -1,29 +1,26 @@
 "use client";
 
-import { useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 import { TextareaWithButton } from "@/components/ui/originui/TextareaWithButton";
 import { useSurvey } from "@/stores/useSurvey";
 
-import { getResponseFromAI } from "../actions";
+import { generateSurvey } from "../actions";
 
-interface Props {
-
-}
-
-export const SubjectInput = ({}: Props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const { genInputs, setGenInput, setRawResponse } = useSurvey(useShallow(state => ({
+export const SubjectInput = () => {
+  const { genInputs, setGenInput, setRawResponse, setIsLoading } = useSurvey(useShallow(state => ({
     genInputs: state.genInputs,
     setGenInput: state.setGenInput,
     setRawResponse: state.setRawResponse,
+    genRawResponse: state.genRawResponse,
+    setIsLoading: state.setIsLoading,
   })));
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const response = await getResponseFromAI(genInputs);
+    const response = await generateSurvey(genInputs);
     if (!response) return;
+    console.log(response, "답변");
     setRawResponse(response);
     setIsLoading(false);
   };

@@ -3,24 +3,22 @@
 import { SliderWithTicks } from "@/components/ui/originui/SliderWithTicks";
 import { useSurvey } from "@/stores/useSurvey";
 
-interface Props {
+import { DEFAULT_MINIMUM_QUESTION_COUNT } from "../consts";
 
-}
-
-export const QuestionCountsSlider = ({}: Props) => {
-  const questionCount = useSurvey(state => state.genInputs.questionCounts);
+export const QuestionCountsSlider = () => {
+  const questionCount = useSurvey(state => state.genInputs.question_counts);
   const setGenInput = useSurvey(state => state.setGenInput);
   const setGenInputError = useSurvey(state => state.setGenInputError);
-  const errorMessage = useSurvey(state => state.genInputs.errors.questionCounts);
+  const errorMessage = useSurvey(state => state.genInputs.errors.question_counts);
 
   function handleQuestionCountChange(value: number) {
-    if (value < 5) {
-      setGenInput("questionCounts", 5);
-      setGenInputError("questionCounts", "문항 개수는 최소 5개 이상이어야 합니다.");
+    if (value < DEFAULT_MINIMUM_QUESTION_COUNT) {
+      setGenInput("question_counts", DEFAULT_MINIMUM_QUESTION_COUNT);
+      setGenInputError("question_counts", `문항 개수는 최소 ${DEFAULT_MINIMUM_QUESTION_COUNT}개 이상이어야 합니다.`);
       return;
     }
-    setGenInput("questionCounts", value);
-    setGenInputError("questionCounts", "");
+    setGenInput("question_counts", value);
+    setGenInputError("question_counts", "");
   }
 
   return (
@@ -32,8 +30,6 @@ export const QuestionCountsSlider = ({}: Props) => {
         <span className="text-[#2563EB]">Tip.</span>
         <span>
           응답자의 집중력을 고려하여 질문 수를 조절합니다.
-          {" "}
-          <span className="opacity-70">(12~15개 권장)</span>
         </span>
       </div>
       <div>
