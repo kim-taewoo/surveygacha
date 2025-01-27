@@ -32,7 +32,9 @@ const LinkPage = () => {
   }, []);
 
   return (
-    <LinkContainer rewards={rewards} />
+    <div className="mx-auto flex w-full items-center justify-center">
+      <LinkContainer rewards={rewards} />
+    </div>
   );
 };
 
