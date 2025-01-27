@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
 type BreadcrumbHeaderProps = {
@@ -8,9 +8,9 @@ type BreadcrumbHeaderProps = {
 
 export const BreadcrumbHeader = ({ title, link }: BreadcrumbHeaderProps) => {
   return (
-    <div className="flex items-center gap-2 p-4">
+    <div className="fixed top-0 z-10 flex w-full max-w-lg items-center gap-2 bg-[#f4f4f5] p-4 text-xl font-semibold">
       <Link href={link ? link : "/"}>
-        <ArrowLeft />
+        <ChevronLeft />
       </Link>
       <span>{title}</span>
     </div>
