@@ -2,8 +2,8 @@ export type QuestionType = "single_choice" | "multiple_choice" | "likert_scale" 
 
 export type GenerateSurveyParams = {
   subject: string;
-  questionCounts: number;
-  questionTypes: {
+  question_counts: number;
+  question_types: {
     [key in QuestionType]: boolean;
   };
 };
@@ -19,16 +19,12 @@ export type Question = {
 };
 
 export type GeneratedSurvey = {
-  survey_title: string;
+  title: string;
   description: string;
-  target_audience: {
+  target_audience?: {
     primary_audience: string;
     demographics: {
       age_range: string[];
-      education_level?: string[];
-      employment_status?: string[];
-      location?: string[];
-      field_of_study?: string[];
     };
   };
   questions: Question[];

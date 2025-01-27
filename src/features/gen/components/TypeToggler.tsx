@@ -1,8 +1,5 @@
-import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { useSurvey } from "@/stores/useSurvey";
-
-import { ChatTextarea } from "./ChatTextarea";
 
 interface Props {
 
@@ -21,33 +18,33 @@ export const TypeToggler = ({}: Props) => {
         <div className="flex justify-between">
           <span>하나 선택</span>
           <Switch
-            checked={questionTypes.singleChoice}
+            checked={questionTypes.single_choice}
             onCheckedChange={checked =>
-              setGenInput("questionTypes", { ...questionTypes, singleChoice: checked })}
+              setGenInput("questionTypes", { ...questionTypes, single_choice: checked })}
           />
         </div>
         <div className="flex justify-between">
           <span>다중 선택</span>
           <Switch
-            checked={questionTypes.multipleChoice}
+            checked={questionTypes.multiple_choice}
             onCheckedChange={checked =>
-              setGenInput("questionTypes", { ...questionTypes, multipleChoice: checked })}
+              setGenInput("questionTypes", { ...questionTypes, multiple_choice: checked })}
           />
         </div>
         <div className="flex justify-between">
           <span>리커트 척도</span>
           <Switch
-            checked={questionTypes.likertScale}
+            checked={questionTypes.likert_scale}
             onCheckedChange={checked =>
-              setGenInput("questionTypes", { ...questionTypes, likertScale: checked })}
+              setGenInput("questionTypes", { ...questionTypes, likert_scale: checked })}
           />
         </div>
         <div className="flex justify-between">
           <span>주관식</span>
           <Switch
-            checked={questionTypes.openEndedLong}
+            checked={questionTypes.open_ended}
             onCheckedChange={checked =>
-              setGenInput("questionTypes", { ...questionTypes, openEndedLong: checked })}
+              setGenInput("questionTypes", { ...questionTypes, open_ended: checked })}
           />
         </div>
       </div>
