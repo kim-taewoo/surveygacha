@@ -15,6 +15,9 @@ export const QuestionCountsSlider = () => {
     if (value < DEFAULT_MINIMUM_QUESTION_COUNT) {
       setGenInput("question_counts", DEFAULT_MINIMUM_QUESTION_COUNT);
       setGenInputError("question_counts", `문항 개수는 최소 ${DEFAULT_MINIMUM_QUESTION_COUNT}개 이상이어야 합니다.`);
+      setTimeout(() => {
+        setGenInputError("question_counts", undefined);
+      }, 2500);
       return;
     }
     setGenInput("question_counts", value);

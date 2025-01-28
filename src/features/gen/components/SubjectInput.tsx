@@ -8,12 +8,13 @@ import { useSurvey } from "@/stores/useSurvey";
 import { generateSurvey } from "../actions";
 
 export const SubjectInput = () => {
-  const { genInputs, setGenInput, setRawResponse, setIsLoading } = useSurvey(useShallow(state => ({
+  const { genInputs, setGenInput, setRawResponse, setIsLoading, isLoading } = useSurvey(useShallow(state => ({
     genInputs: state.genInputs,
     setGenInput: state.setGenInput,
     setRawResponse: state.setRawResponse,
     genRawResponse: state.genRawResponse,
     setIsLoading: state.setIsLoading,
+    isLoading: state.isLoading,
   })));
 
   const handleSubmit = async () => {

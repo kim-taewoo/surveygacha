@@ -29,6 +29,8 @@ required: boolean;
 options?: string[];//choice
 scale?: string[];
 };
+
+if
 `;
 
 export async function generateSurvey(params: GenerateSurveyParams): Promise<GeneratedSurvey> {
@@ -40,7 +42,7 @@ export async function generateSurvey(params: GenerateSurveyParams): Promise<Gene
   const userPrompt = `Generate a survey about "${params.subject}" with at least ${params.question_counts} questions. Only use these question types: ${enabledQuestionTypes}.
 
 Additional requirements:
-- Use Korean as much as.
+- Use Korean as much as possible.
 - For single_choice and multiple_choice questions, include 3-5 relevant options
 - Each question should have a unique ID starting from 1
 - The title and description should be relevant to the subject

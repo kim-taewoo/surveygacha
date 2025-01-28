@@ -7,7 +7,7 @@ import { GeneratedSurvey, GenerateSurveyParams } from "@/features/gen/types";
 export type SurveyState = GeneratedSurvey & {
   genRawResponse: GeneratedSurvey | null;
   genInputs: GenerateSurveyParams & {
-    errors: Partial<Record<keyof SurveyState["genInputs"], string>>;
+    errors: Partial<Record<keyof SurveyState["genInputs"], string | undefined>>;
   };
   isLoading: boolean;
 };
@@ -34,7 +34,7 @@ const DEFAULT_SURVEY_STATE: SurveyState = {
 type SurveyActions = {
   setIsLoading: (isLoading: boolean) => void;
   setGenInput: <K extends keyof SurveyState["genInputs"]>(key: K, value: SurveyState["genInputs"][K]) => void;
-  setGenInputError: <K extends keyof SurveyState["genInputs"]>(key: K, value: string) => void;
+  setGenInputError: <K extends keyof SurveyState["genInputs"]>(key: K, value: string | undefined) => void;
   clearGenInputErrors: () => void;
   setRawResponse: (response: GeneratedSurvey) => void;
 };
@@ -42,7 +42,7 @@ type SurveyActions = {
 type SurveyStore = SurveyState & SurveyActions;
 
 export const useSurvey = create<SurveyStore>()(
-  immer(set => ({
+  immer((set, get) => ({
     ...DEFAULT_SURVEY_STATE,
     setIsLoading: (isLoading) => {
       set((state) => {

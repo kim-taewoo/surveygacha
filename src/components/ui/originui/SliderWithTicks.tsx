@@ -1,8 +1,5 @@
 "use client";
 
-import { FormEvent, FormEventHandler } from "react";
-
-import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +17,6 @@ export function SliderWithTicks({ value, onChange, maxTicks = 15, tickLabelSkipI
   const ticks = [...Array(maxTicks + 1)].map((_, i) => i);
 
   function handleValueChange(value: number[]) {
-    console.log(value);
     onChange(value[0]);
   }
 

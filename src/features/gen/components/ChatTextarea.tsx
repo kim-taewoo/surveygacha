@@ -40,9 +40,6 @@ export function ChatTextarea({ input, setInput, className, isLoading, handleSubm
 
   const submitForm = () => {
     handleSubmit();
-    setTimeout(() => {
-      setInput("");
-    }, 100);
   };
 
   return (
@@ -52,7 +49,7 @@ export function ChatTextarea({ input, setInput, className, isLoading, handleSubm
       value={input}
       onChange={handleInput}
       className={cn(
-        "min-h-[24px] max-h-[calc(75dvh)] overflow-hidden resize-none rounded-2xl !text-base bg-background pb-10 dark:border-zinc-700",
+        "min-h-[24px] max-h-[calc(75dvh)] pr-6 overflow-hidden resize-none rounded-2xl !text-base pb-10 bg-white focus-visible:ring-primary",
         className,
       )}
       rows={2}
