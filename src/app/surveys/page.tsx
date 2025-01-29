@@ -34,12 +34,12 @@ export default function SurveyPage({ params }: { params: { dynamicId: string } }
   const [survey, setSurvey] = useState<SurveyInfo | null>(null); // 설문 데이터 상태
 
   return (
-    <div className="flex flex-col bg-[#FAFAFA] pb-24">
+    <div className="flex w-full flex-col pb-24">
       {/* 헤더 섹션 */}
       <header className="px-5 pb-[18px] pt-7">
         <div className="flex items-center gap-2">
           <Image
-            src="/assets/images/logo.png"
+            src="/images/logo.png"
             alt="로고"
             width={71.03}
             height={20}
@@ -95,7 +95,7 @@ export default function SurveyPage({ params }: { params: { dynamicId: string } }
       </div>
 
       {/* 말풍선 */}
-      <div className="fixed bottom-[88px] left-0 w-full px-5">
+      <div className="fixed bottom-[88px]  px-5">
         <div className="relative inline-block">
           <div className="flex items-center gap-2 rounded-md bg-[#262626] px-3 py-2 text-[12px] text-white">
             현재
@@ -112,8 +112,8 @@ export default function SurveyPage({ params }: { params: { dynamicId: string } }
       </div>
 
       {/* 시작하기 버튼 */}
-      <div className="fixed bottom-0 left-0 mb-2 w-full p-5">
-        <Link href={`/surveys/${params.dynamicId}/survey`} className="block">
+      <div className="fixed bottom-0 mb-2 w-full max-w-lg p-5">
+        <Link href={`/surveys/${params.dynamicId}/survey`}>
           <Button className="h-12 w-full gap-2 bg-[#0056EB] px-3 py-2 text-lg font-medium text-white hover:bg-blue-700">
             시작하기
           </Button>
