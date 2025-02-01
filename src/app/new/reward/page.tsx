@@ -7,7 +7,7 @@ const RewardPage = () => {
   return (
     <>
       <BreadcrumbHeader title="가챠 상품 등록" />
-      <div className="mx-auto flex w-full items-center justify-center">
+      <div className="flex w-full items-center justify-center">
         <RewardContainer />
       </div>
     </>
