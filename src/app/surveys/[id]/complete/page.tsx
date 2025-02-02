@@ -2,14 +2,9 @@
 
 import { Check } from "lucide-react";
 import { useState, useEffect } from "react";
-// import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"; // Supabase 클라이언트 가져오기
 
 export default function CompletePage() {
   const [showReward, setShowReward] = useState(false);
-
-  // Supabase 데이터 상태
-  const [rewardText, setRewardText] = useState<string | null>(null); // 보상 텍스트
-  const [rewardDescription, setRewardDescription] = useState<string | null>(null); // 보상 설명
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -36,13 +31,11 @@ export default function CompletePage() {
     <div className="flex w-full flex-col bg-white px-5">
       <div className="mt-[77px] flex flex-col items-center gap-4">
         <div className="flex flex-col items-center">
-          {/* Supabase에서 보상 텍스트를 가져오거나 기본값 표시 */}
-          <h1 className="text-2xl font-semibold leading-9">{rewardText || "가차를 통해"}</h1>
-          <h1 className="text-2xl font-semibold leading-9">{rewardText || "보상을 얻어보세요"}</h1>
+          <h1 className="text-2xl font-semibold leading-9">가차를 통해</h1>
+          <h1 className="text-2xl font-semibold leading-9">보상을 얻어보세요</h1>
         </div>
         <p className="text-base text-[#6B7280]">
-          {/* Supabase에서 보상 설명을 가져오거나 기본값 표시 */}
-          {rewardDescription || "가차를 통해 설문조사에 대한 보상을 확인해요"}
+          가차를 통해 설문조사에 대한 보상을 확인해요
         </p>
       </div>
 
