@@ -1,8 +1,17 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-import { DEFAULT_MINIMUM_QUESTION_COUNT } from "@/features/gen/consts";
-import { GeneratedSurvey, GenerateSurveyParams } from "@/features/gen/types";
+import { DEFAULT_MINIMUM_QUESTION_COUNT } from "@/features/survey/gen/consts";
+import { GeneratedSurvey, GenerateSurveyParams } from "@/features/survey/gen/types";
+import { Question } from "@/features/survey/types";
+
+const SAMPLE_QUESTION: Question = {
+  id: "SAMPLE_ID",
+  type: "likert_scale",
+  text: "예시) 저희 서비스에 얼마나 만족하나요?",
+  options: ["매우 불만족", "불만족", "보통", "만족", "매우 만족"],
+  isRequired: true,
+};
 
 export type SurveyState = GeneratedSurvey & {
   genRawResponse: GeneratedSurvey | null;
@@ -10,12 +19,15 @@ export type SurveyState = GeneratedSurvey & {
     errors: Partial<Record<keyof SurveyState["genInputs"], string | undefined>>;
   };
   isLoading: boolean;
+  startDate?: string;
+  endDate?: string;
+  isPublic?: boolean;
 };
 
 const DEFAULT_SURVEY_STATE: SurveyState = {
   title: "",
   description: "",
-  questions: [],
+  questions: [SAMPLE_QUESTION],
   genRawResponse: null,
   genInputs: {
     subject: "",
@@ -34,6 +46,7 @@ const DEFAULT_SURVEY_STATE: SurveyState = {
 type SurveyActions = {
   setIsLoading: (isLoading: boolean) => void;
   setGenInput: <K extends keyof SurveyState["genInputs"]>(key: K, value: SurveyState["genInputs"][K]) => void;
+  setSurveyFieldState: <K extends keyof SurveyState>(key: K, value: SurveyState[K]) => void;
   setGenInputError: <K extends keyof SurveyState["genInputs"]>(key: K, value: string | undefined) => void;
   clearGenInputErrors: () => void;
   setRawResponse: (response: GeneratedSurvey) => void;
@@ -71,6 +84,11 @@ export const useSurvey = create<SurveyStore>()(
     clearGenInputErrors: () => {
       set((state) => {
         state.genInputs.errors = {};
+      });
+    },
+    setSurveyFieldState: (key, value) => {
+      set((state) => {
+        (state as SurveyState)[key] = value;
       });
     },
   })),

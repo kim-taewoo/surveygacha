@@ -19,7 +19,7 @@ export default function HomePage() {
         className="absolute left-0 top-0 h-[55vh] w-full bg-[#D1E2FF]"
       />
       <section
-        className="absolute left-0 top-[55vh] h-[45vh] w-full bg-[#F4F4F5]"
+        className="absolute left-0 top-[55vh] h-[45vh] w-full bg-background"
       />
       {/* content */}
       <div className="relative h-full overflow-auto pb-40">

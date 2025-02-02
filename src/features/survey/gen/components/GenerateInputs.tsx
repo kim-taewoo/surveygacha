@@ -11,7 +11,7 @@ import { QuestionCountsSlider } from "./QuestionCountsSlider";
 import { SubjectInput } from "./SubjectInput";
 import { TypeToggler } from "./TypeToggler";
 
-const LoadingWithLottie = dynamic(() => import("../../../components/LoadingWithLottie").then(mod => mod.LoadingWithLottie), {
+const LoadingWithLottie = dynamic(() => import("../../../../components/LoadingWithLottie").then(mod => mod.LoadingWithLottie), {
   loading: () => <p>Loading...</p>,
   ssr: false,
 });
@@ -22,9 +22,9 @@ export const GenerateInputs = () => {
   return (
     <>
       <div className="flex flex-col gap-5">
-        <LoadingWithLottie />
+        {/* <LoadingWithLottie /> */}
         <Button disabled={true || isLoading} type="submit" className="h-12 w-full text-base" size="lg">
-          {true
+          {false
             ? (
               <span className="flex items-center gap-2">
                 <LoaderCircle className="animate-spin" />
@@ -34,7 +34,7 @@ export const GenerateInputs = () => {
             : "생성하기"}
         </Button>
 
-        {false && (
+        {true && (
 
           <div className="flex flex-1 flex-col gap-5">
             <SubjectInput />

@@ -49,7 +49,7 @@ export function ChatTextarea({ input, setInput, className, isLoading, handleSubm
       value={input}
       onChange={handleInput}
       className={cn(
-        "min-h-[24px] max-h-[calc(75dvh)] pr-6 overflow-hidden resize-none rounded-2xl !text-base pb-10 bg-white focus-visible:ring-primary",
+        "min-h-[24px] max-h-[calc(75dvh)] pr-6 overflow-hidden resize-none rounded-lg !text-base pb-10 bg-white focus-visible:ring-primary",
         className,
       )}
       rows={2}

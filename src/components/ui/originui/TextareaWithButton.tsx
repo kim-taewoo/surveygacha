@@ -3,7 +3,7 @@
 import { ArrowRight } from "lucide-react";
 
 import { LoadingCircle } from "@/components/LoadingCircle";
-import { ChatTextarea } from "@/features/gen/components/ChatTextarea";
+import { ChatTextarea } from "@/features/survey/gen/components/ChatTextarea";
 
 interface Props extends React.ComponentProps<"textarea"> {
   isLoading: boolean;

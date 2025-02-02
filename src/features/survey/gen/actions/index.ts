@@ -8,6 +8,7 @@ const openai = new OpenAI({
   apiKey: process.env.DEEPSEEK_API_KEY,
 });
 
+// TODO: 유저가 설문과 관련없는 질문을 입력했을 때의 처리
 const systemPrompt = `You are a survey generation assistant. Generate a survey in JSON format that matches the following TypeScript type:
 
 type GeneratedSurvey = {
@@ -25,12 +26,9 @@ type Question = {
 id: number;
 type: "single_choice" | "multiple_choice" | "likert_scale" | "open_ended";
 text: string;
-required: boolean;
-options?: string[];//choice
-scale?: string[];
+isRequired: boolean;
+options?: string[]; //choices for single_choice, multiple_choice, likert_scale
 };
-
-if
 `;
 
 export async function generateSurvey(params: GenerateSurveyParams): Promise<GeneratedSurvey> {
@@ -44,7 +42,7 @@ export async function generateSurvey(params: GenerateSurveyParams): Promise<Gene
 Additional requirements:
 - Use Korean as much as possible.
 - For single_choice and multiple_choice questions, include 3-5 relevant options
-- Each question should have a unique ID starting from 1
+- Each question should have a unique ID
 - The title and description should be relevant to the subject
 - Include appropriate target audience information`;
 

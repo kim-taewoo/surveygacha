@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${suit.variable} ${aggroSubset.variable} font-suit antialiased`}
+        className={`${suit.variable} ${aggroSubset.variable} bg-[#F4F4F5] font-suit antialiased`}
       >
         <Toaster />
         <DefaultLayout>
