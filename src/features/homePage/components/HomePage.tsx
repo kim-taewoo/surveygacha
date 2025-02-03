@@ -1,15 +1,15 @@
 import Image from "next/image";
 
 import Logo from "@/components/ui/logo";
-import BottomButtonGroup from "@/features/homePage/bottomBottomGroup/bottomBottomGroup";
+import BottomButtonGroup from "@/features/homePage/components/BottomButtonGroup";
+import MainButtonGroup from "@/features/homePage/components/MainButtonGroup";
+import Title from "@/features/homePage/components/Title";
 import {
   HOME_PAGE_BOTTOM_BUTTON_GROUP,
   HOME_PAGE_GACHA_IMAGE,
   HOME_PAGE_MAIN_BUTTON_GROUP,
   HOME_PAGE_TITLE,
 } from "@/features/homePage/constant";
-import MainButtonGroup from "@/features/homePage/mainButtonGroup/mainButtonGroup";
-import Title from "@/features/homePage/title/title";
 
 export default function HomePage() {
   return (
@@ -19,7 +19,7 @@ export default function HomePage() {
         className="absolute left-0 top-0 h-[55vh] w-full bg-[#D1E2FF]"
       />
       <section
-        className="absolute left-0 top-[55vh] h-[45vh] w-full bg-[#F4F4F5]"
+        className="absolute left-0 top-[55vh] h-[45vh] w-full bg-background"
       />
       {/* content */}
       <div className="relative h-full overflow-auto pb-40">

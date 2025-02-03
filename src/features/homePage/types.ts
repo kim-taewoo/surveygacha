@@ -4,6 +4,7 @@ export interface IHomePageMainButtonGroup {
   title: string;
   description: string;
   arrowColor: string;
+  href: string;
 }
 
 export type IHomePageBottomButtonGroup = Pick<IHomePageMainButtonGroup, "id" | "icon"> & {

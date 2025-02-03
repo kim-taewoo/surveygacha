@@ -3,11 +3,11 @@
 import { useRouter } from "next/navigation";
 import { useState, useCallback, startTransition } from "react";
 
-import { MultipleChoiceQuestion } from "@/features/surveys/MultipleChoiceQuestion";
-import { MultipleSelectQuestion } from "@/features/surveys/MultipleSelectQuestion";
-import { ProgressBar } from "@/features/surveys/ProgressBar";
-import { QuestionHeader } from "@/features/surveys/QuestionHeader";
-import { TextQuestion } from "@/features/surveys/TextQuestion";
+import { MultipleChoiceQuestion } from "@/features/survey/MultipleChoiceQuestion";
+import { MultipleSelectQuestion } from "@/features/survey/MultipleSelectQuestion";
+import { ProgressBar } from "@/features/survey/ProgressBar";
+import { QuestionHeader } from "@/features/survey/QuestionHeader";
+import { TextQuestion } from "@/features/survey/TextQuestion";
 
 // 질문 타입 정의
 interface Question {
