@@ -20,6 +20,7 @@ export const TextareaWithButton = ({ input, setInput, isLoading, onSubmit, ...pr
         setInput={setInput}
         isLoading={isLoading}
         handleSubmit={onSubmit}
+        className="pr-8"
         {...props}
       />
       <button
