@@ -19,7 +19,7 @@ export const HOME_PAGE_MAIN_BUTTON_GROUP = [
     title: "설문조사 수동 생성",
     description: "설문조사 수동 생성",
     arrowColor: "#6B7280",
-    href: "/new",
+    href: "/edit",
   },
 ];
 

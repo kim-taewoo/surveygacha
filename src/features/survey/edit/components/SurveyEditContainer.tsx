@@ -3,6 +3,7 @@
 import { generateId } from "ai";
 import { Plus } from "lucide-react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import { useShallow } from "zustand/react/shallow";
 
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,7 @@ const SurveyQuestions = dynamic(() => import("./SurveyQuestions").then(mod => mo
 });
 
 export function SurveyEditContainer() {
+  const router = useRouter();
   const {
     title,
     description,
@@ -30,7 +32,7 @@ export function SurveyEditContainer() {
 
   return (
     <main className="flex flex-col gap-5 px-5 pb-16">
-      <Button className="h-12 w-full text-base" size="lg">
+      <Button onClick={() => router.push("/rewards")} className="h-12 w-full text-base" size="lg">
         작성 완료
       </Button>
       <SurveyTitleAndDescription title={title} description={description} onChange={setSurveyFieldState} />
