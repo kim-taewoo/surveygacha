@@ -9,7 +9,6 @@ const RewardPage = () => {
       <BackArrowHeader title="가챠 상품 등록" />
       <RewardContainer />
     </div>
-
   );
 };
 export default RewardPage;

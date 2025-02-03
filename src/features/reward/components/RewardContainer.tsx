@@ -84,7 +84,7 @@ export const RewardContainer = () => {
 
     setSavedRewards(rewards);
     setRewards([{ name: "", probability: "", image: null }]);
-    router.push("/new/link");
+    router.push("/link");
   };
 
   const isDisabled = rewards.some(
