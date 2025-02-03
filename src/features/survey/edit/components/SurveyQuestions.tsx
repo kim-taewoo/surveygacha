@@ -39,6 +39,11 @@ export function SurveyQuestions({ questions, onQuestionsChange }: Props) {
     onQuestionsChange(newQuestions);
   };
 
+  const updateQuestion = (question: Question) => {
+    const newQuestions = questions.map(q => (q.id === question.id ? question : q));
+    onQuestionsChange(newQuestions);
+  };
+
   return (
     <>
       {questions.map((question, index) => (
@@ -55,7 +60,7 @@ export function SurveyQuestions({ questions, onQuestionsChange }: Props) {
               <X size={20} />
             </Button>
           </div>
-          <QuestionEditor initialQuestion={question} />
+          <QuestionEditor question={question} onChange={updateQuestion} />
         </div>
       ))}
     </>
