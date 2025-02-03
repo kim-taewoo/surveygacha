@@ -1,6 +1,5 @@
 "use client";
 
-// import { createClientComponentClient } from "@supabase"; // Supabase 클라이언트 생성
 import { Clock, Calendar, Gift, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
