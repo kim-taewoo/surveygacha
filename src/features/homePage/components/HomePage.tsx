@@ -13,13 +13,13 @@ import {
 
 export default function HomePage() {
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative h-screen w-full overflow-hidden ">
       {/* background */}
       <section
         className="absolute left-0 top-0 h-[55vh] w-full bg-[#D1E2FF]"
       />
       <section
-        className="absolute left-0 top-[55vh] h-[45vh] w-full bg-background"
+        className="absolute left-0 top-[55vh] h-[45vh] w-full bg-[#F4F4F5]"
       />
       {/* content */}
       <div className="relative h-full overflow-auto pb-40">
@@ -27,7 +27,7 @@ export default function HomePage() {
           <Logo width={71} height={20} />
         </div>
         <Title title={HOME_PAGE_TITLE} />
-        <div className="mr-10 flex justify-end">
+        <div className="mr-10 mt-8 flex justify-end">
           <Image
             src={HOME_PAGE_GACHA_IMAGE}
             alt="logo"

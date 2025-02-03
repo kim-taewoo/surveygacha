@@ -1,4 +1,4 @@
-import { ArrowRight, Upload } from "lucide-react";
+import { ArrowRight, Download, Upload } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -6,9 +6,8 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Reward } from "@/types/supabase";
 
-export const LinkContainer = ({ rewards }: { rewards: Reward[] }) => {
+export const LinkContainer = () => {
   const router = useRouter();
 
   const [linkId, setLinkId] = useState<string | null>(null);
@@ -44,7 +43,7 @@ export const LinkContainer = ({ rewards }: { rewards: Reward[] }) => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-between gap-7 p-6">
+    <div className="relative flex h-screen flex-col items-center justify-center gap-7 p-6">
       <div className="flex flex-col items-center justify-center gap-7">
         <Image
           src="/icon/fileIcon.svg"
@@ -67,7 +66,7 @@ export const LinkContainer = ({ rewards }: { rewards: Reward[] }) => {
             onClick={onCopyLinkClick}
             className={cn("w-full mb-2")}
           >
-            <Upload />
+            <Download />
             {" "}
             링크 복사하기
           </Button>
@@ -83,12 +82,15 @@ export const LinkContainer = ({ rewards }: { rewards: Reward[] }) => {
         </div>
       </div>
 
-      <Link
-        href="/"
-        className="mt-auto text-sm text-primary"
-      >
-        홈으로 돌아가기
-      </Link>
+      <div className="absolute bottom-16">
+
+        <Link
+          href="/"
+          className="mt-auto text-primary"
+        >
+          홈으로 돌아가기
+        </Link>
+      </div>
     </div>
   );
 };

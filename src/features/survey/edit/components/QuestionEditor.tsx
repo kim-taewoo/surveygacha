@@ -18,7 +18,6 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Trash2, GripVertical, CircleFadingPlus } from "lucide-react";
-import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -38,6 +37,7 @@ type SortableOptionProps = {
   canRemove: boolean;
 };
 
+// TODO: onOptionChange 를 디바운싱으로 동기화해야지 제대로 입력가능할 듯 하다. 아니면 다른 방법 생각
 const SortableOption = ({ id, option, index, onOptionChange, onOptionRemove, canRemove }: SortableOptionProps) => {
   const {
     attributes,
@@ -84,13 +84,15 @@ const SortableOption = ({ id, option, index, onOptionChange, onOptionRemove, can
 };
 
 interface Props {
-  initialQuestion: Question;
-  // onChange: (question: Question) => void;
+  question: Question;
+  onChange: (question: Question) => void;
 }
 
-const QuestionEditor = ({ initialQuestion, onChange }: Props) => {
-  const [question, setQuestion] = useState({ ...initialQuestion, options: [...initialQuestion.options || []] });
-  // Configure sensors with custom touch handling
+const QuestionEditor = ({ question, onChange }: Props) => {
+  const setQuestion = (newQuestion: Question) => {
+    onChange(newQuestion);
+  };
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -104,45 +106,48 @@ const QuestionEditor = ({ initialQuestion, onChange }: Props) => {
   );
 
   const handleDragEnd = (event: DragEndEvent) => {
+    if (!question.options) return;
     const { active, over } = event;
-
     if (active.id !== over?.id) {
       const oldIndex = question.options.findIndex(x => `option-${x}` === active.id);
       const newIndex = question.options.findIndex(x => `option-${x}` === over?.id);
 
-      setQuestion(prev => ({
-        ...prev,
-        options: arrayMove(prev.options, oldIndex, newIndex),
-      }));
+      setQuestion({
+        ...question,
+        options: arrayMove(question.options, oldIndex, newIndex),
+      });
     }
   };
 
   const handleTypeChange = (type: QuestionType) => {
-    setQuestion(prev => ({
-      ...prev,
+    setQuestion({
+      ...question,
       type,
       options: type === "likert_scale"
         ? ["매우 불만족", "불만족", "보통", "만족", "매우 만족"]
         : [],
-    }));
+    });
   };
 
   const handleOptionChange = (index: number, value: string) => {
+    if (!question.options) return;
     const newOptions = [...question.options];
     newOptions[index] = value;
-    setQuestion(prev => ({ ...prev, options: newOptions }));
+    setQuestion({ ...question, options: newOptions });
   };
 
   const addOption = () => {
-    setQuestion(prev => ({
-      ...prev,
-      options: [...prev.options, ""],
-    }));
+    if (!question.options) return;
+    setQuestion({
+      ...question,
+      options: [...question.options, ""],
+    });
   };
 
   const removeOption = (index: number) => {
+    if (!question.options) return;
     const newOptions = question.options.filter((_, i) => i !== index);
-    setQuestion(prev => ({ ...prev, options: newOptions }));
+    setQuestion({ ...question, options: newOptions });
   };
 
   return (
@@ -176,7 +181,7 @@ const QuestionEditor = ({ initialQuestion, onChange }: Props) => {
         <label className="block text-sm font-medium">질문</label>
         <Textarea
           value={question.text}
-          onChange={e => setQuestion(prev => ({ ...prev, text: e.target.value }))}
+          onChange={e => setQuestion({ ...question, text: e.target.value })}
           placeholder="질문을 입력하세요"
           className="flex-1"
           rows={3}
@@ -185,7 +190,7 @@ const QuestionEditor = ({ initialQuestion, onChange }: Props) => {
 
       {/* TODO: 이미지 추가 기능 넣기 */}
 
-      {question.type !== "open_ended" && (
+      {question.type !== "open_ended" && question.options && (
 
         <div className="space-y-4">
           <label className="block text-sm font-medium">답변 옵션</label>
@@ -208,7 +213,7 @@ const QuestionEditor = ({ initialQuestion, onChange }: Props) => {
                     index={index}
                     onOptionChange={handleOptionChange}
                     onOptionRemove={removeOption}
-                    canRemove={question.type !== "likert_scale" && question.options.length > 1}
+                    canRemove={question.type !== "likert_scale" && (question?.options ?? []).length > 1}
                   />
                 ))}
               </div>
@@ -232,9 +237,7 @@ const QuestionEditor = ({ initialQuestion, onChange }: Props) => {
         <Checkbox
           id={`${question.id}_isRequired`}
           checked={question.isRequired}
-          onCheckedChange={checked => setQuestion(prev => (
-            { ...prev, isRequired: !!checked }
-          ))}
+          onCheckedChange={checked => setQuestion({ ...question, isRequired: !!checked })}
         />
         <label htmlFor={`${question.id}_isRequired`} className="text-sm">필수 답변</label>
       </div>

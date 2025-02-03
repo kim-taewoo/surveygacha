@@ -95,19 +95,19 @@ export const RewardContainer = () => {
   );
 
   return (
-    <div className="size-full overflow-y-auto p-6 pt-[70px]">
-      <form onSubmit={onSubmit}>
+    <main className="flex flex-col gap-5 px-5 pb-16">
+      <form onSubmit={onSubmit} className="flex flex-col gap-5">
         <Button
           type="submit"
-          className="mb-4 w-full"
-          variant={savedRewards.length > 0 ? "default" : "outline"}
+          className="h-12 w-full text-base"
+          size="lg"
           disabled={isDisabled}
         >
           {savedRewards.length > 0 ? "발행 완료" : "발행하기"}
         </Button>
 
         {rewards.map((reward, index) => (
-          <Card key={index} className="mb-4 shadow-lg">
+          <Card key={index}>
             <CardContent className="space-y-4 p-6">
               {/* 게시글 삭제 */}
               {
@@ -172,20 +172,19 @@ export const RewardContainer = () => {
                 </div>
 
                 {reward.image && (
-                  <div className="relative h-[200px] w-[375px] overflow-auto rounded bg-gray-100">
+                  <div className="relative h-[200px] w-full overflow-auto rounded bg-gray-100">
                     {/* 이미지 삭제 */}
                     <div
                       onClick={() => updateReward(index, "image", null)}
                       className="absolute right-2 top-2 cursor-pointer rounded-full bg-black p-0.5"
-
                     >
                       <X size={12} color="white" />
                     </div>
                     <Image
                       src={URL.createObjectURL(reward.image)}
                       alt="미리보기"
-                      width={375}
-                      height={200}
+                      layout="fill"
+                      objectFit="contain"
                       className="object-contain"
                     />
                   </div>
@@ -196,15 +195,19 @@ export const RewardContainer = () => {
         ))}
       </form>
 
-      <div className="flex w-full justify-center">
-        <Button type="button" onClick={addReward} variant="outline" className="text-[#0056EB]">
-          상품 추가하기
+      <div className="flex w-full flex-col justify-center">
+        <Button
+          className="h-12 border-primary text-base text-primary"
+          variant="outline"
+          size="lg"
+          onClick={addReward}
+        >
+          <Plus size={20} />
           {" "}
-          <Plus />
+
+          상품 추가하기
         </Button>
-
       </div>
-
-    </div>
+    </main>
   );
 };
