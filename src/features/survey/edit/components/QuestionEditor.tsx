@@ -7,6 +7,7 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  DragEndEvent,
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -16,16 +17,28 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Trash2, Plus, GripVertical } from "lucide-react";
+import { Trash2, GripVertical, CircleFadingPlus } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Textarea } from "@/components/ui/textarea";
 
-import { Question } from "../../types";
+import { Question, QuestionType } from "../../types";
 
-const SortableOption = ({ id, option, index, onOptionChange, onOptionRemove, canRemove }) => {
+type SortableOptionProps = {
+  id: string;
+  option: string;
+  index: number;
+  onOptionChange: (index: number, value: string) => void;
+  onOptionRemove: (index: number) => void;
+  canRemove: boolean;
+};
+
+const SortableOption = ({ id, option, index, onOptionChange, onOptionRemove, canRemove }: SortableOptionProps) => {
   const {
     attributes,
     listeners,
@@ -90,12 +103,12 @@ const QuestionEditor = ({ initialQuestion, onChange }: Props) => {
     }),
   );
 
-  const handleDragEnd = (event) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
     if (active.id !== over?.id) {
       const oldIndex = question.options.findIndex(x => `option-${x}` === active.id);
-      const newIndex = question.options.findIndex(x => `option-${x}` === over.id);
+      const newIndex = question.options.findIndex(x => `option-${x}` === over?.id);
 
       setQuestion(prev => ({
         ...prev,
@@ -104,7 +117,7 @@ const QuestionEditor = ({ initialQuestion, onChange }: Props) => {
     }
   };
 
-  const handleTypeChange = (type) => {
+  const handleTypeChange = (type: QuestionType) => {
     setQuestion(prev => ({
       ...prev,
       type,
@@ -114,7 +127,7 @@ const QuestionEditor = ({ initialQuestion, onChange }: Props) => {
     }));
   };
 
-  const handleOptionChange = (index, value) => {
+  const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...question.options];
     newOptions[index] = value;
     setQuestion(prev => ({ ...prev, options: newOptions }));
@@ -127,98 +140,92 @@ const QuestionEditor = ({ initialQuestion, onChange }: Props) => {
     }));
   };
 
-  const removeOption = (index) => {
+  const removeOption = (index: number) => {
     const newOptions = question.options.filter((_, i) => i !== index);
     setQuestion(prev => ({ ...prev, options: newOptions }));
   };
 
   return (
-    <div className="mx-auto w-full max-w-2xl space-y-6 rounded-lg bg-white p-5 shadow">
+    <>
       {/* Question Type Selection */}
       <div className="space-y-2">
         <label className="block text-sm font-medium">질문 유형</label>
-        <div className="flex gap-4">
-          <label className="flex items-center">
-            <input
-              type="radio"
-              checked={question.type === "single_choice"}
-              onChange={() => handleTypeChange("single_choice")}
-              className="mr-2"
-            />
-            <span>단일 선택</span>
-          </label>
-          <label className="flex items-center">
-            <input
-              type="radio"
-              checked={question.type === "multiple_choice"}
-              onChange={() => handleTypeChange("multiple_choice")}
-              className="mr-2"
-            />
-            <span>복수 선택</span>
-          </label>
-          <label className="flex items-center">
-            <input
-              type="radio"
-              checked={question.type === "likert_scale"}
-              onChange={() => handleTypeChange("likert_scale")}
-              className="mr-2"
-            />
-            <span>리커트 척도</span>
-          </label>
-        </div>
+        {/* TODO: 유저가 작성한 옵션이 삭제되는 변경일시 경고하는 기능 추가 */}
+        <RadioGroup value={question.type} onValueChange={handleTypeChange} className="flex flex-wrap gap-3">
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="single_choice" id={`${question.id}_single_choice`} />
+            <Label className="text-base" htmlFor={`${question.id}_single_choice`}>단일 선택</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="multiple_choice" id={`${question.id}_multiple_choice`} />
+            <Label className="text-base" htmlFor={`${question.id}_multiple_choice`}>복수 선택</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="likert_scale" id={`${question.id}_likert_scale`} />
+            <Label className="text-base" htmlFor={`${question.id}_likert_scale`}>리커트 척도</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="open_ended" id={`${question.id}_open_ended`} />
+            <Label className="text-base" htmlFor={`${question.id}_open_ended`}>주관식</Label>
+          </div>
+        </RadioGroup>
       </div>
 
       {/* Question Title */}
       <div className="space-y-2">
         <label className="block text-sm font-medium">질문</label>
-        <Input
-          type="text"
+        <Textarea
           value={question.text}
           onChange={e => setQuestion(prev => ({ ...prev, text: e.target.value }))}
           placeholder="질문을 입력하세요"
           className="flex-1"
+          rows={3}
         />
       </div>
 
-      {/* Options */}
-      <div className="space-y-4">
-        <label className="block text-sm font-medium">답변 옵션</label>
+      {/* TODO: 이미지 추가 기능 넣기 */}
 
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext
-            items={question.options.map(option => `option-${option}`)}
-            strategy={verticalListSortingStrategy}
-          >
-            <div className="space-y-2">
-              {question.options.map((option, index) => (
-                <SortableOption
-                  key={`option-${option}`}
-                  id={`option-${option}`}
-                  option={option}
-                  index={index}
-                  onOptionChange={handleOptionChange}
-                  onOptionRemove={removeOption}
-                  canRemove={question.type !== "likert_scale" && question.options.length > 1}
-                />
-              ))}
-            </div>
-          </SortableContext>
-        </DndContext>
+      {question.type !== "open_ended" && (
 
-        {question.type !== "likert_scale" && (
-          <button
-            onClick={addOption}
-            className="flex items-center gap-2 text-blue-500 hover:text-blue-700"
+        <div className="space-y-4">
+          <label className="block text-sm font-medium">답변 옵션</label>
+
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
           >
-            <Plus size={20} />
-            <span>옵션 추가</span>
-          </button>
-        )}
-      </div>
+            <SortableContext
+              items={question.options.map(option => `option-${option}`)}
+              strategy={verticalListSortingStrategy}
+            >
+              <div className="space-y-2">
+                {question.options.map((option, index) => (
+                  <SortableOption
+                    key={`option-${option}`}
+                    id={`option-${option}`}
+                    option={option}
+                    index={index}
+                    onOptionChange={handleOptionChange}
+                    onOptionRemove={removeOption}
+                    canRemove={question.type !== "likert_scale" && question.options.length > 1}
+                  />
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
+
+          {question.type !== "likert_scale" && (
+            <button
+              onClick={addOption}
+              className="flex w-full items-center justify-center gap-1 text-center text-base font-semibold text-primary hover:text-blue-700"
+            >
+              <CircleFadingPlus size={18} />
+              <span>옵션 추가</span>
+            </button>
+          )}
+        </div>
+      )}
 
       {/* isRequired */}
       <div className="flex items-center gap-2">
@@ -231,7 +238,7 @@ const QuestionEditor = ({ initialQuestion, onChange }: Props) => {
         />
         <label htmlFor={`${question.id}_isRequired`} className="text-sm">필수 답변</label>
       </div>
-    </div>
+    </>
 
   );
 };

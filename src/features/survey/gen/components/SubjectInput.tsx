@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useShallow } from "zustand/react/shallow";
 
 import { TextareaWithButton } from "@/components/ui/originui/TextareaWithButton";
@@ -8,10 +9,13 @@ import { useSurvey } from "@/stores/useSurvey";
 import { generateSurvey } from "../actions";
 
 export const SubjectInput = () => {
-  const { genInputs, setGenInput, setRawResponse, setIsLoading, isLoading } = useSurvey(useShallow(state => ({
+  const router = useRouter();
+
+  const { genInputs, setGenInput, setRawResponse, setSurveyState, setIsLoading, isLoading } = useSurvey(useShallow(state => ({
     genInputs: state.genInputs,
     setGenInput: state.setGenInput,
     setRawResponse: state.setRawResponse,
+    setSurveyState: state.setSurveyState,
     genRawResponse: state.genRawResponse,
     setIsLoading: state.setIsLoading,
     isLoading: state.isLoading,
@@ -23,7 +27,13 @@ export const SubjectInput = () => {
     if (!response) return;
     console.log(response, "답변");
     setRawResponse(response);
+    setSurveyState({
+      title: response.title,
+      description: response.description,
+      questions: response.questions,
+    });
     setIsLoading(false);
+    router.push("/edit");
   };
 
   const setInput = (value: string) => {

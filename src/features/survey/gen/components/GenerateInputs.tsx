@@ -2,6 +2,7 @@
 
 import { LoaderCircle } from "lucide-react";
 import dynamic from "next/dynamic";
+import { useShallow } from "zustand/react/shallow";
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -17,14 +18,20 @@ const LoadingWithLottie = dynamic(() => import("../../../../components/LoadingWi
 });
 
 export const GenerateInputs = () => {
-  const isLoading = useSurvey(state => state.isLoading);
+  const {
+    isLoading,
+    genInputs,
+  } = useSurvey(useShallow(state => ({
+    isLoading: state.isLoading,
+    genInputs: state.genInputs,
+  })));
 
   return (
     <>
       <div className="flex flex-col gap-5">
         {/* <LoadingWithLottie /> */}
-        <Button disabled={true || isLoading} type="submit" className="h-12 w-full text-base" size="lg">
-          {false
+        <Button disabled={!genInputs.subject || isLoading} type="submit" className="h-12 w-full text-base" size="lg">
+          {isLoading
             ? (
               <span className="flex items-center gap-2">
                 <LoaderCircle className="animate-spin" />
@@ -34,7 +41,7 @@ export const GenerateInputs = () => {
             : "생성하기"}
         </Button>
 
-        {true && (
+        {!isLoading && (
 
           <div className="flex flex-1 flex-col gap-5">
             <SubjectInput />

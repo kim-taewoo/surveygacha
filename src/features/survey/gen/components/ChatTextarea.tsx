@@ -13,9 +13,10 @@ import type {
 interface Props extends React.ComponentProps<"textarea"> {
   input: string;
   setInput: (value: string) => void;
+  initialRows?: number;
   className?: string;
-  isLoading: boolean;
-  handleSubmit: (
+  isLoading?: boolean;
+  handleSubmit?: (
     event?: {
       preventDefault?: () => void;
     },
@@ -23,7 +24,7 @@ interface Props extends React.ComponentProps<"textarea"> {
   ) => void;
 }
 
-export function ChatTextarea({ input, setInput, className, isLoading, handleSubmit, ...props }: Props) {
+export function ChatTextarea({ input, setInput, initialRows = 2, className, isLoading, handleSubmit, ...props }: Props) {
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
   const adjustHeight = () => {
@@ -39,7 +40,7 @@ export function ChatTextarea({ input, setInput, className, isLoading, handleSubm
   };
 
   const submitForm = () => {
-    handleSubmit();
+    handleSubmit?.();
   };
 
   return (
@@ -49,10 +50,10 @@ export function ChatTextarea({ input, setInput, className, isLoading, handleSubm
       value={input}
       onChange={handleInput}
       className={cn(
-        "min-h-[24px] max-h-[calc(75dvh)] pr-6 overflow-hidden resize-none rounded-lg !text-base pb-10 bg-white focus-visible:ring-primary",
+        "min-h-[24px] max-h-[calc(75dvh)] p-3 overflow-hidden resize-none rounded-lg !text-base bg-white focus-visible:ring-primary",
         className,
       )}
-      rows={2}
+      rows={initialRows}
       autoFocus
       onKeyDown={(event) => {
         if (event.key === "Enter" && !event.shiftKey) {

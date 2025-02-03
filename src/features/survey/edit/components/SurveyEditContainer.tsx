@@ -1,13 +1,12 @@
 "use client";
 
+import { generateId } from "ai";
 import { Plus } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useShallow } from "zustand/react/shallow";
 
 import { Button } from "@/components/ui/button";
 import { useSurvey } from "@/stores/useSurvey";
-
-import { Question } from "../../types";
 
 import { SurveyTitleAndDescription } from "./SurveyTitleAndDescription";
 
@@ -16,11 +15,7 @@ const SurveyQuestions = dynamic(() => import("./SurveyQuestions").then(mod => mo
   ssr: false,
 });
 
-interface Props {
-  question: Question;
-}
-
-export function SurveyEditContainer({}: Props) {
+export function SurveyEditContainer() {
   const {
     title,
     description,
@@ -39,17 +34,18 @@ export function SurveyEditContainer({}: Props) {
         작성 완료
       </Button>
       <SurveyTitleAndDescription title={title} description={description} onChange={setSurveyFieldState} />
-      <SurveyQuestions questions={questions} />
+      <SurveyQuestions questions={questions} onQuestionsChange={questions => setSurveyFieldState("questions", questions)} />
       {/* 질문 추가 버튼 */}
       <Button
         className="h-12 border-primary text-base text-primary"
         variant="outline"
         size="lg"
-        onClick={() => setSurveyFieldState(state => ({ questions: [...state.questions, { id: state.questions.length + 1, type: "text", title: "", options: [] }] }))}
+        onClick={() => setSurveyFieldState("questions", [...questions, { id: generateId(), text: "", isRequired: true, type: "single_choice" }])}
       >
-        질문 추가하기
-        {" "}
         <Plus size={20} />
+        {" "}
+
+        질문 추가하기
       </Button>
     </main>
   );
