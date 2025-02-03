@@ -1,13 +1,13 @@
 import Image from "next/image";
 
-import { BreadcrumbHeader } from "@/features/header";
+import { BackArrowHeader } from "@/components/layout/BackArrowHeader";
 import { SurveyCard } from "@/features/surveyMypage/surveyCard";
 
 // 진행한 설문조사 페이지
 const CreatedPage = () => {
   return (
     <>
-      <BreadcrumbHeader title="진행한 설문조사" />
+      <BackArrowHeader title="진행한 설문조사" />
       {
         data && data.length > 0
           ? (

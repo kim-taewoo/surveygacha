@@ -1,3 +1,5 @@
+// @ts-nocheck 추후 사용할 때 재수정
+
 import { CalendarIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";

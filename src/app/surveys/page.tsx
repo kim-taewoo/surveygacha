@@ -29,7 +29,7 @@ const surveyInfo: SurveyInfo = {
   participants: 13,
 };
 
-export default function SurveyPage({ params }: { params: { dynamicId: string } }) {
+export default function SurveyPage() {
   const [survey, setSurvey] = useState<SurveyInfo | null>(null); // 설문 데이터 상태
 
   return (
@@ -112,7 +112,8 @@ export default function SurveyPage({ params }: { params: { dynamicId: string } }
 
       {/* 시작하기 버튼 */}
       <div className="fixed bottom-0 mb-2 w-full max-w-lg p-5">
-        <Link href={`/surveys/${params.dynamicId}/survey`}>
+        {/* TODO: 제대로 수정 */}
+        <Link href="/">
           <Button className="h-12 w-full gap-2 bg-[#0056EB] px-3 py-2 text-lg font-medium text-white hover:bg-blue-700">
             시작하기
           </Button>

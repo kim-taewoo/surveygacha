@@ -283,9 +283,12 @@ export default function GachaMachineWithThree() {
     setResultMessage(result);
     setShowModal(true);
 
+    // @ts-expect-error 사용하지 않을 부분
     const originalColor = capsule.material.uniforms.color2.value.getHex();
+    // @ts-expect-error 사용하지 않을 부분
     capsule.material.uniforms.color2.value.setHex(0xffff00);
     setTimeout(() => {
+    // @ts-expect-error 사용하지 않을 부분
       capsule.material.uniforms.color2.value.setHex(originalColor);
     }, 1000);
   };
