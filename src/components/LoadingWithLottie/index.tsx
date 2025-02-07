@@ -1,8 +1,7 @@
+import animationData from "@/assets/gacha-machine.json";
 import { cn } from "@/lib/utils";
 
 import { LottieContainer } from "../LottieContainer";
-
-import animationData from "./gacha.json";
 
 interface Props {
   className?: string;

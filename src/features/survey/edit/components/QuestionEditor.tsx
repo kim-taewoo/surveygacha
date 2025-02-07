@@ -17,7 +17,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Trash2, GripVertical, CircleFadingPlus } from "lucide-react";
+import { GripVertical, CircleFadingPlus, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -76,7 +76,7 @@ const SortableOption = ({ id, option, index, onOptionChange, onOptionRemove, can
           onClick={() => onOptionRemove(index)}
           className="text-red-500 hover:bg-red-50 hover:text-red-700"
         >
-          <Trash2 className="size-4" />
+          <X className="size-4" />
         </Button>
       )}
     </div>
@@ -184,7 +184,7 @@ const QuestionEditor = ({ question, onChange }: Props) => {
           onChange={e => setQuestion({ ...question, text: e.target.value })}
           placeholder="질문을 입력하세요"
           className="flex-1"
-          rows={3}
+          rows={1}
         />
       </div>
 
