@@ -27,9 +27,9 @@ export type SurveyState = GeneratedSurvey & {
     errors: Partial<Record<keyof SurveyState["genInputs"], string | undefined>>;
   };
   isLoading: boolean;
-  startDate?: string;
-  endDate?: string;
-  isPublic?: boolean;
+  start_date?: string;
+  end_date?: string;
+  is_draft?: boolean;
 };
 
 const DEFAULT_SURVEY_STATE: SurveyState = {

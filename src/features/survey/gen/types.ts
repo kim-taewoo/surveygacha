@@ -8,14 +8,16 @@ export type GenerateSurveyParams = {
   };
 };
 
+export type TargetAudience = {
+  primary_audience?: string;
+  demographics?: {
+    age_range: string[];
+  };
+};
+
 export type GeneratedSurvey = {
   title: string;
   description: string;
-  target_audience?: {
-    primary_audience: string;
-    demographics: {
-      age_range: string[];
-    };
-  };
+  target_audience?: TargetAudience;
   questions: Question[];
 };

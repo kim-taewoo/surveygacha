@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { formatDateToKST } from "@/utils";
 
 type SurveyCardProps = {
   title: string;
@@ -21,15 +22,6 @@ export const SurveyCard = ({
   rewardTitle,
   status,
 }: SurveyCardProps) => {
-  const formatDateToKST = (timestamp: string) => {
-    const date = new Date(timestamp);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
-  };
-
   // 오늘 날짜와 비교하여 설문 종료 여부 판단
   const today = new Date();
   const endDateObj = new Date(endDate);

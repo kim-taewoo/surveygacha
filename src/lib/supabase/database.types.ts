@@ -60,6 +60,7 @@ export type Database = {
           avatar_url: string | null;
           bio: string | null;
           created_at: string | null;
+          email: string;
           id: number;
           user_id: string | null;
           username: string | null;
@@ -68,6 +69,7 @@ export type Database = {
           avatar_url?: string | null;
           bio?: string | null;
           created_at?: string | null;
+          email: string;
           id?: never;
           user_id?: string | null;
           username?: string | null;
@@ -76,6 +78,7 @@ export type Database = {
           avatar_url?: string | null;
           bio?: string | null;
           created_at?: string | null;
+          email?: string;
           id?: never;
           user_id?: string | null;
           username?: string | null;
@@ -155,27 +158,36 @@ export type Database = {
           created_at: string | null;
           creator_id: number | null;
           description: string | null;
+          end_date: string | null;
           id: number;
           is_draft: boolean | null;
-          questions: Json | null;
+          questions: Json;
+          start_date: string | null;
+          target_audience: Json | null;
           title: string;
         };
         Insert: {
           created_at?: string | null;
           creator_id?: number | null;
           description?: string | null;
+          end_date?: string | null;
           id?: never;
           is_draft?: boolean | null;
-          questions?: Json | null;
+          questions: Json;
+          start_date?: string | null;
+          target_audience?: Json | null;
           title: string;
         };
         Update: {
           created_at?: string | null;
           creator_id?: number | null;
           description?: string | null;
+          end_date?: string | null;
           id?: never;
           is_draft?: boolean | null;
-          questions?: Json | null;
+          questions?: Json;
+          start_date?: string | null;
+          target_audience?: Json | null;
           title?: string;
         };
         Relationships: [

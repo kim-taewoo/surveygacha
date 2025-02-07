@@ -1,11 +1,11 @@
 "use client";
 
-import { Clock, Calendar, Gift, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { SurveyMainInfo } from "@/features/survey/survey-info/SurveyMainInfo";
 
 // 설문 데이터 타입 정의
 interface SurveyInfo {
@@ -47,52 +47,7 @@ export default function SurveyPage() {
       </header>
 
       {/* 메인 컨텐츠 */}
-      <div className="flex flex-col items-center gap-8 px-5 pt-6">
-
-        <div className="flex flex-col gap-4">
-          <h1 className="text-lg font-bold text-[#171717]">
-            {surveyInfo.title}
-          </h1>
-          <p className="text-base font-normal text-[#404040]">
-            {surveyInfo.subTitle}
-          </p>
-        </div>
-
-        <div className="w-full space-y-3">
-          <div className="flex items-center gap-3 rounded-md bg-[#F5F5F5] p-4">
-            <User className="text-[#737373]" />
-            <span className="text-[#737373]">설문 대상</span>
-            <span className="ml-auto font-semibold text-[#262626]">
-              {surveyInfo.target}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3 rounded-md bg-[#F5F5F5] p-4">
-            <Clock className="text-[#737373]" />
-            <span className="text-[#737373]">응답 시간</span>
-            <span className="ml-auto font-semibold text-[#262626]">
-              {surveyInfo.duration}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3 rounded-md bg-[#F5F5F5] p-4">
-            <Calendar className="text-[#737373]" />
-            <span className="text-[#737373]">진행 기간</span>
-            <span className="ml-auto font-semibold text-[#262626]">
-              {surveyInfo.period}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3 rounded-md bg-[#F5F5F5] p-4">
-            <Gift className="text-[#737373]" />
-            <span className="text-[#737373]">보상 품목</span>
-            <span className="ml-auto font-semibold text-[#262626]">
-              {surveyInfo.reward}
-            </span>
-          </div>
-        </div>
-      </div>
-
+      <SurveyMainInfo survey={surveyInfo} />
       {/* 말풍선 */}
       <div className="fixed bottom-[88px]  px-5">
         <div className="relative inline-block">
