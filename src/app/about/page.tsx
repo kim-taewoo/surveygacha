@@ -92,7 +92,7 @@ export default function AboutPage() {
                 전국민 금융 이해력 조사
               </div>
             </div>
-            <div className="absolute right-0 top-[55px] z-10 w-[70%] rounded-lg bg-white px-2 py-3 shadow">
+            <div className="absolute right-0 top-[55px] z-10 w-[65%] rounded-lg bg-white px-2 py-3 shadow">
               <Image
                 alt="예시"
                 src="/images/question-example.png"
