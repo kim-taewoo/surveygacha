@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import Logo from "@/components/ui/logo";
+import Logo from "@/assets/logo";
 import BottomButtonGroup from "@/features/homePage/components/BottomButtonGroup";
 import MainButtonGroup from "@/features/homePage/components/MainButtonGroup";
 import Title from "@/features/homePage/components/Title";

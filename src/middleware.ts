@@ -10,6 +10,13 @@ export async function middleware(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const redirect = searchParams.get("redirect");
   const requestedPath = request.nextUrl.pathname;
+
+  if (requestedPath === "/") {
+    if (!sessionUser) {
+      return NextResponse.redirect(new URL("/about", request.url));
+    }
+  }
+
   if (requestedPath === "/login") {
     if (sessionUser) {
       if (!redirect) {

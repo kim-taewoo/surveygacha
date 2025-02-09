@@ -134,7 +134,7 @@ export default function SurveyPage() {
       </div>
 
       {/* 네비게이션 버튼 */}
-      <div className="fixed bottom-0 w-full max-w-lg p-5">
+      <div className="fixed bottom-0 w-full max-w-md p-5">
         <div className="flex justify-between gap-3">
           <button
             onClick={handlePrev}
