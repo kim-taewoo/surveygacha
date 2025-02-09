@@ -1,6 +1,5 @@
 "use client";
 
-import { Mail } from "lucide-react";
 import { useState } from "react";
 
 import { KakaoLogo } from "@/assets/kakao-logo";
@@ -52,17 +51,6 @@ export function LoginForm() {
           Google 로그인
         </span>
       </Button>
-      {/*
-      <Button
-        onClick={() => signInWithOAuth("kakao")}
-        className="h-12 text-base font-semibold"
-      >
-        <Mail size={18} />
-        <span className="flex-1 text-center">
-          이메일 로그인
-        </span>
-      </Button> */}
-
     </div>
   );
 }
