@@ -1,6 +1,6 @@
 export default function EndSurveys() {
   return (
-    <div className="flex min-h-screen w-full max-w-lg items-center justify-center p-4">
+    <div className="flex min-h-screen w-full max-w-md items-center justify-center p-4">
       <div className="text-center">
         <div className="mx-auto mb-6 flex size-24 items-center justify-center rounded-full bg-blue-50">
           <img

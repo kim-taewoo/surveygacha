@@ -3,11 +3,11 @@ import Link from "next/link";
 
 import { Bomb } from "@/assets/Bomb";
 import animationData from "@/assets/gacha-machine.json";
+import Logo from "@/assets/logo";
 import { Won } from "@/assets/Won";
 import { LottieContainer } from "@/components/LottieContainer";
 import { ScaleWrapper } from "@/components/ScaleWrapper";
 import { Button } from "@/components/ui/button";
-import Logo from "@/components/ui/logo";
 import { SurveyMainInfo } from "@/features/survey/survey-info/SurveyMainInfo";
 
 import { CapsulesSVG } from "./CapsulesSVG";
@@ -40,7 +40,7 @@ export default function AboutPage() {
           <div className="mt-8 flex justify-center">
             <Link href="/login">
               <Button className="h-12 rounded-lg text-base">
-                서비스 시작하기
+                시작하기
               </Button>
             </Link>
           </div>
