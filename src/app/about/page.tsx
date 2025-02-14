@@ -1,17 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { Bomb } from "@/assets/Bomb";
-import animationData from "@/assets/gacha-machine.json";
 import Logo from "@/assets/logo";
 import { Won } from "@/assets/Won";
-import { LottieContainer } from "@/components/LottieContainer";
 import { ScaleWrapper } from "@/components/ScaleWrapper";
 import { Button } from "@/components/ui/button";
 import { SurveyMainInfo } from "@/features/survey/survey-info/SurveyMainInfo";
 
 import { CapsulesSVG } from "./CapsulesSVG";
 import { CustomCheckIcon } from "./CustomCheckIcon";
+import { GachaMachineAnimation } from "./GachaMachineAnimation";
 
 export default function AboutPage() {
   return (
@@ -137,7 +137,9 @@ export default function AboutPage() {
             <div className="absolute bottom-0 left-10">
               <CapsulesSVG />
             </div>
-            <LottieContainer className="mx-auto mt-6 w-1/2 translate-x-10" animationData={animationData} />
+            <Suspense fallback={null}>
+              <GachaMachineAnimation />
+            </Suspense>
           </div>
         </div>
 
