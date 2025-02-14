@@ -1,4 +1,5 @@
 import { DefaultLayout } from "@/components/layout/DefaultLayout";
+import { Providers } from "@/components/Providers";
 import { Toaster } from "@/components/ui/toaster";
 
 import { suit, aggroSubset } from "./fonts";
@@ -23,9 +24,11 @@ export default function RootLayout({
         className={`${suit.variable} ${aggroSubset.variable} bg-[#F4F4F5] font-suit antialiased`}
       >
         <Toaster />
-        <DefaultLayout>
-          {children}
-        </DefaultLayout>
+        <Providers>
+          <DefaultLayout>
+            {children}
+          </DefaultLayout>
+        </Providers>
       </body>
     </html>
   );

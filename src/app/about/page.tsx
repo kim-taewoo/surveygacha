@@ -26,7 +26,7 @@ export default function AboutPage() {
       </div>
       <div className="flex w-full flex-1 flex-col">
         {/* Section1 */}
-        <div className="px-5 py-12 text-center">
+        <div className="px-5 py-12 text-center" data-scroll>
           <div className="text-2xl font-bold leading-relaxed">
             AI로 쉽게 설문조사 만들고
             <br />
@@ -47,7 +47,7 @@ export default function AboutPage() {
         </div>
 
         {/* Section2 */}
-        <div className="relative mt-10">
+        <div className="relative mt-10" data-scroll>
           <div className="absolute right-5 top-0 z-10 flex items-center gap-2 rounded-full bg-white px-3 py-2 font-semibold shadow">
             <CustomCheckIcon />
             {" "}
@@ -68,7 +68,7 @@ export default function AboutPage() {
         </div>
 
         {/* Section3 */}
-        <div className="flex flex-col gap-4 px-5">
+        <div className="flex flex-col gap-4 px-5" data-scroll>
           <div className="text-sm font-semibold text-primary/90">
             설문조사 자동 생성
           </div>
@@ -104,7 +104,7 @@ export default function AboutPage() {
         </div>
 
         {/* Section4 */}
-        <div className="mt-10 flex flex-col gap-4 px-5">
+        <div className="mt-10 flex flex-col gap-4 px-5" data-scroll>
           <div className="text-sm font-semibold text-primary/90">
             가챠 시스템
           </div>
@@ -120,14 +120,14 @@ export default function AboutPage() {
           </div>
 
           <div className="relative mt-14 w-full pb-8">
-            <div className="absolute left-0 top-0 z-10 flex w-3/5 items-center gap-2 rounded-lg bg-white px-2 py-1 shadow">
+            <div className="absolute left-0 top-0 z-10 flex w-3/5 animate-pulse items-center gap-2 rounded-lg bg-white px-2 py-1 shadow">
               <Won width={48} height={48} />
               <div className="text-sm font-semibold">
                 <div>축하합니다!</div>
                 <div>경품에 당첨되었습니다</div>
               </div>
             </div>
-            <div className="absolute bottom-0 right-0 z-10 flex w-1/2 items-center gap-2 rounded-lg bg-white px-2 py-1 shadow">
+            <div className="absolute bottom-0 right-0 z-10 flex w-1/2 animate-pulse items-center gap-2 rounded-lg bg-white px-2 py-1 shadow">
               <Bomb width={36} height={36} />
               <div className="text-xs font-semibold">
                 <div>꽝입니다</div>

@@ -110,6 +110,9 @@ importers:
       react-uuid:
         specifier: ^2.0.0
         version: 2.0.0
+      scroll-out:
+        specifier: ^2.2.12
+        version: 2.2.12
       sonner:
         specifier: ^1.7.2
         version: 1.7.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -2550,6 +2553,9 @@ packages:
 
   scheduler@0.25.0-rc-935180c7e0-20240524:
     resolution: {integrity: sha512-YfkorLQDTfVArSlFsSmTFMWW2CoUtNhkveeEzfbyqi5bShsEyQxAPLBGOUoBxaXEcQSJ2bXhkz3ZSTJCO/Th8A==}
+
+  scroll-out@2.2.12:
+    resolution: {integrity: sha512-BPWQJat8mmcjQCq+l4DsibBopkmQQb5ngPJ6T9XRxRl86/LJo7V+0d3Sjd9fxzIJkZmkjoGxEAam+Urvem8VRw==}
 
   secure-json-parse@2.7.0:
     resolution: {integrity: sha512-6aU+Rwsezw7VR8/nyvKTx8QpWH9FrcYiXXlqC4z5d5XQBDRqtbfsRjnwGyqbi3gddNtWHuEk9OANUotL26qKUw==}
@@ -5517,6 +5523,8 @@ snapshots:
   scheduler@0.25.0: {}
 
   scheduler@0.25.0-rc-935180c7e0-20240524: {}
+
+  scroll-out@2.2.12: {}
 
   secure-json-parse@2.7.0: {}
 
