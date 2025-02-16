@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 
 import animationData from "@/assets/gacha-machine.json";
+import { cn } from "@/lib/utils";
 
 const LottieContainer = dynamic(() => import("@/components/LottieContainer").then(mod => mod.LottieContainer), {
   loading: () => null,
@@ -10,11 +11,11 @@ const LottieContainer = dynamic(() => import("@/components/LottieContainer").the
 });
 
 interface Props {
-
+  className?: string;
 }
 
-export function GachaMachineAnimation({}: Props) {
+export function GachaMachineAnimation({ className }: Props) {
   return (
-    <LottieContainer className="mx-auto mt-6 w-1/2 translate-x-10" animationData={animationData} />
+    <LottieContainer className={cn("w-1/2", className)} animationData={animationData} />
   );
 }

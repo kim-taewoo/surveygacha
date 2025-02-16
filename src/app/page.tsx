@@ -1,7 +1,7 @@
-import HomePage from "@/features/homePage/components/HomePage";
+import { HomePageComponent } from "@/app/home/components/HomePageComponent";
 
-export default async function Home() {
+export default function HomePage() {
   return (
-    <HomePage />
+    <HomePageComponent />
   );
 }
