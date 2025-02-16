@@ -5,13 +5,14 @@ import { Suspense } from "react";
 import { Bomb } from "@/assets/Bomb";
 import Logo from "@/assets/logo";
 import { Won } from "@/assets/Won";
+import { GachaMachineAnimation } from "@/components/gacha/GachaMachineAnimation";
 import { ScaleWrapper } from "@/components/ScaleWrapper";
 import { Button } from "@/components/ui/button";
 import { SurveyMainInfo } from "@/features/survey/survey-info/SurveyMainInfo";
 
-import { CapsulesSVG } from "./CapsulesSVG";
+import { CapsulesSVG } from "../../components/gacha/CapsulesSVG";
+
 import { CustomCheckIcon } from "./CustomCheckIcon";
-import { GachaMachineAnimation } from "./GachaMachineAnimation";
 
 export default function AboutPage() {
   return (
@@ -138,7 +139,7 @@ export default function AboutPage() {
               <CapsulesSVG />
             </div>
             <Suspense fallback={null}>
-              <GachaMachineAnimation />
+              <GachaMachineAnimation className="mx-auto mt-6 translate-x-10" />
             </Suspense>
           </div>
         </div>
