@@ -1,11 +1,10 @@
 "use client";
 
-import { CircleFadingPlus } from "lucide-react";
+import { CirclePlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 import { useSurvey } from "../../../stores/useSurvey";
@@ -118,10 +117,10 @@ const QuestionEditor = ({ questionId }: Props) => {
         {question.type !== "likert_scale" && (
           <button
             onClick={() => handleAddOption()}
-            className="flex w-full items-center justify-center gap-1 text-center text-base font-semibold text-primary hover:text-blue-700"
+            className="flex w-full items-center justify-center gap-2 text-center text-base font-medium text-primary hover:text-blue-700"
           >
-            <CircleFadingPlus size={18} />
-            <span>옵션 추가</span>
+            <CirclePlus strokeWidth={1.2} size={16} />
+            <span className="text-sm">옵션 추가</span>
           </button>
         )}
       </div>

@@ -33,9 +33,11 @@ export function SurveyEditContainer() {
           size="lg"
           onClick={() => addQuestion("single_choice")}
         >
-          <Plus size={20} />
+          <Plus className="text-primary" size={20} />
           {" "}
-          질문 추가하기
+          <span className="text-primary">
+            질문 추가하기
+          </span>
         </Button>
       </div>
     </main>

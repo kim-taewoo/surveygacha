@@ -1,6 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { GripVertical, X } from "lucide-react";
+import { AlignJustify, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,26 +36,30 @@ export const SortableOption = ({ id, option, index, onOptionChange, onOptionRemo
       style={style}
       className={`flex items-center gap-2 ${isDragging ? "bg-gray-50 opacity-50" : ""}`}
     >
-      <div {...attributes} {...listeners}>
-        <GripVertical className="size-5 cursor-move touch-none text-gray-400" />
+      <div className="relative w-full">
+        <Input
+          type="text"
+          value={option}
+          onChange={e => onOptionChange(index, e.target.value)}
+          placeholder={`옵션 ${index + 1}`}
+          className="peer pe-9 ps-9"
+        />
+        <div {...attributes} {...listeners} className="absolute inset-y-0 start-0 flex cursor-move items-center justify-center ps-3 peer-disabled:opacity-50">
+          <AlignJustify size={16} className="touch-none text-gray-400" />
+        </div>
+        {canRemove && (
+          <div className="absolute inset-y-0 end-0 flex cursor-move items-center justify-center peer-disabled:opacity-50">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => onOptionRemove(index)}
+              className="text-blue-500 hover:bg-blue-50 hover:text-blue-700"
+            >
+              <X className="size-4" />
+            </Button>
+          </div>
+        )}
       </div>
-      <Input
-        type="text"
-        value={option}
-        onChange={e => onOptionChange(index, e.target.value)}
-        placeholder={`옵션 ${index + 1}`}
-        className="flex-1"
-      />
-      {canRemove && (
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => onOptionRemove(index)}
-          className="text-red-500 hover:bg-red-50 hover:text-red-700"
-        >
-          <X className="size-4" />
-        </Button>
-      )}
     </div>
   );
 };
