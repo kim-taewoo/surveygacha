@@ -1,5 +1,5 @@
 import { Switch } from "@/components/ui/switch";
-import { useSurvey } from "@/stores/useSurvey";
+import { useSurvey } from "@/features/survey/stores/useSurvey";
 
 interface Props {
 

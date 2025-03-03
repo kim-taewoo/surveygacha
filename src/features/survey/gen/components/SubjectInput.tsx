@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useShallow } from "zustand/react/shallow";
 
 import { TextareaWithButton } from "@/components/ui/originui/TextareaWithButton";
-import { useSurvey } from "@/stores/useSurvey";
+import { useSurvey } from "@/features/survey/stores/useSurvey";
 
 import { generateSurvey } from "../actions";
 

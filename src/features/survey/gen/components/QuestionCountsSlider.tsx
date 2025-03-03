@@ -1,7 +1,7 @@
 "use client";
 
 import { SliderWithTicks } from "@/components/ui/originui/SliderWithTicks";
-import { useSurvey } from "@/stores/useSurvey";
+import { useSurvey } from "@/features/survey/stores/useSurvey";
 
 import { DEFAULT_MINIMUM_QUESTION_COUNT } from "../consts";
 
