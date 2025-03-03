@@ -35,7 +35,9 @@ export function SurveyQuestion({ question, index, questionsLength }: Props) {
           <X size={20} />
         </Button>
       </div>
+
       <QuestionEditor questionId={question.id} />
+
     </div>
   );
 }
