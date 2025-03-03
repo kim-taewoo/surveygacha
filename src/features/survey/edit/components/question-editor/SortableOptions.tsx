@@ -10,16 +10,22 @@ import {
 import {
   arrayMove,
   sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { SortableContext } from "@dnd-kit/sortable";
+
+import { QuestionType } from "@/features/survey/types";
 
 import { SortableOption } from "./SortableOption";
 
 interface Props {
   options: string[];
+  questionType: QuestionType;
+  onOptionValueChange: (index: number, value: string) => void;
+  onOptionsChange: (newOptions: string[]) => void;
 }
 
-export function SortableOptions({ options }: Props) {
+export function SortableOptions({ options, questionType, onOptionValueChange, onOptionsChange }: Props) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -39,8 +45,16 @@ export function SortableOptions({ options }: Props) {
       const oldIndex = options.findIndex(x => `option-${x}` === active.id);
       const newIndex = options.findIndex(x => `option-${x}` === over?.id);
 
-      updateQuestionOptions(question.id, arrayMove(options, oldIndex, newIndex));
+      onOptionsChange(arrayMove(options, oldIndex, newIndex));
     }
+  };
+
+  const handleOptionChange = (index: number, value: string) => {
+    onOptionValueChange(index, value);
+  };
+
+  const handleRemoveOption = (index: number) => {
+    onOptionsChange(options.filter((_, i) => i !== index));
   };
 
   return (
@@ -56,13 +70,13 @@ export function SortableOptions({ options }: Props) {
         <div className="space-y-2">
           {options.map((option, index) => (
             <SortableOption
-              key={`option-${option}`}
+              key={`option-${index}`}
               id={`option-${option}`}
               option={option}
               index={index}
               onOptionChange={handleOptionChange}
-              onOptionRemove={removeOption}
-              canRemove={question.type !== "likert_scale" && (question?.options ?? []).length > 1}
+              onOptionRemove={handleRemoveOption}
+              canRemove={questionType !== "likert_scale" && (options ?? []).length > 1}
             />
           ))}
         </div>

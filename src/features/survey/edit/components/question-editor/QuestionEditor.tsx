@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useSurvey } from "../../../stores/useSurvey";
 import { QuestionType } from "../../../types";
 
+import { SortableOptions } from "./SortableOptions";
 import { TypeSelector } from "./TypeSelector";
 
 interface Props {
@@ -31,32 +32,59 @@ const QuestionEditor = ({ questionId }: Props) => {
 
   // Create local state for editing options
   const [localOptions, setLocalOptions] = useState<string[]>([]);
+  const [hasChanges, setHasChanges] = useState(false);
 
   // Sync local state with store when question changes
   useEffect(() => {
     if (question?.options) {
       setLocalOptions([...question.options]);
+      setHasChanges(false);
     }
-  }, [question?.id]); // Only sync when the question ID changes
+  }, [question?.id]);
 
-  if (!question) return null;
+  useEffect(() => {
+    if (hasChanges) {
+      const timer = setTimeout(() => {
+        updateQuestionOptions(questionId, localOptions);
+        setHasChanges(false);
+      }, 1000 * 15); // 15 second debounce
+
+      return () => clearTimeout(timer);
+    }
+  }, [localOptions, hasChanges, questionId, updateQuestionOptions]);
 
   // Update local state only (not the store)
-  const handleOptionChange = (index, value) => {
+  const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...localOptions];
     newOptions[index] = value;
     setLocalOptions(newOptions);
-
-    // Optionally debounce updates to the store
-    // This requires a debounce function or useDebounce hook
-    // updateQuestionOptions(question.id, newOptions);
+    setHasChanges(true);
   };
+
+  const handleOptionsChange = (newOptions: string[]) => {
+    setLocalOptions(newOptions);
+    setHasChanges(true);
+  };
+
+  // Save changes immediately
+  const handleSave = () => {
+    updateQuestionOptions(questionId, localOptions);
+    setHasChanges(false);
+  };
+
+  // Discard changes
+  const handleCancel = () => {
+    setLocalOptions([...(question?.options || [])]);
+    setHasChanges(false);
+  };
+
+  if (!question) return null;
 
   // Add option to local state
   const handleAddOption = () => {
     const newOptions = [...localOptions, "새 옵션"];
     setLocalOptions(newOptions);
-    updateQuestionOptions(question.id, newOptions);
+    setHasChanges(true);
   };
 
   const handleTypeChange = (type: QuestionType) => {
@@ -85,16 +113,7 @@ const QuestionEditor = ({ questionId }: Props) => {
       <div className="space-y-4">
         <label className="block text-sm font-medium">답변 옵션</label>
 
-        {localOptions.map((option, index) => (
-          <Input
-            key={index}
-            type="text"
-            value={option}
-            onChange={e => handleOptionChange(index, e.target.value)}
-            placeholder={`옵션 ${index + 1}`}
-            className="flex-1"
-          />
-        ))}
+        <SortableOptions options={localOptions} questionType={question.type} onOptionValueChange={handleOptionChange} onOptionsChange={handleOptionsChange} />
 
         {question.type !== "likert_scale" && (
           <button
