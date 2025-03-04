@@ -53,6 +53,7 @@ const DEFAULT_SURVEY_STATE: SurveyState = {
 };
 
 type SurveyActions = {
+  getQuestionIds: () => string[];
   setIsLoading: (isLoading: boolean) => void;
   setSurveyState: (state: Partial<SurveyState>) => void;
   setGenInput: <K extends keyof SurveyState["genInputs"]>(key: K, value: SurveyState["genInputs"][K]) => void;
@@ -82,6 +83,9 @@ type SurveyStore = SurveyState & SurveyActions;
 export const useSurvey = create<SurveyStore>()(
   immer((set, get) => ({
     ...DEFAULT_SURVEY_STATE,
+
+    getQuestionIds: () => get().questions.map(q => q.id),
+
     setIsLoading: (isLoading) => {
       set((state) => {
         state.isLoading = isLoading;

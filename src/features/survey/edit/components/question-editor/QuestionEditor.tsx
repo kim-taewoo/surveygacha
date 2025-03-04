@@ -18,7 +18,7 @@ interface Props {
 }
 
 const QuestionEditor = ({ questionId }: Props) => {
-  const { question, updateQuestionOption, updateQuestionText, addQuestionOption, updateQuestionOptions, updateQuestionType, removeQuestionOption, toggleQuestionRequired } = useSurvey(useShallow(state => ({
+  const { question, updateQuestionText, updateQuestionOptions, updateQuestionType, toggleQuestionRequired } = useSurvey(useShallow(state => ({
     question: state.questions.find(q => q.id === questionId),
     updateQuestionText: state.updateQuestionText,
     updateQuestionOption: state.updateQuestionOption,

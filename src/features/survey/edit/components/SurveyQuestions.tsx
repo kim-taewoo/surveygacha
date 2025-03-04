@@ -6,9 +6,11 @@ import { useSurvey } from "@/features/survey/stores/useSurvey";
 import { SurveyQuestion } from "./SurveyQuestion";
 
 export function SurveyQuestions() {
-  const questions = useSurvey(state => state.questions);
+  const getQuestionIds = useSurvey(state => state.getQuestionIds);
 
-  if (questions.length === 0) {
+  const questionIds = getQuestionIds();
+
+  if (questionIds.length === 0) {
     return (
       <Card className="bg-gray-50">
         <CardContent className="p-6 text-center">
@@ -22,8 +24,8 @@ export function SurveyQuestions() {
 
   return (
     <>
-      {questions.map((question, index) => (
-        <SurveyQuestion key={question.id} question={question} questionsLength={questions.length} index={index} />
+      {questionIds.map((questionId, index) => (
+        <SurveyQuestion key={questionId} questionId={questionId} questionsLength={questionIds.length} index={index} />
       ))}
     </>
   );
