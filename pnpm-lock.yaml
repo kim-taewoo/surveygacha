@@ -107,9 +107,6 @@ importers:
       react-hook-form:
         specifier: ^7.54.2
         version: 7.54.2(react@19.0.0)
-      react-uuid:
-        specifier: ^2.0.0
-        version: 2.0.0
       scroll-out:
         specifier: ^2.2.12
         version: 2.2.12
@@ -2477,10 +2474,6 @@ packages:
     peerDependencies:
       react: '>=16.13'
       react-dom: '>=16.13'
-
-  react-uuid@2.0.0:
-    resolution: {integrity: sha512-FNUH/8WR/FEtx0Bu6gmt1eONfc413hhvrEXFWUSFGvznUhI4dYoVZA09p7JHoTpnM4WC2D/bG2YSxGKXF4oVLg==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   react@19.0.0:
     resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
@@ -5443,8 +5436,6 @@ snapshots:
       debounce: 1.2.1
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
-
-  react-uuid@2.0.0: {}
 
   react@19.0.0: {}
 

@@ -42,7 +42,6 @@
     "react-day-picker": "8.10.1",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
-    "react-uuid": "^2.0.0",
     "scroll-out": "^2.2.12",
     "sonner": "^1.7.2",
     "tailwind-merge": "^2.6.0",
