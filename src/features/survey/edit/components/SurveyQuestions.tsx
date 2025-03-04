@@ -1,21 +1,16 @@
 "use client";
 
-import { ArrowDown, ArrowUp, X } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useSurvey } from "@/features/survey/stores/useSurvey";
 
-import { Question } from "../../types";
+import { SurveyQuestion } from "./SurveyQuestion";
 
-import QuestionEditor from "./QuestionEditor";
+export function SurveyQuestions() {
+  const getQuestionIds = useSurvey(state => state.getQuestionIds);
 
-interface Props {
-  questions: Question[];
-  onQuestionsChange: (questions: Question[]) => void;
-}
+  const questionIds = getQuestionIds();
 
-export function SurveyQuestions({ questions, onQuestionsChange }: Props) {
-  if (questions.length === 0) {
+  if (questionIds.length === 0) {
     return (
       <Card className="bg-gray-50">
         <CardContent className="p-6 text-center">
@@ -27,41 +22,10 @@ export function SurveyQuestions({ questions, onQuestionsChange }: Props) {
     );
   }
 
-  const moveQuestion = (fromIndex: number, toIndex: number) => {
-    const newQuestions = [...questions];
-    const [movedQuestion] = newQuestions.splice(fromIndex, 1);
-    newQuestions.splice(toIndex, 0, movedQuestion);
-    onQuestionsChange(newQuestions);
-  };
-
-  const deleteQuestion = (index: number) => {
-    const newQuestions = questions.filter((_, i) => i !== index);
-    onQuestionsChange(newQuestions);
-  };
-
-  const updateQuestion = (question: Question) => {
-    const newQuestions = questions.map(q => (q.id === question.id ? question : q));
-    onQuestionsChange(newQuestions);
-  };
-
   return (
     <>
-      {questions.map((question, index) => (
-        <div key={question.id} className="relative mx-auto flex w-full max-w-2xl flex-col gap-5 rounded-lg bg-white p-5 pt-9 shadow">
-          {/* 문항 순서 변경 & 삭제 컨트롤러 */}
-          <div className="absolute right-5 top-3 flex items-center gap-0">
-            <Button onClick={() => index > 0 && moveQuestion(index, index - 1)} disabled={index === 0} variant="ghost" size="icon" className="text-gray-400 hover:text-gray-700">
-              <ArrowUp size={20} />
-            </Button>
-            <Button onClick={() => index < questions.length - 1 && moveQuestion(index, index + 1)} disabled={index === questions.length - 1} variant="ghost" size="icon" className="text-gray-400 hover:text-gray-700">
-              <ArrowDown size={20} />
-            </Button>
-            <Button onClick={() => deleteQuestion(index)} variant="ghost" size="icon" className="text-gray-400 hover:text-gray-700">
-              <X size={20} />
-            </Button>
-          </div>
-          <QuestionEditor question={question} onChange={updateQuestion} />
-        </div>
+      {questionIds.map((questionId, index) => (
+        <SurveyQuestion key={questionId} questionId={questionId} questionsLength={questionIds.length} index={index} />
       ))}
     </>
   );

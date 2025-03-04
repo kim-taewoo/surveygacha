@@ -1,10 +1,11 @@
 "use client";
 
-import { ImageIcon, Plus, Trash2, X } from "lucide-react";
+import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import { ImageIcon, Plus, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import uuid from "react-uuid";
+import { v4 as uuidv4 } from "uuid";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -30,7 +31,7 @@ export const RewardContainer = () => {
   ]);
 
   const [savedRewards, setSavedRewards] = useState<Reward[]>([]);
-  const gachaLinkId = uuid();
+  const gachaLinkId = uuidv4();
 
   useEffect(() => {
     const storedRewards = localStorage.getItem("savedRewards");
@@ -103,7 +104,7 @@ export const RewardContainer = () => {
           size="lg"
           disabled={isDisabled}
         >
-          {savedRewards.length > 0 ? "발행 완료" : "발행하기"}
+          발행하기
         </Button>
 
         {rewards.map((reward, index) => (
@@ -172,21 +173,23 @@ export const RewardContainer = () => {
                 </div>
 
                 {reward.image && (
-                  <div className="relative h-[200px] w-full overflow-auto rounded bg-gray-100">
+                  <div className="relative h-[200px] w-full overflow-hidden rounded bg-gray-100">
                     {/* 이미지 삭제 */}
-                    <div
+                    <button
                       onClick={() => updateReward(index, "image", null)}
-                      className="absolute right-2 top-2 cursor-pointer rounded-full bg-black p-0.5"
+                      className="absolute right-2 top-2 z-10 cursor-pointer rounded-full bg-black p-0.5"
                     >
-                      <X size={12} color="white" />
-                    </div>
-                    <Image
-                      src={URL.createObjectURL(reward.image)}
-                      alt="미리보기"
-                      layout="fill"
-                      objectFit="contain"
-                      className="object-contain"
-                    />
+                      <X size={12} color="white" className="cursor-pointer" />
+                    </button>
+                    <AspectRatio ratio={16 / 9}>
+                      <Image
+                        src={URL.createObjectURL(reward.image)}
+                        alt="미리보기"
+                        layout="fill"
+                        objectFit="contain"
+                        className="object-contain"
+                      />
+                    </AspectRatio>
                   </div>
                 )}
               </div>

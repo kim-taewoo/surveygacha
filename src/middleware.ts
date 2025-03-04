@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
   if (requestedPath === "/login") {
     if (sessionUser) {
       if (!redirect) {
-        return NextResponse.redirect(new URL("/my", request.url));
+        return NextResponse.redirect(new URL("/", request.url));
       }
       return NextResponse.redirect(new URL(redirect, request.url));
     }

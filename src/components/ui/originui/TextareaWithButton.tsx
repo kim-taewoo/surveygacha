@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, SquarePen } from "lucide-react";
 
 import { LoadingCircle } from "@/components/LoadingCircle";
 import { ChatTextarea } from "@/features/survey/gen/components/ChatTextarea";
@@ -34,7 +34,7 @@ export const TextareaWithButton = ({ input, setInput, isLoading, onSubmit, ...pr
             <LoadingCircle />
           )
           : (
-            <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
+            <SquarePen size={16} strokeWidth={2} aria-hidden="true" />
           )}
       </button>
     </div>

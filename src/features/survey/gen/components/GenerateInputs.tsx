@@ -6,7 +6,7 @@ import { useShallow } from "zustand/react/shallow";
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useSurvey } from "@/stores/useSurvey";
+import { useSurvey } from "@/features/survey/stores/useSurvey";
 
 import { QuestionCountsSlider } from "./QuestionCountsSlider";
 import { SubjectInput } from "./SubjectInput";

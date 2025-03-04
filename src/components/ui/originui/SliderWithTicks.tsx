@@ -13,7 +13,7 @@ interface Props {
   errorMessage?: string;
 }
 
-export function SliderWithTicks({ value, onChange, maxTicks = 15, tickLabelSkipInterval = 2, errorMessage }: Props) {
+export function SliderWithTicks({ value, onChange, maxTicks = 14, tickLabelSkipInterval = 2, errorMessage }: Props) {
   const ticks = [...Array(maxTicks + 1)].map((_, i) => i);
 
   function handleValueChange(value: number[]) {
@@ -42,9 +42,9 @@ export function SliderWithTicks({ value, onChange, maxTicks = 15, tickLabelSkipI
         >
           {ticks.map((_, i) => (
             <span key={i} className="flex w-0 flex-col items-center justify-center gap-2">
-              <span
+              {/* <span
                 className={cn("h-1 w-px bg-muted-foreground/70", i % tickLabelSkipInterval !== 0 && "h-0.5")}
-              />
+              /> */}
               <span className={cn(i % tickLabelSkipInterval !== 0 && "opacity-0")}>{i}</span>
             </span>
           ))}
