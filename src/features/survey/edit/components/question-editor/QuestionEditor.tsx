@@ -81,12 +81,16 @@ const QuestionEditor = ({ questionId }: Props) => {
 
   // Add option to local state
   const handleAddOption = () => {
-    const newOptions = [...localOptions, "새 옵션"];
+    const newOptions = [...localOptions, ""];
     setLocalOptions(newOptions);
     setHasChanges(true);
   };
 
   const handleTypeChange = (type: QuestionType) => {
+    setLocalOptions(type === "likert_scale"
+      ? ["매우 불만족", "불만족", "보통", "만족", "매우 만족"]
+      : ["", "", ""],
+    );
     updateQuestionType(question.id, type);
   };
 
@@ -101,7 +105,7 @@ const QuestionEditor = ({ questionId }: Props) => {
         <Textarea
           value={question.text}
           onChange={e => updateQuestionText(question.id, e.target.value)}
-          placeholder="질문을 입력하세요"
+          placeholder="예시) 저희 서비스에 얼마나 만족하나요?"
           className="flex-1"
           rows={1}
         />
@@ -109,24 +113,28 @@ const QuestionEditor = ({ questionId }: Props) => {
 
       {/* TODO: 이미지 추가 기능 넣기 */}
 
-      <div className="space-y-4">
-        <label className="block text-sm font-medium">답변 옵션</label>
+      {
+        question.type !== "open_ended" && (
+          <div className="space-y-4">
+            <label className="block text-sm font-medium">답변 옵션</label>
 
-        <SortableOptions options={localOptions} questionType={question.type} onOptionValueChange={handleOptionChange} onOptionsChange={handleOptionsChange} />
+            <SortableOptions options={localOptions} questionType={question.type} onOptionValueChange={handleOptionChange} onOptionsChange={handleOptionsChange} />
 
-        {question.type !== "likert_scale" && (
-          <button
-            onClick={() => handleAddOption()}
-            className="flex w-full items-center justify-center gap-2 text-center text-base font-medium text-primary hover:text-blue-700"
-          >
-            <CirclePlus strokeWidth={1.2} size={16} />
-            <span className="text-sm">옵션 추가</span>
-          </button>
-        )}
-      </div>
+            {question.type !== "likert_scale" && (
+              <button
+                onClick={() => handleAddOption()}
+                className="flex w-full items-center justify-center gap-2 text-center text-base font-medium text-primary hover:text-blue-700"
+              >
+                <CirclePlus strokeWidth={1.2} size={16} />
+                <span className="text-sm">옵션 추가</span>
+              </button>
+            )}
+          </div>
+        )
+      }
 
       {/* isRequired */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-end gap-2">
         <Checkbox
           id={`${question.id}_isRequired`}
           checked={question.isRequired}

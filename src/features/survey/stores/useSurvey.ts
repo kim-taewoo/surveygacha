@@ -145,9 +145,6 @@ export const useSurvey = create<SurveyStore>()(
       const question = state.questions.find(q => q.id === questionId);
       if (question) {
         question.type = type;
-        question.options = type === "likert_scale"
-          ? ["매우 불만족", "불만족", "보통", "만족", "매우 만족"]
-          : ["옵션 1", "옵션 2", "옵션 3"];
       }
     }),
 
@@ -187,13 +184,14 @@ export const useSurvey = create<SurveyStore>()(
     }),
 
     addQuestion: type => set((state) => {
+      console.log("test");
       state.questions.push({
         id: uuidv4(),
         type,
-        text: "새 질문",
+        text: "",
         options: type === "likert_scale"
           ? ["매우 불만족", "불만족", "보통", "만족", "매우 만족"]
-          : ["옵션 1", "옵션 2", "옵션 3"],
+          : ["", "", ""],
         isRequired: false,
       });
     }),

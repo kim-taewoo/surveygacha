@@ -3,6 +3,7 @@
 import { Plus } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useSurvey } from "@/features/survey/stores/useSurvey";
@@ -17,6 +18,7 @@ const SurveyQuestions = dynamic(() => import("./SurveyQuestions").then(mod => mo
 export function SurveyEditContainer() {
   const router = useRouter();
   const addQuestion = useSurvey(state => state.addQuestion);
+  const [forceUpdateNumber, setForceUpdateNumber] = useState(0);
 
   return (
     <main className="flex flex-col gap-5 px-5 pb-16">
@@ -24,14 +26,17 @@ export function SurveyEditContainer() {
         작성 완료
       </Button>
       <SurveyTitleAndDescription />
-      <SurveyQuestions />
+      <SurveyQuestions key={forceUpdateNumber} />
       {/* 질문 추가 버튼 */}
       <div className="flex justify-center">
         <Button
           className="h-12 border-primary text-base text-primary"
           variant="outline"
           size="lg"
-          onClick={() => addQuestion("single_choice")}
+          onClick={() => {
+            addQuestion("single_choice");
+            setForceUpdateNumber(prev => prev + 1);
+          }}
         >
           <Plus className="text-primary" size={20} />
           {" "}
