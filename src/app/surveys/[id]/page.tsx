@@ -32,6 +32,8 @@ const surveyInfo: SurveyInfo = {
 export default function SurveyPage() {
   const [survey, setSurvey] = useState<SurveyInfo | null>(null); // 설문 데이터 상태
 
+  throw new Error("Not implemented");
+
   return (
     <div className="flex w-full flex-col pb-24">
       {/* 헤더 섹션 */}

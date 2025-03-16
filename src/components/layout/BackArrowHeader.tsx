@@ -8,7 +8,7 @@ type Props = {
 
 export const BackArrowHeader = ({ title, link = "/" }: Props) => {
   return (
-    <div className="flex w-full items-center gap-2 p-5">
+    <div className="z-10 flex w-full items-center gap-2 p-5">
       <Link href={link}>
         <ChevronLeft />
       </Link>

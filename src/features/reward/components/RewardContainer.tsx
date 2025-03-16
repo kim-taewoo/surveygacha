@@ -2,10 +2,10 @@
 
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { ImageIcon, Plus, X } from "lucide-react";
+import { nanoid } from "nanoid";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -31,7 +31,7 @@ export const RewardContainer = () => {
   ]);
 
   const [savedRewards, setSavedRewards] = useState<Reward[]>([]);
-  const gachaLinkId = uuidv4();
+  const gachaLinkId = nanoid();
 
   useEffect(() => {
     const storedRewards = localStorage.getItem("savedRewards");

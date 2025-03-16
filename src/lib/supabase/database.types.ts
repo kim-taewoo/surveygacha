@@ -9,114 +9,228 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      gachas: {
+      answers: {
         Row: {
-          is_used: boolean | null;
-          profile_id: number;
-          received_at: string | null;
-          reward_id: number | null;
-          survey_id: number;
+          answer_id: number;
+          answer_value: string;
+          created_at: string;
+          question_id: number;
+          response_id: number;
+          updated_at: string | null;
         };
         Insert: {
-          is_used?: boolean | null;
-          profile_id: number;
-          received_at?: string | null;
-          reward_id?: number | null;
-          survey_id: number;
+          answer_id?: number;
+          answer_value: string;
+          created_at?: string;
+          question_id: number;
+          response_id: number;
+          updated_at?: string | null;
         };
         Update: {
-          is_used?: boolean | null;
-          profile_id?: number;
-          received_at?: string | null;
-          reward_id?: number | null;
-          survey_id?: number;
+          answer_id?: number;
+          answer_value?: string;
+          created_at?: string;
+          question_id?: number;
+          response_id?: number;
+          updated_at?: string | null;
         };
         Relationships: [
           {
-            foreignKeyName: "gachas_profile_id_fkey";
-            columns: ["profile_id"];
+            foreignKeyName: "answers_question_id_fkey";
+            columns: ["question_id"];
             isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            referencedRelation: "questions";
+            referencedColumns: ["question_id"];
           },
           {
-            foreignKeyName: "gachas_reward_id_fkey";
+            foreignKeyName: "answers_response_id_fkey";
+            columns: ["response_id"];
+            isOneToOne: false;
+            referencedRelation: "responses";
+            referencedColumns: ["response_id"];
+          },
+        ];
+      };
+      gacha_rewards: {
+        Row: {
+          created_at: string | null;
+          gacha_id: number | null;
+          gacha_reward_id: number;
+          is_active: boolean | null;
+          is_default: boolean | null;
+          probability: number | null;
+          reward_id: number | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          gacha_id?: number | null;
+          gacha_reward_id?: never;
+          is_active?: boolean | null;
+          is_default?: boolean | null;
+          probability?: number | null;
+          reward_id?: number | null;
+        };
+        Update: {
+          created_at?: string | null;
+          gacha_id?: number | null;
+          gacha_reward_id?: never;
+          is_active?: boolean | null;
+          is_default?: boolean | null;
+          probability?: number | null;
+          reward_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "gacha_rewards_gacha_id_fkey";
+            columns: ["gacha_id"];
+            isOneToOne: false;
+            referencedRelation: "gachas";
+            referencedColumns: ["gacha_id"];
+          },
+          {
+            foreignKeyName: "gacha_rewards_reward_id_fkey";
             columns: ["reward_id"];
             isOneToOne: false;
             referencedRelation: "rewards";
-            referencedColumns: ["id"];
+            referencedColumns: ["reward_id"];
           },
+        ];
+      };
+      gachas: {
+        Row: {
+          created_at: string;
+          description: string | null;
+          expires_at: string | null;
+          gacha_id: number;
+          image_url: string | null;
+          name: string;
+          pull_count: number | null;
+          pull_limit: number | null;
+          status: string;
+          survey_id: number | null;
+        };
+        Insert: {
+          created_at?: string;
+          description?: string | null;
+          expires_at?: string | null;
+          gacha_id?: number;
+          image_url?: string | null;
+          name: string;
+          pull_count?: number | null;
+          pull_limit?: number | null;
+          status: string;
+          survey_id?: number | null;
+        };
+        Update: {
+          created_at?: string;
+          description?: string | null;
+          expires_at?: string | null;
+          gacha_id?: number;
+          image_url?: string | null;
+          name?: string;
+          pull_count?: number | null;
+          pull_limit?: number | null;
+          status?: string;
+          survey_id?: number | null;
+        };
+        Relationships: [
           {
             foreignKeyName: "gachas_survey_id_fkey";
             columns: ["survey_id"];
             isOneToOne: false;
             referencedRelation: "surveys";
-            referencedColumns: ["id"];
+            referencedColumns: ["survey_id"];
           },
         ];
       };
-      profiles: {
+      questions: {
         Row: {
-          avatar_url: string | null;
-          bio: string | null;
-          created_at: string | null;
-          email: string;
-          id: number;
-          user_id: string | null;
-          username: string | null;
-        };
-        Insert: {
-          avatar_url?: string | null;
-          bio?: string | null;
-          created_at?: string | null;
-          email: string;
-          id?: never;
-          user_id?: string | null;
-          username?: string | null;
-        };
-        Update: {
-          avatar_url?: string | null;
-          bio?: string | null;
-          created_at?: string | null;
-          email?: string;
-          id?: never;
-          user_id?: string | null;
-          username?: string | null;
-        };
-        Relationships: [];
-      };
-      profiles_surveys: {
-        Row: {
-          answers: Json | null;
-          participated_at: string | null;
-          profile_id: number;
+          created_at: string;
+          display_order: number | null;
+          options: Json | null;
+          question_id: number;
+          question_text: string;
+          question_type: string;
+          required: boolean;
           survey_id: number;
         };
         Insert: {
-          answers?: Json | null;
-          participated_at?: string | null;
-          profile_id: number;
+          created_at?: string;
+          display_order?: number | null;
+          options?: Json | null;
+          question_id?: number;
+          question_text: string;
+          question_type: string;
+          required?: boolean;
           survey_id: number;
         };
         Update: {
-          answers?: Json | null;
-          participated_at?: string | null;
-          profile_id?: number;
+          created_at?: string;
+          display_order?: number | null;
+          options?: Json | null;
+          question_id?: number;
+          question_text?: string;
+          question_type?: string;
+          required?: boolean;
           survey_id?: number;
         };
         Relationships: [
           {
-            foreignKeyName: "profiles_surveys_profile_id_fkey";
-            columns: ["profile_id"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "profiles_surveys_survey_id_fkey";
+            foreignKeyName: "questions_survey_id_fkey";
             columns: ["survey_id"];
             isOneToOne: false;
             referencedRelation: "surveys";
+            referencedColumns: ["survey_id"];
+          },
+        ];
+      };
+      responses: {
+        Row: {
+          ended_at: string | null;
+          ip_address: string | null;
+          metadata: Json | null;
+          response_id: number;
+          started_at: string;
+          status: string;
+          survey_id: number;
+          user_agent: string | null;
+          user_id: string;
+        };
+        Insert: {
+          ended_at?: string | null;
+          ip_address?: string | null;
+          metadata?: Json | null;
+          response_id?: number;
+          started_at?: string;
+          status: string;
+          survey_id: number;
+          user_agent?: string | null;
+          user_id: string;
+        };
+        Update: {
+          ended_at?: string | null;
+          ip_address?: string | null;
+          metadata?: Json | null;
+          response_id?: number;
+          started_at?: string;
+          status?: string;
+          survey_id?: number;
+          user_agent?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "responses_survey_id_fkey";
+            columns: ["survey_id"];
+            isOneToOne: false;
+            referencedRelation: "surveys";
+            referencedColumns: ["survey_id"];
+          },
+          {
+            foreignKeyName: "responses_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "service_users";
             referencedColumns: ["id"];
           },
         ];
@@ -124,78 +238,306 @@ export type Database = {
       rewards: {
         Row: {
           created_at: string | null;
-          id: number;
+          description: string | null;
+          expires_at: string | null;
+          image_url: string | null;
           is_claimed: boolean;
+          name: string;
+          registered_by: string | null;
+          remaining_stock: number | null;
+          reward_id: number;
           reward_type: string;
+          stock: number | null;
           survey_id: number | null;
+          value: number | null;
         };
         Insert: {
           created_at?: string | null;
-          id?: never;
+          description?: string | null;
+          expires_at?: string | null;
+          image_url?: string | null;
           is_claimed?: boolean;
+          name: string;
+          registered_by?: string | null;
+          remaining_stock?: number | null;
+          reward_id?: number;
           reward_type: string;
+          stock?: number | null;
           survey_id?: number | null;
+          value?: number | null;
         };
         Update: {
           created_at?: string | null;
-          id?: never;
+          description?: string | null;
+          expires_at?: string | null;
+          image_url?: string | null;
           is_claimed?: boolean;
+          name?: string;
+          registered_by?: string | null;
+          remaining_stock?: number | null;
+          reward_id?: number;
           reward_type?: string;
+          stock?: number | null;
           survey_id?: number | null;
+          value?: number | null;
         };
         Relationships: [
+          {
+            foreignKeyName: "rewards_registered_by_fkey";
+            columns: ["registered_by"];
+            isOneToOne: false;
+            referencedRelation: "service_users";
+            referencedColumns: ["id"];
+          },
           {
             foreignKeyName: "rewards_survey_id_fkey";
             columns: ["survey_id"];
             isOneToOne: false;
             referencedRelation: "surveys";
-            referencedColumns: ["id"];
+            referencedColumns: ["survey_id"];
           },
         ];
+      };
+      service_users: {
+        Row: {
+          avatar_url: string | null;
+          background_url: string | null;
+          bio: string | null;
+          created_at: string;
+          description: string | null;
+          email: string | null;
+          id: string;
+          metadata: Json | null;
+          name: string | null;
+          phone: string | null;
+          updated_at: string | null;
+          username: string | null;
+          website: string | null;
+        };
+        Insert: {
+          avatar_url?: string | null;
+          background_url?: string | null;
+          bio?: string | null;
+          created_at?: string;
+          description?: string | null;
+          email?: string | null;
+          id: string;
+          metadata?: Json | null;
+          name?: string | null;
+          phone?: string | null;
+          updated_at?: string | null;
+          username?: string | null;
+          website?: string | null;
+        };
+        Update: {
+          avatar_url?: string | null;
+          background_url?: string | null;
+          bio?: string | null;
+          created_at?: string;
+          description?: string | null;
+          email?: string | null;
+          id?: string;
+          metadata?: Json | null;
+          name?: string | null;
+          phone?: string | null;
+          updated_at?: string | null;
+          username?: string | null;
+          website?: string | null;
+        };
+        Relationships: [];
       };
       surveys: {
         Row: {
           created_at: string | null;
-          creator_id: number | null;
+          created_by: string;
           description: string | null;
           end_date: string | null;
-          id: number;
-          is_draft: boolean | null;
-          questions: Json;
+          has_rewards: boolean;
+          metadata: Json | null;
+          slug: string | null;
           start_date: string | null;
-          target_audience: Json | null;
+          status: string;
+          survey_id: number;
           title: string;
+          updated_at: string | null;
         };
         Insert: {
           created_at?: string | null;
-          creator_id?: number | null;
+          created_by: string;
           description?: string | null;
           end_date?: string | null;
-          id?: never;
-          is_draft?: boolean | null;
-          questions: Json;
+          has_rewards: boolean;
+          metadata?: Json | null;
+          slug?: string | null;
           start_date?: string | null;
-          target_audience?: Json | null;
+          status: string;
+          survey_id?: number;
           title: string;
+          updated_at?: string | null;
         };
         Update: {
           created_at?: string | null;
-          creator_id?: number | null;
+          created_by?: string;
           description?: string | null;
           end_date?: string | null;
-          id?: never;
-          is_draft?: boolean | null;
-          questions?: Json;
+          has_rewards?: boolean;
+          metadata?: Json | null;
+          slug?: string | null;
           start_date?: string | null;
-          target_audience?: Json | null;
+          status?: string;
+          survey_id?: number;
           title?: string;
+          updated_at?: string | null;
         };
         Relationships: [
           {
-            foreignKeyName: "surveys_creator_id_fkey";
-            columns: ["creator_id"];
+            foreignKeyName: "surveys_created_by_fkey";
+            columns: ["created_by"];
             isOneToOne: false;
-            referencedRelation: "profiles";
+            referencedRelation: "service_users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      user_gachas: {
+        Row: {
+          acquired_at: string | null;
+          expires_at: string | null;
+          gacha_id: number | null;
+          is_expired: boolean | null;
+          pulls_remaining: number | null;
+          pulls_used: number | null;
+          response_id: number | null;
+          survey_id: number | null;
+          user_gacha_id: number;
+          user_id: string;
+        };
+        Insert: {
+          acquired_at?: string | null;
+          expires_at?: string | null;
+          gacha_id?: number | null;
+          is_expired?: boolean | null;
+          pulls_remaining?: number | null;
+          pulls_used?: number | null;
+          response_id?: number | null;
+          survey_id?: number | null;
+          user_gacha_id?: never;
+          user_id: string;
+        };
+        Update: {
+          acquired_at?: string | null;
+          expires_at?: string | null;
+          gacha_id?: number | null;
+          is_expired?: boolean | null;
+          pulls_remaining?: number | null;
+          pulls_used?: number | null;
+          response_id?: number | null;
+          survey_id?: number | null;
+          user_gacha_id?: never;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "user_gachas_gacha_id_fkey";
+            columns: ["gacha_id"];
+            isOneToOne: false;
+            referencedRelation: "gachas";
+            referencedColumns: ["gacha_id"];
+          },
+          {
+            foreignKeyName: "user_gachas_response_id_fkey";
+            columns: ["response_id"];
+            isOneToOne: false;
+            referencedRelation: "responses";
+            referencedColumns: ["response_id"];
+          },
+          {
+            foreignKeyName: "user_gachas_survey_id_fkey";
+            columns: ["survey_id"];
+            isOneToOne: false;
+            referencedRelation: "surveys";
+            referencedColumns: ["survey_id"];
+          },
+          {
+            foreignKeyName: "user_gachas_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "service_users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      user_rewards: {
+        Row: {
+          acquired_at: string | null;
+          claimed_at: string | null;
+          gacha_id: number | null;
+          redemption_code: string | null;
+          reward_id: number | null;
+          status: string | null;
+          survey_id: number;
+          user_gacha_id: number | null;
+          user_id: string;
+          user_reward_id: number;
+        };
+        Insert: {
+          acquired_at?: string | null;
+          claimed_at?: string | null;
+          gacha_id?: number | null;
+          redemption_code?: string | null;
+          reward_id?: number | null;
+          status?: string | null;
+          survey_id: number;
+          user_gacha_id?: number | null;
+          user_id: string;
+          user_reward_id?: never;
+        };
+        Update: {
+          acquired_at?: string | null;
+          claimed_at?: string | null;
+          gacha_id?: number | null;
+          redemption_code?: string | null;
+          reward_id?: number | null;
+          status?: string | null;
+          survey_id?: number;
+          user_gacha_id?: number | null;
+          user_id?: string;
+          user_reward_id?: never;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "user_rewards_gacha_id_fkey";
+            columns: ["gacha_id"];
+            isOneToOne: false;
+            referencedRelation: "gachas";
+            referencedColumns: ["gacha_id"];
+          },
+          {
+            foreignKeyName: "user_rewards_reward_id_fkey";
+            columns: ["reward_id"];
+            isOneToOne: false;
+            referencedRelation: "rewards";
+            referencedColumns: ["reward_id"];
+          },
+          {
+            foreignKeyName: "user_rewards_survey_id_fkey";
+            columns: ["survey_id"];
+            isOneToOne: false;
+            referencedRelation: "surveys";
+            referencedColumns: ["survey_id"];
+          },
+          {
+            foreignKeyName: "user_rewards_user_gacha_id_fkey";
+            columns: ["user_gacha_id"];
+            isOneToOne: false;
+            referencedRelation: "user_gachas";
+            referencedColumns: ["user_gacha_id"];
+          },
+          {
+            foreignKeyName: "user_rewards_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "service_users";
             referencedColumns: ["id"];
           },
         ];

@@ -40,7 +40,7 @@ const DEFAULT_SURVEY_STATE: SurveyState = {
   genRawResponse: null,
   genInputs: {
     subject: "",
-    question_counts: DEFAULT_MINIMUM_QUESTION_COUNT,
+    question_counts: 5,
     question_types: {
       single_choice: true,
       multiple_choice: true,
