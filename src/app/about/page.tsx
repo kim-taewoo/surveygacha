@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { SurveyMainInfo } from "@/app/surveys/[id]/components/SurveyMainInfo";
+import { SurveyMainInfo } from "@/app/s/[id]/components/SurveyMainInfo";
 import { Bomb } from "@/assets/Bomb";
 import Logo from "@/assets/logo";
 import { Won } from "@/assets/Won";
