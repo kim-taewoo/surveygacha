@@ -19,7 +19,7 @@ interface Question {
 }
 
 // 답변 타입 정의
-type Answers = Record<number, string[]>;
+type Answers = Record<string, string[]>;
 
 // 질문 목데이터
 const questions: Question[] = [
@@ -53,7 +53,7 @@ export default function SurveyPage() {
 
   const currentQuestion = questions[currentStep - 1];
   const isLastQuestion = currentStep === questions.length;
-  const progress = (Object.keys(answers).length / questions.length) * 100;
+  const progress = (Object.keys(answers).filter(answerKey => (answers[answerKey] ?? []).length !== 0).length / questions.length) * 100;
 
   // 단일 선택 처리
   const handleSingleSelect = useCallback((id: number, option: string) => {
