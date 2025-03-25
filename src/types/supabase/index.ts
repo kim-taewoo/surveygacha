@@ -8,3 +8,6 @@ export type Answer = Database["public"]["Tables"]["answers"]["Row"];
 export type Question = Database["public"]["Tables"]["questions"]["Row"];
 export type Response = Database["public"]["Tables"]["responses"]["Row"];
 export type UserReward = Database["public"]["Tables"]["user_rewards"]["Row"];
+export type GachaReward = Database["public"]["Tables"]["gacha_rewards"]["Row"];
+
+export type SurveyWithOptionalRelations = Survey & { gacha_rewards?: (GachaReward & { rewards: Reward })[]; questions: Question[] };

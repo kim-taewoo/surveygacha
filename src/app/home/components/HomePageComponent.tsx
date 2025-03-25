@@ -10,7 +10,7 @@ export function HomePageComponent() {
       <section
         className="flex h-[55vh] w-full flex-col justify-between bg-[#D1E2FF]"
       >
-        <div className="flex h-16 items-center px-5">
+        <div className="flex h-16 items-center px-5 pt-7">
           <Logo width={71} height={20} />
         </div>
         <div className="px-6 py-8">

@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
+import { SurveyMainInfo } from "@/app/surveys/[id]/components/SurveyMainInfo";
 import { Bomb } from "@/assets/Bomb";
 import Logo from "@/assets/logo";
 import { Won } from "@/assets/Won";
 import { GachaMachineAnimation } from "@/components/gacha/GachaMachineAnimation";
 import { ScaleWrapper } from "@/components/ScaleWrapper";
 import { Button } from "@/components/ui/button";
-import { SurveyMainInfo } from "@/features/survey/survey-info/SurveyMainInfo";
 
 import { CapsulesSVG } from "../../components/gacha/CapsulesSVG";
 
@@ -58,11 +58,46 @@ export default function AboutPage() {
             <SurveyMainInfo
               className="rounded-r-lg bg-neutral-50 px-11 pb-2 pt-8"
               survey={{
+                survey_id: 1,
                 title: "금융 생활 관련 설문 참여 모집",
-                description: "안녕하세요! 👋 사이드 프로젝트를 진행 중인 학생입니다. 평소 금융 생활에 관련하여 라이프 스타일을 여쭤보았습니다. 조사에 참여해주신 분들께 보상을 제공해드립니다. ✨",
-                questions: Array(6).fill({}),
-                start_date: "2025.01.01",
-                end_date: "2025.01.26",
+                description: "안녕하세요! ✋사이드 프로젝트를 진행 중인 학생입니다. 평소 금융 생활에 관련하여 라이프 스타일을 여쭤보겠습니다. 조사에 참여해주신 분들께 보상을 제공해드립니다. ✨",
+                created_at: "2025-03-16T09:40:51.264354+00:00",
+                metadata: null,
+                start_date: null,
+                end_date: null,
+                slug: "B986aVYCpfUBb_5bMdAgU",
+                has_rewards: true,
+                status: "active",
+                updated_at: null,
+                created_by: "451899ca-984f-44e0-93dd-9af096eb3ff6",
+                gacha_rewards: [
+                  {
+                    rewards: {
+                      name: "스타벅스 아이스 아메리카노",
+                      stock: null,
+                      value: null,
+                      image_url: null,
+                      reward_id: 2,
+                      survey_id: 1,
+                      created_at: "2025-03-16T17:14:33.809719+00:00",
+                      expires_at: null,
+                      is_claimed: true,
+                      description: null,
+                      reward_type: "gifticon",
+                      registered_by: null,
+                      remaining_stock: null,
+                    },
+                    gacha_id: 1,
+                    is_active: true,
+                    reward_id: 2,
+                    survey_id: 1,
+                    created_at: "2025-03-23T04:45:07.463108+00:00",
+                    is_default: false,
+                    probability: 0.3,
+                    gacha_reward_id: 1,
+                  },
+                ],
+                questionsCount: [{ count: 10 }],
               }}
             />
           </ScaleWrapper>

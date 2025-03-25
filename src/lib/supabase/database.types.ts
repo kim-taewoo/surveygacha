@@ -60,6 +60,7 @@ export type Database = {
           is_default: boolean | null;
           probability: number | null;
           reward_id: number | null;
+          survey_id: number;
         };
         Insert: {
           created_at?: string | null;
@@ -69,6 +70,7 @@ export type Database = {
           is_default?: boolean | null;
           probability?: number | null;
           reward_id?: number | null;
+          survey_id: number;
         };
         Update: {
           created_at?: string | null;
@@ -78,6 +80,7 @@ export type Database = {
           is_default?: boolean | null;
           probability?: number | null;
           reward_id?: number | null;
+          survey_id?: number;
         };
         Relationships: [
           {
@@ -93,6 +96,13 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: "rewards";
             referencedColumns: ["reward_id"];
+          },
+          {
+            foreignKeyName: "gacha_rewards_survey_id_fkey";
+            columns: ["survey_id"];
+            isOneToOne: false;
+            referencedRelation: "surveys";
+            referencedColumns: ["survey_id"];
           },
         ];
       };
@@ -248,7 +258,7 @@ export type Database = {
           reward_id: number;
           reward_type: string;
           stock: number | null;
-          survey_id: number | null;
+          survey_id: number;
           value: number | null;
         };
         Insert: {
@@ -263,7 +273,7 @@ export type Database = {
           reward_id?: number;
           reward_type: string;
           stock?: number | null;
-          survey_id?: number | null;
+          survey_id: number;
           value?: number | null;
         };
         Update: {
@@ -278,7 +288,7 @@ export type Database = {
           reward_id?: number;
           reward_type?: string;
           stock?: number | null;
-          survey_id?: number | null;
+          survey_id?: number;
           value?: number | null;
         };
         Relationships: [
