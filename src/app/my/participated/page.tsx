@@ -15,7 +15,7 @@ const ParticipatedSurveyPage = async () => {
 
   if (!user?.id || sessionError) {
     return (
-      <InvalidStatus title="아직 진행하고 있는 설문조사가 없어요!" />
+      <InvalidStatus title="아직 참여한 설문조사가 없어요!" />
     );
   }
 
@@ -31,6 +31,8 @@ const ParticipatedSurveyPage = async () => {
       <InvalidStatus title="아직 참여한 설문조사가 없어요!" />
     );
   }
+
+  console.log(responses);
 
   const surveys = responses.map(response => response.surveys);
 

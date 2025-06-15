@@ -49,21 +49,28 @@ export function CreatedSurveyCard({ survey }: Props) {
 
           {rewards.length > 0 && (
             <>
-              <div className="mt-2 text-gray-700">보상 품목</div>
-              <div className="mt-2 text-right text-gray-700">남은 개수</div>
+              <div className="mt-2 text-gray-700">등록한 가챠 상품</div>
+              <div className="mt-2 text-right text-gray-700">남은 개수/총 개수</div>
               <ul className="col-span-2 space-y-2">
                 {rewards.map(reward => (
                   <li
                     key={reward.reward_id}
                     className="flex items-center justify-between gap-2 border-b border-gray-100 py-1 last:border-0"
                   >
-                    <div className="flex items-center ps-1 text-gray-500">
-                      <span className="text-sm">{reward.name}</span>
+                    <div className="flex items-center text-gray-500">
+                      <span className="text-sm">
+                        -
+                        {" "}
+                        {reward.name}
+                        {reward.name}
+                        {reward.name}
+                        {reward.name}
+                      </span>
                     </div>
                     <div className="flex items-center gap-3 text-primary">
-                      {reward.remaining_stock}
+                      {reward.remaining_stock ?? 0}
                       /
-                      {reward.stock}
+                      {reward.stock ?? 0}
                     </div>
                   </li>
                 ))}

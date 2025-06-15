@@ -8,6 +8,8 @@ import { MultipleSelectQuestion } from "@/features/survey/MultipleSelectQuestion
 import { ProgressBar } from "@/features/survey/ProgressBar";
 import { QuestionHeader } from "@/features/survey/QuestionHeader";
 import { TextQuestion } from "@/features/survey/TextQuestion";
+import { usePageLeaveAlert } from "@/hooks/usePageLeaveAlert";
+import { useRouteChangeAlert } from "@/hooks/useRouteChangeAlert";
 
 // 질문 타입 정의
 interface Question {
@@ -50,6 +52,8 @@ export default function SurveyPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [answers, setAnswers] = useState<Answers>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  usePageLeaveAlert();
 
   const currentQuestion = questions[currentStep - 1];
   const isLastQuestion = currentStep === questions.length;
